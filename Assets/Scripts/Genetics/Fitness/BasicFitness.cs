@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Genetics
 {
@@ -8,7 +9,7 @@ namespace Genetics
             
         }
 
-        public override async Task<float> CalculateFitness(Chromosome c)
+        public override async Task<float> CalculateFitness(Chromosome c,CancellationToken token)
         {
             var score = 0f;
             for (var i=0; i < c.totalSize; i++)

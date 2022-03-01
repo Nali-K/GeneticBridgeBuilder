@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Genetics;
 using Genetics.Mergers;
 using Genetics.Mutators;
+using Simulation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,17 +27,51 @@ public class GeneticController : MonoBehaviour
     public List<Merger> mergers= new List<Merger>();
     public bool evolve = false;
     public List<FitnessFunction> fitnessFunctions = new List<FitnessFunction>();
-
-
+    public Chromosome chromosome;
+    public Chromosome chromosome2;
+    public Chromosome chromosome3;
+    private CancellationTokenSource cancellationTokenSource;
+    public ColorSim sim;
     void Start()
     {
 
             DontDestroyOnLoad(this);
             //SceneManager.LoadSceneAsync("SimulationScene");
-            mutator = new BasicMutator(-10, 10, 0.01f);
-            int[] dimensions = {1000, 1000, 1000};
+            mutator = new BasicMutator(-10, 10, 0.05f);
+            //int[] dimensions = {100, 100, 100};
+            //chromosome = new Chromosome(dimensions);
+            int[] dimensions ={10, 10, 10};
+            /*chromosome2 = new Chromosome(dimensions);
+            chromosome.FillRandom(1, 1);
+            chromosome2.FillRandom(2, 2);
+            
+            var m = new SimpleCut(0, 3);
+            chromosome3 = m.Merge(new[] {chromosome, chromosome2});
+            sim.Simulate(chromosome3,new Vector3(0,0,0));
+            
+            m = new SimpleCut(1, 3);
+            chromosome3 = m.Merge(new[] {chromosome, chromosome2});
 
-            mergers.Add(new SimpleCut());
+            sim.Simulate(chromosome3,new Vector3(0,15,0));
+            
+            m=new SimpleCut(2, 3);
+            chromosome3 = m.Merge(new[] {chromosome, chromosome2});
+            sim.Simulate(chromosome3,new Vector3(0,30,0));
+            
+            m=new SimpleCut(3, 3);
+            chromosome3 = m.Merge(new[] {chromosome, chromosome2});
+            sim.Simulate(chromosome3, new Vector3(0, 45, 0));
+            
+            printdict(chromosome.GetValuesAndPositions(new int[] {-1, -1, -1}));
+            printarray(chromosome.GetValues(new int[] {0, -1, 1}));
+            printarray(chromosome.GetValues(new int[] {0, -1, 2}));
+            printarray(chromosome.GetValues(new int[] {0, -1, 0}));
+            printarray(chromosome.GetValues(new int[] {0, -1, 1}));
+            printarray(chromosome.GetValues(new int[] {0, -1, 2}));*/
+            mergers.Add(new SimpleCut(0,-10,10));
+            mergers.Add(new SimpleCut(1,-10,10));
+            mergers.Add(new SimpleCut(2,-10,10));
+
             fitnessFunctions.Add(new BasicFitness());
             for (var i = 0; i < startNum; i++)
             {
@@ -43,18 +80,54 @@ public class GeneticController : MonoBehaviour
                 Chromosomes.Add(c);
             }
 
-
-            Evolve();
+            cancellationTokenSource = new CancellationTokenSource();
+            Evolve(cancellationTokenSource.Token);
 
     }
 
+    private void OnApplicationQuit()
+    {
+        cancellationTokenSource.Cancel();
+        
+    }
+
+    private void printarray(float[]a)
+    {
+        var s = "";
+        foreach (var VARIABLE in a)
+        {
+            s += VARIABLE;
+            s += " ";
+        }
+            
+        Debug.Log(s);
+    }
+
+    private void printdict(Dictionary<int[],float> a)
+    {
+        var s = "";
+        foreach (var VARIABLE in a)
+        {
+            s += "[";
+            foreach (var keyint in VARIABLE.Key)
+            {
+                s += keyint;
+                s += ",";
+            }
+            s += "] ";
+            s += VARIABLE.Value;
+            s += ",";
+        }
+            
+        Debug.Log(s);
+    }
     // Update is called once per frame
     void Update()
     {
         
     }
 
-     private async void Evolve()
+     private async void Evolve(CancellationToken token)
     {
    
 
@@ -64,7 +137,7 @@ public class GeneticController : MonoBehaviour
             Debug.Log("----------------- GENERATION: "+generation+" -----------");
             foreach (var c in Chromosomes)
             {
-                var s =await fitnessFunctions[0].CalculateFitness(c);
+                var s =await fitnessFunctions[0].CalculateFitness(c,token);
             
                 d.Add(c,s);
             }
