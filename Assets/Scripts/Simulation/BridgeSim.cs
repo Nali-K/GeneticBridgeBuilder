@@ -21,7 +21,7 @@ namespace Simulation
         public override void Simulate(Chromosome c, Vector3 space)
         {
             var dict = c.GetValuesAndPositions(new[] {-1, -1, -1});
-            //printdict(dict);
+
             foreach (var VARIABLE in dict)
             {
                 if (VARIABLE.Value > 0.9f&&VARIABLE.Value<1.1f)

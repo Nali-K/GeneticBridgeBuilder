@@ -8,13 +8,7 @@ namespace Genetics
     public class StabilityFitness:FitnessFunction
     {
         public GameObject simulator;
-        /*public Simulation.Simulation simulation;
-        public bool done = false;
-        public float score = 0;
-        public Vector3 cubeSpawnPos;
-        public bool CalculatedCubeSpawnPos;
-        public float weight;
-*/
+
         
         public StabilityFitness(GameObject simulator)
         {

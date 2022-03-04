@@ -10,11 +10,11 @@ using Genetics.Mutators;
 using Simulation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 public class GeneticController : MonoBehaviour
 {
 
-    // Start is called before the first frame update
 
     private int generation = 0;
     public List<Chromosome> Chromosomes = new List<Chromosome>();
@@ -28,43 +28,18 @@ public class GeneticController : MonoBehaviour
     public ColorSim sim;
     public BridgeCheckFitness lol;
     public GameObject bridgeSimGameObject;
-
+    public int simulatainousChecks = 5;
+    public float calcSpeed=0;
+    public float oldCalcSpeed=0;
+    public float calcSpeedCountDown=0;
+    private bool evaluating;
     void Start()
     {
 
         DontDestroyOnLoad(this);
-        //SceneManager.LoadSceneAsync("SimulationScene");
         mutator = new BasicMutator(0, 1, 0.05f);
-        //int[] dimensions = {100, 100, 100};
-        //chromosome = new Chromosome(dimensions);
         int[] dimensions = {8, 8, 8};
-        /*chromosome2 = new Chromosome(dimensions);
-        chromosome.FillRandom(1, 1);
-        chromosome2.FillRandom(2, 2);
-        
-        var m = new SimpleCut(0, 3);
-        chromosome3 = m.Merge(new[] {chromosome, chromosome2});
-        sim.Simulate(chromosome3,new Vector3(0,0,0));
-        
-        m = new SimpleCut(1, 3);
-        chromosome3 = m.Merge(new[] {chromosome, chromosome2});
 
-        sim.Simulate(chromosome3,new Vector3(0,15,0));
-        
-        m=new SimpleCut(2, 3);
-        chromosome3 = m.Merge(new[] {chromosome, chromosome2});
-        sim.Simulate(chromosome3,new Vector3(0,30,0));
-        
-        m=new SimpleCut(3, 3);
-        chromosome3 = m.Merge(new[] {chromosome, chromosome2});
-        sim.Simulate(chromosome3, new Vector3(0, 45, 0));
-        
-        printdict(chromosome.GetValuesAndPositions(new int[] {-1, -1, -1}));
-        printarray(chromosome.GetValues(new int[] {0, -1, 1}));
-        printarray(chromosome.GetValues(new int[] {0, -1, 2}));
-        printarray(chromosome.GetValues(new int[] {0, -1, 0}));
-        printarray(chromosome.GetValues(new int[] {0, -1, 1}));
-        printarray(chromosome.GetValues(new int[] {0, -1, 2}));*/
         mergers.Add(new SimpleCut(0, 0, 1));
         mergers.Add(new SimpleCut(1, 0, 1));
         mergers.Add(new SimpleCut(2, 0, 1));
@@ -125,7 +100,45 @@ public class GeneticController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        getMaxSims();
 
+
+
+
+    }
+
+    private void getMaxSims()
+    {
+        if (!evaluating) return;
+        if (calcSpeedCountDown<=0)
+        {
+            calcSpeedCountDown = 3;
+            if (calcSpeed != 0)
+            {
+                //calcSpeed;
+                if (calcSpeed > 0.08f)
+                {
+                    simulatainousChecks -= 1;
+                }
+                if (calcSpeed < 0.05f)
+                {
+                    simulatainousChecks += 1;
+                }
+                oldCalcSpeed = calcSpeed;
+
+                calcSpeed = 0;
+            }
+        }
+        else
+        {
+            calcSpeedCountDown -= Time.fixedDeltaTime;
+            if (Time.deltaTime > calcSpeed)
+            {
+                calcSpeed = Time.deltaTime;
+            }
+        }
+
+        //Debug.Log(Time.deltaTimef);
     }
 
     private async void Evolve(CancellationToken token)
@@ -165,7 +178,7 @@ public class GeneticController : MonoBehaviour
                 data += "\n";
             }
 
-            //JsonUtility.FromJson<Chromosome>();
+
             System.IO.File.WriteAllText(Application.persistentDataPath + "/data.json", data);
         }
 
@@ -173,15 +186,17 @@ public class GeneticController : MonoBehaviour
 
     private async Task Evaluate(Dictionary<Chromosome, float> d, CancellationToken token)
     {
-        var simulatainousChecks = 15;
+        
 
         
-        var currentlyChecking = new Task<KeyValuePair<Chromosome,float>>[20];
+        var currentlyChecking = new Task<KeyValuePair<Chromosome,float>>[150];
         var checkedChromosomes=0;
         var amountChecking = 0;
         var atChromosome = 0;
+
         while (checkedChromosomes < Chromosomes.Count())
         {
+
             for  (var i =0;i<currentlyChecking.Length;i++)
             {
                 if (currentlyChecking[i]==null) continue;
@@ -195,6 +210,7 @@ public class GeneticController : MonoBehaviour
             }
             if(amountChecking < simulatainousChecks)
             {
+                evaluating = false;
                 if (atChromosome < Chromosomes.Count)
                 {
                     for (var i = 0; i < currentlyChecking.Length; i++)
@@ -212,40 +228,15 @@ public class GeneticController : MonoBehaviour
 
                 }
                 
-            }await Task.Delay(1000, token);
-        }/*
-        foreach (var c in Chromosomes)
-        {
-            var s = 0f;
-            while (currentlyChecking.Count >= simulatainousChecks)
-            {
-
-
-                
-                //Debug.Log(currentlyChecking.Count);
             }
-            var r = RunFitnessChecks(c, token,currentlyChecking.Count*100);
-            currentlyChecking.Add(r);
-
+            else
+            {
+                evaluating = true; 
+            }
+            await Task.Delay(200, token);
+            
         }
-        
-        while (currentlyChecking.Count >0)
-        {
-            for  (var i =0;i<currentlyChecking.Count;i++)
-            {
-
-                if (currentlyChecking[i].IsCompleted)
-                {
-                    var restult = currentlyChecking[i].Result;
-                    d.Add(restult.Key,restult.Value);
-                    currentlyChecking.RemoveAt(i);
-                        
-                }
-            }
-
-            await Task.Delay(100, token);
-
-        }*/
+        evaluating = false;
     }
 
 
@@ -296,15 +287,7 @@ private async Task Breed(List<Chromosome> l,CancellationToken token)
         }
 
         var s = "";
-        /*for (int i = 0; i < 30; i++)
-        {
-            s += "(";
-            s += i-15;
-            s += ":";
-            s += (mutator as BasicMutator).values[i];
-            s += ")";
-        }
-        Debug.Log(s);*/
+
     }
 
     private void executeMerge(Merger m,List<Chromosome> l)

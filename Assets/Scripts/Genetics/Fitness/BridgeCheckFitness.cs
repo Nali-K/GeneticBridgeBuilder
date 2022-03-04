@@ -75,7 +75,7 @@ namespace Genetics
 
         private async Task<bool> runTest(int weight,Simulation.Simulation simulation,Vector3 cubeSpawnPos,CancellationToken token)
         {
-           // Debug.Log("hi");
+
             return await (simulation as BridgeSim).DropBlock(weight*weight, cubeSpawnPos,token);
         }
         private async Task<Vector3> CalculateSpawnPos(Vector3 space, CancellationToken token)
