@@ -269,31 +269,21 @@ using Random = System.Random;
     public String ToString()
     {
         var s = "";
-        s += "Genome:   ";
         s += "Total size: ";
         s += totalSize;
         s += "   ";
         s += DimensionSizesToString();
-        var NextDimensionBreak = dimensionSize[0];
-        var atDimension = 1;
-        s += "(Genes: [";
-        for (var i = 0; i < geneArray.Length; i++)
-        {
 
+        s += "(Genes: [";
+        s += geneArray[0];
+        for (var i = 1; i < geneArray.Length; i++)
+        {
+            
+            s += ",";
             s += geneArray[i];
-            if (i +1== NextDimensionBreak)
-            {
-                if (atDimension < dimensionSize.Length)
-                {
-                    NextDimensionBreak += dimensionSize[atDimension];
-                    atDimension += 1;
-                    s += "][";
-                }
-            }
-            else
-            {
-                s += ",";
-            }
+
+                
+
         }
 
         s += "]";

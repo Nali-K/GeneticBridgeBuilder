@@ -39,6 +39,11 @@ namespace Simulation
                 }
             }
         }
+
+        public override void EndSimulation()
+        {
+            throw new NotImplementedException();
+        }
     }
     
 }
