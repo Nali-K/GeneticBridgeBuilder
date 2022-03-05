@@ -28,7 +28,7 @@ namespace Genetics
             var simulation = inst.GetComponent<Simulation.Simulation>();
        
             var score = -1000;
-            var weight = 0;
+            var weight = 6;
             var CalculatedCubeSpawnPos = false;
             Vector3 cubeSpawnPos= new Vector3();
             while (!done)
@@ -46,7 +46,7 @@ namespace Genetics
                 if (await runTest(weight,simulation,cubeSpawnPos,token))
                 {
                     
-                    if (weight==0)
+                    if (score<0)
                     {
                         score = 1;
                     }
@@ -61,7 +61,7 @@ namespace Genetics
                     done = true;
                 }
 
-                if (weight > 10)
+                if (weight > 6)
                 {
                     done = true;
                 }

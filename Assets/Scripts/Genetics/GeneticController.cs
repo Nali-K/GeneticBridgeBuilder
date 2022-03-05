@@ -297,7 +297,7 @@ private async Task Breed(List<Chromosome> l,CancellationToken token)
             for (int j = 0; j < numBest; j++)
             {
                  
-                if (i != j)
+                //if (i != j)
                 {
                     Chromosomes.Add(m.Merge(new[] {l[i],l[j]}));
                 }
