@@ -2,12 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Genetics;
 using Genetics.Mergers;
 using Genetics.Mutators;
 using Simulation;
+//using TMPro.EditorUtilities;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -22,7 +25,9 @@ public class GeneticController : MonoBehaviour
     public int numBest = 5;
     public int startNum = 6;
     public List<Merger> mergers = new List<Merger>();
-    public bool evolve = false;
+    public bool evolving = false;
+    public int generationsToGo;
+    
     [SerializeField] public List<FitnessFunction> fitnessFunctions = new List<FitnessFunction>();
     private CancellationTokenSource cancellationTokenSource;
     public ColorSim sim;
@@ -33,11 +38,14 @@ public class GeneticController : MonoBehaviour
     public float oldCalcSpeed=0;
     public float calcSpeedCountDown=0;
     private bool evaluating;
+
+    public UIHandler uiHandler;
+    public EvolveScreen EvolveScreen;
     void Start()
     {
 
         DontDestroyOnLoad(this);
-        mutator = new BasicMutator(0, 1, 0.05f);
+        mutator = new BasicMutator(0, 1, 0.02f);
         int[] dimensions = {8, 8, 8};
 
         mergers.Add(new SimpleCut(0, 0, 1));
@@ -55,7 +63,7 @@ public class GeneticController : MonoBehaviour
         }
 
         cancellationTokenSource = new CancellationTokenSource();
-        Evolve(cancellationTokenSource.Token);
+        
 
     }
 
@@ -112,15 +120,17 @@ public class GeneticController : MonoBehaviour
         if (!evaluating) return;
         if (calcSpeedCountDown<=0)
         {
-            calcSpeedCountDown = 3;
+            calcSpeedCountDown = 1;
             if (calcSpeed != 0)
             {
                 //calcSpeed;
-                if (calcSpeed > 0.08f)
+                if (calcSpeed > 0.07f)
                 {
-                    simulatainousChecks -= 1;
+                    
+                    simulatainousChecks -= Mathf.Clamp(Mathf.CeilToInt((calcSpeed-0.07f)*100),1,5);
+                    simulatainousChecks = Mathf.Clamp(simulatainousChecks, 1, 100);
                 }
-                if (calcSpeed < 0.05f)
+                if (calcSpeed < 0.04f)
                 {
                     simulatainousChecks += 1;
                 }
@@ -149,19 +159,21 @@ public class GeneticController : MonoBehaviour
             Chromosomes.Add(JsonUtility.FromJson<Chromosome>(str));
         }
 
-        while (true)
+        do
         {
             var d = new Dictionary<Chromosome, float>();
             Debug.Log("----------------- GENERATION: " + generation + " -----------");
-
+            
             var sortedDict = from entry in d orderby entry.Value descending select entry;
 
             await Evaluate(d, token);
+            UpdateEvolveScreen("----------------- GENERATION: " + generation + " -----------\n");
             List<Chromosome> winners = new List<Chromosome>();
             for (var i = 0; i < numBest; i++)
             {
                 var c = sortedDict.ElementAt(i);
                 Debug.Log(c.Value + " " + c.Key.ToString());
+                UpdateEvolveScreen(i+": " + c.Value + " \n");
                 winners.Add(c.Key);
             }
 
@@ -178,12 +190,24 @@ public class GeneticController : MonoBehaviour
                 data += "\n";
             }
 
-
+            generationsToGo--;
             System.IO.File.WriteAllText(Application.persistentDataPath + "/data.json", data);
-        }
-
+        } while (generationsToGo != 0);
+        uiHandler.SwitchScreen(Screens.main);
     }
 
+
+    private void UpdateEvolveScreen(string fase, float progress, int currentSims, int maxSims,string output)
+    {
+        EvolveScreen.SetFase(fase);
+        EvolveScreen.SetProgress(progress);
+        EvolveScreen.SetAmountOfSimulations(currentSims,maxSims);
+        EvolveScreen.SetOutput(output);
+    }
+    private void UpdateEvolveScreen(string output)
+    {
+        EvolveScreen.SetOutput(output);
+    }
     private async Task Evaluate(Dictionary<Chromosome, float> d, CancellationToken token)
     {
         
@@ -196,7 +220,7 @@ public class GeneticController : MonoBehaviour
 
         while (checkedChromosomes < Chromosomes.Count())
         {
-
+            UpdateEvolveScreen("evaluating/simulating", (float)checkedChromosomes / (float)Chromosomes.Count,amountChecking,simulatainousChecks,"");
             for  (var i =0;i<currentlyChecking.Length;i++)
             {
                 if (currentlyChecking[i]==null) continue;
@@ -238,7 +262,7 @@ public class GeneticController : MonoBehaviour
         }
         evaluating = false;
     }
-
+    
 
 
     public async Task<KeyValuePair<Chromosome, float>> RunFitnessChecks(Chromosome chromosome, CancellationToken token, float pos)
@@ -267,36 +291,38 @@ public class GeneticController : MonoBehaviour
 
 private async Task Breed(List<Chromosome> l,CancellationToken token)
     {
-
+        UpdateEvolveScreen("breeding", (float)0,0,simulatainousChecks,"");
         Chromosomes.Clear();
         for (int i = 0; i < numBest; i++)
         {
             Chromosomes.Add(l[i]);
         }
 
+        var atMerger = 0;
         foreach (var m in mergers)
         {
-            executeMerge(m,l);
+            executeMerge(m,l,atMerger);
+            atMerger++;
             await Task.Delay(50,token);
         }
-
         for (int i = numBest; i < Chromosomes.Count; i++)
         {
+            UpdateEvolveScreen("mutating", (float)i/(float)(Chromosomes.Count-numBest),0,simulatainousChecks,"");
             mutator.Mutate(Chromosomes[i]);
             await Task.Delay(50,token);
         }
 
-        var s = "";
-
     }
 
-    private void executeMerge(Merger m,List<Chromosome> l)
+    private void executeMerge(Merger m,List<Chromosome> l,int atMerger)
     {
+        var progress = (float) atMerger /  mergers.Count;
         for (int i = 0; i < numBest; i++)
         {
             for (int j = 0; j < numBest; j++)
             {
-                 
+                progress+=(float) atMerger /  mergers.Count/(numBest * numBest);  
+                UpdateEvolveScreen("breeding",progress,0,simulatainousChecks,"");
                 //if (i != j)
                 {
                     Chromosomes.Add(m.Merge(new[] {l[i],l[j]}));
@@ -306,8 +332,30 @@ private async Task Breed(List<Chromosome> l,CancellationToken token)
         }
     }
 
+
     public void Exit()
     {
         cancellationTokenSource.Cancel();
+    }
+
+    public void StartEvolving(int gen)
+    {
+        Evolve(cancellationTokenSource.Token);
+        generationsToGo = gen;
+        uiHandler.SwitchScreen(Screens.evolving);
+    }
+
+    public void StopEvolving(bool now = false)
+    {
+        if (now)
+        {
+            cancellationTokenSource.Cancel();
+            uiHandler.SwitchScreen(Screens.main);
+        }
+        else
+        {
+            generationsToGo = 1;
+        }
+
     }
 }
