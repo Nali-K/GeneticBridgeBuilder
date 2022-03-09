@@ -14,6 +14,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 public class GeneticController : MonoBehaviour
 {
@@ -46,11 +47,54 @@ public class GeneticController : MonoBehaviour
 
         DontDestroyOnLoad(this);
         mutator = new BasicMutator(0, 1, 0.02f);
-        int[] dimensions = {8, 8, 8};
-
         mergers.Add(new SimpleCut(0, 0, 1));
         mergers.Add(new SimpleCut(1, 0, 1));
         mergers.Add(new SimpleCut(2, 0, 1));
+        int[] dimensions = {8, 8, 8};
+        /*var c1 = new Chromosome(dimensions);
+        c1.FillRandom(1, 10);
+        var c2 = new Chromosome(dimensions);
+        c2.FillRandom(1, 10);
+        dimensions = new []{3, 3, 3};
+        
+
+
+        var d = c1.GetValuesAndPositions(new[] {-1,-1, 0});
+        var g = new float[d.Count];
+        printdict(d);
+        var zi = 0;
+        foreach (var VARIABLE in d)
+        {
+            g[zi] = VARIABLE.Value;
+            zi++;
+        }
+        var cm1 = new Chromosome(new [] {1,g.Length,1});
+        cm1.Fill(g);
+        d = c2.GetValuesAndPositions(new[] {-1,-1, 0});
+        g = new float[d.Count];
+        var cm2 = new Chromosome(new [] {1,g.Length,1});
+         zi = 0;
+        foreach (var VARIABLE in d)
+        {
+            g[zi] = VARIABLE.Value;
+            zi++;
+        }
+        printdict(d);
+        cm2.Fill(g);
+        printdict(cm1.GetValuesAndPositions(new[] {-1, -1, -1}));
+        var cm3=mergers[0].Merge(new[] {c1,c1});
+        var cm4=mergers[0].Merge(new[] {c2,c2});
+        var cm5=mergers[2].Merge(new[] {c1,c1});
+        var cm6=mergers[2].Merge(new[] {c2,c2});
+        sim.Simulate(c1,new Vector3(0,0,-5));
+        sim.Simulate(c2,new Vector3(0,15,-5));
+        
+        sim.Simulate(cm1,new Vector3(0,0,5));
+        sim.Simulate(cm2,new Vector3(0,15,5));
+        sim.Simulate(cm3,new Vector3(0,0,10));
+        sim.Simulate(cm4,new Vector3(0,15,10));
+        sim.Simulate(cm5,new Vector3(0,0,15));
+        sim.Simulate(cm6,new Vector3(0,15,15));*/
         fitnessFunctions.Add(new BridgeCheckFitness(bridgeSimGameObject));
         fitnessFunctions.Add(new StabilityFitness(bridgeSimGameObject));
         lol = fitnessFunctions[0] as BridgeCheckFitness;
@@ -117,6 +161,8 @@ public class GeneticController : MonoBehaviour
 
     private void getMaxSims()
     {
+        //simulatainousChecks = 16; //return;
+        
         if (!evaluating) return;
         if (calcSpeedCountDown<=0)
         {

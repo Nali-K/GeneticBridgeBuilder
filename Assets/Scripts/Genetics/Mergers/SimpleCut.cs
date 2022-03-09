@@ -69,7 +69,8 @@ namespace Genetics.Mergers
             for (var i = 0; i < c1.dimensionSize[acrossDimension] / 2; i++)
             {
                 pos[acrossDimension] = i;
-                newChromosome.InsertValues(c1.GetValuesAndPositions(pos));
+                var val = c1.GetValuesAndPositions(pos);
+                newChromosome.InsertValues(val);
             }
 
             var dif = c2.dimensionSize[acrossDimension] / 2 - c1.dimensionSize[acrossDimension] / 2;
