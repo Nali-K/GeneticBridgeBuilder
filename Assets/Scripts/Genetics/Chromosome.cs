@@ -164,11 +164,16 @@ using Random = System.Random;
             prevDimensionSize *= dimensionSize[i];
         }
         var j = startPosition;
+        var jumpsize = 1;
+        for (var i = 0; i < dimension; i++)
+        {
+            jumpsize *= dimensionSize[i];
+        }
         for (var i = 0; i < dimensionSize[dimension]; i++)
         {
             returnValue[i] = geneArray[j];
             //prevValues += dimensionSize[i];
-            j+=size/dimensionSize[dimension];
+            j+=jumpsize;
         }
         //Array.Copy(geneArray,prevValues,returnValue,0,dimensionSize[dimension]);
 

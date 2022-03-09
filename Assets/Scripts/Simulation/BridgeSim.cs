@@ -74,7 +74,7 @@ namespace Simulation
             droppedBlock.GetComponent<Rigidbody>().mass = 0.1f + weight;
             droppedBlock.GetComponent<MeshRenderer>().material = mat1;
             droppedBlock.gameObject.layer = 7;
-            await Task.Delay(4300,token);
+            await Task.Delay(8300,token);
             var result = dropBlockInBounds;
             return result;
         }
@@ -100,7 +100,7 @@ namespace Simulation
 
         public async Task<float> GetStability(CancellationToken token)
         {
-            var checks = 50;
+            var checks = 80;
             var totalVelocity = 0f;
             for (var i=0;i<checks;i++)
             {

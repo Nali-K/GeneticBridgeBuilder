@@ -1634,7 +1634,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00027909668, y: -0.00072156463}
+  m_AnchoredPosition: {x: 0.00010787819, y: -0.00072156463}
   m_SizeDelta: {x: -5.6966, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1503709452
@@ -2478,7 +2478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Chromosomes: []
-  numBest: 8
+  numBest: 10
   startNum: 25
   evolving: 0
   generationsToGo: 0
@@ -2612,7 +2612,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1019127992}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99997467
+  m_Size: 0.99997663
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

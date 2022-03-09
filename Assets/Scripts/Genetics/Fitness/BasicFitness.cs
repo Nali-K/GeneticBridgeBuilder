@@ -21,7 +21,7 @@ namespace Genetics
 
             score /= c.totalSize;
 
-            return score*-5;
+            return score*-50;
         }
 
 

@@ -6,7 +6,8 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Genetics;
-using Genetics.Mergers;
+using Genetics.CrossOverFunctions;
+
 using Genetics.Mutators;
 using Simulation;
 //using TMPro.EditorUtilities;
@@ -25,7 +26,7 @@ public class GeneticController : MonoBehaviour
     private Mutator mutator;
     public int numBest = 5;
     public int startNum = 6;
-    public List<Merger> mergers = new List<Merger>();
+    public List<CrossOverFunction> mergers = new List<CrossOverFunction>();
     public bool evolving = false;
     public int generationsToGo;
     
@@ -35,10 +36,12 @@ public class GeneticController : MonoBehaviour
     public BridgeCheckFitness lol;
     public GameObject bridgeSimGameObject;
     public int simulatainousChecks = 5;
+    public float maxSimsCalcSpeed=0;
     public float calcSpeed=0;
-    public float oldCalcSpeed=0;
+    public float maxSimsCalcSpeedCountDown=0;
     public float calcSpeedCountDown=0;
     private bool evaluating;
+    private bool atMaxSims;
 
     public UIHandler uiHandler;
     public EvolveScreen EvolveScreen;
@@ -51,50 +54,7 @@ public class GeneticController : MonoBehaviour
         mergers.Add(new SimpleCut(1, 0, 1));
         mergers.Add(new SimpleCut(2, 0, 1));
         int[] dimensions = {8, 8, 8};
-        /*var c1 = new Chromosome(dimensions);
-        c1.FillRandom(1, 10);
-        var c2 = new Chromosome(dimensions);
-        c2.FillRandom(1, 10);
-        dimensions = new []{3, 3, 3};
-        
 
-
-        var d = c1.GetValuesAndPositions(new[] {-1,-1, 0});
-        var g = new float[d.Count];
-        printdict(d);
-        var zi = 0;
-        foreach (var VARIABLE in d)
-        {
-            g[zi] = VARIABLE.Value;
-            zi++;
-        }
-        var cm1 = new Chromosome(new [] {1,g.Length,1});
-        cm1.Fill(g);
-        d = c2.GetValuesAndPositions(new[] {-1,-1, 0});
-        g = new float[d.Count];
-        var cm2 = new Chromosome(new [] {1,g.Length,1});
-         zi = 0;
-        foreach (var VARIABLE in d)
-        {
-            g[zi] = VARIABLE.Value;
-            zi++;
-        }
-        printdict(d);
-        cm2.Fill(g);
-        printdict(cm1.GetValuesAndPositions(new[] {-1, -1, -1}));
-        var cm3=mergers[0].Merge(new[] {c1,c1});
-        var cm4=mergers[0].Merge(new[] {c2,c2});
-        var cm5=mergers[2].Merge(new[] {c1,c1});
-        var cm6=mergers[2].Merge(new[] {c2,c2});
-        sim.Simulate(c1,new Vector3(0,0,-5));
-        sim.Simulate(c2,new Vector3(0,15,-5));
-        
-        sim.Simulate(cm1,new Vector3(0,0,5));
-        sim.Simulate(cm2,new Vector3(0,15,5));
-        sim.Simulate(cm3,new Vector3(0,0,10));
-        sim.Simulate(cm4,new Vector3(0,15,10));
-        sim.Simulate(cm5,new Vector3(0,0,15));
-        sim.Simulate(cm6,new Vector3(0,15,15));*/
         fitnessFunctions.Add(new BridgeCheckFitness(bridgeSimGameObject));
         fitnessFunctions.Add(new StabilityFitness(bridgeSimGameObject));
         lol = fitnessFunctions[0] as BridgeCheckFitness;
@@ -161,36 +121,39 @@ public class GeneticController : MonoBehaviour
 
     private void getMaxSims()
     {
-        //simulatainousChecks = 16; //return;
-        
+  
         if (!evaluating) return;
+        maxSimsCalcSpeedCountDown -= Time.deltaTime;
+        if (Time.deltaTime > 0.08f&&maxSimsCalcSpeedCountDown<0f)
+        {
+                    
+            simulatainousChecks -= Mathf.Clamp(Mathf.CeilToInt((maxSimsCalcSpeed-0.08f)*100),1,8);
+            simulatainousChecks = Mathf.Clamp(simulatainousChecks, 1, 200);
+            maxSimsCalcSpeedCountDown = 1f;
+        }
         if (calcSpeedCountDown<=0)
         {
             calcSpeedCountDown = 1;
-            if (calcSpeed != 0)
+            if (maxSimsCalcSpeed != 0)
             {
                 //calcSpeed;
-                if (calcSpeed > 0.07f)
-                {
-                    
-                    simulatainousChecks -= Mathf.Clamp(Mathf.CeilToInt((calcSpeed-0.07f)*100),1,5);
-                    simulatainousChecks = Mathf.Clamp(simulatainousChecks, 1, 100);
-                }
-                if (calcSpeed < 0.04f)
+
+                if (maxSimsCalcSpeed < 0.04f)
                 {
                     simulatainousChecks += 1;
                 }
-                oldCalcSpeed = calcSpeed;
 
-                calcSpeed = 0;
+
+                maxSimsCalcSpeed = 0;
             }
         }
         else
         {
-            calcSpeedCountDown -= Time.fixedDeltaTime;
-            if (Time.deltaTime > calcSpeed)
+            
+            if (atMaxSims)calcSpeedCountDown -= Time.deltaTime;
+            if (Time.deltaTime > maxSimsCalcSpeed)
             {
-                calcSpeed = Time.deltaTime;
+                maxSimsCalcSpeed = Time.deltaTime;
             }
         }
 
@@ -263,7 +226,7 @@ public class GeneticController : MonoBehaviour
         var checkedChromosomes=0;
         var amountChecking = 0;
         var atChromosome = 0;
-
+        evaluating = true;
         while (checkedChromosomes < Chromosomes.Count())
         {
             UpdateEvolveScreen("evaluating/simulating", (float)checkedChromosomes / (float)Chromosomes.Count,amountChecking,simulatainousChecks,"");
@@ -280,7 +243,7 @@ public class GeneticController : MonoBehaviour
             }
             if(amountChecking < simulatainousChecks)
             {
-                evaluating = false;
+                atMaxSims = false;
                 if (atChromosome < Chromosomes.Count)
                 {
                     for (var i = 0; i < currentlyChecking.Length; i++)
@@ -301,7 +264,7 @@ public class GeneticController : MonoBehaviour
             }
             else
             {
-                evaluating = true; 
+                atMaxSims = true; 
             }
             await Task.Delay(200, token);
             
@@ -360,7 +323,7 @@ private async Task Breed(List<Chromosome> l,CancellationToken token)
 
     }
 
-    private void executeMerge(Merger m,List<Chromosome> l,int atMerger)
+    private void executeMerge(CrossOverFunction m,List<Chromosome> l,int atMerger)
     {
         var progress = (float) atMerger /  mergers.Count;
         for (int i = 0; i < numBest; i++)
@@ -371,7 +334,7 @@ private async Task Breed(List<Chromosome> l,CancellationToken token)
                 UpdateEvolveScreen("breeding",progress,0,simulatainousChecks,"");
                 //if (i != j)
                 {
-                    Chromosomes.Add(m.Merge(new[] {l[i],l[j]}));
+                    Chromosomes.Add(m.CrossOver(new[] {l[i],l[j]}));
                 }
 
             }
