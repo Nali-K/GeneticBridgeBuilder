@@ -44,15 +44,14 @@
         <Compile Include="Interfaces\ICrossOverFunction.cs" />
         <Compile Include="Interfaces\IFitnessFunction.cs" />
         <Compile Include="Interfaces\IMutationFunction.cs" />
-        <Compile Include="Interfaces\IResults.cs" />
-        <Compile Include="Interfaces\IScores.cs" />
         <Compile Include="Interfaces\ISelectionFunction.cs" />
         <Compile Include="Interfaces\ISimulation.cs" />
-        <Compile Include="Interfaces\ISimulationResult.cs" />
         <Compile Include="Interfaces\IUserInterface.cs" />
+        <Compile Include="ChromosomeScores.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="RandomValueGenerator.cs" />
         <Compile Include="Runner.cs" />
+        <Compile Include="Activity.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -308,7 +308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &577947849
 RectTransform:
   m_ObjectHideFlags: 0
@@ -387,9 +387,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -17, y: -17}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &595924916
 MonoBehaviour:
@@ -718,7 +718,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -955,7 +955,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.9999663, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1634,7 +1634,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00010787819, y: -0.00072156463}
+  m_AnchoredPosition: {x: 0.00000656499, y: -0.00072156463}
   m_SizeDelta: {x: -5.6966, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1503709452
@@ -2106,9 +2106,9 @@ RectTransform:
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 0}
+  m_SizeDelta: {x: 20, y: -17}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1802034116
 MonoBehaviour:
@@ -2487,8 +2487,9 @@ MonoBehaviour:
     simulator: {fileID: 0}
   bridgeSimGameObject: {fileID: 3532534279309393359, guid: ba2bfb83d7621b246b6b484897562128, type: 3}
   simulatainousChecks: 5
+  maxSimsCalcSpeed: 0
   calcSpeed: 0
-  oldCalcSpeed: 0
+  maxSimsCalcSpeedCountDown: 0
   calcSpeedCountDown: 0
   uiHandler: {fileID: 1860708635}
   EvolveScreen: {fileID: 577947850}
@@ -2564,9 +2565,9 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 20}
+  m_SizeDelta: {x: -17, y: 20}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1896978304
 MonoBehaviour:
@@ -2612,7 +2613,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1019127992}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99997663
+  m_Size: 0.9999663
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

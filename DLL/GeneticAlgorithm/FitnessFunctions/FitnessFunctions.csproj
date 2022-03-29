@@ -38,9 +38,13 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="BasicFitness.cs" />
+        <Compile Include="BridgeCheckFitness.cs" />
+        <Compile Include="BridgeStabilityFitness.cs" />
         <Compile Include="FitnessFunction.cs" />
         <Compile Include="Interfaces\IChromosome.cs" />
         <Compile Include="Interfaces\IConsoleController.cs" />
+        <Compile Include="Interfaces\ISimulation.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

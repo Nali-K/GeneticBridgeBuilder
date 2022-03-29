@@ -30,12 +30,19 @@ namespace GeneticAlgorithm.Controller
 
         public void Start(int numGenerations)
         {
-            
+            Evolve(cancellationTokenSource.Token);
         }
         
         public void Stop(bool finishGeneration = true)
         {
-            
+            if (finishGeneration)
+            {
+                generationsToGo = 1;
+            }
+            else
+            {
+                cancellationTokenSource.Cancel();
+            }
         }
 
         public async Task Evolve(CancellationToken token)
@@ -46,9 +53,10 @@ namespace GeneticAlgorithm.Controller
             {
                 population = await Breed(breedingPopulation, token);
                 population = await Mutate(population, token);
-                var chromosomeResults = await RunSimulations(population, token);
-                var chromosomeScores = await RunFitnessFunctions(chromosomeResults, token);
+                await RunSimulations(population, token);
+                var chromosomeScores = await RunFitnessFunctions(population,token);
                 breedingPopulation = await RunSelectionFunctions(chromosomeScores, token);
+                generationsToGo--;
 
             } while (generationsToGo != 0);
         }
@@ -56,17 +64,61 @@ namespace GeneticAlgorithm.Controller
 
 
 
-        private async Task<List<IResults>> RunSimulations(List<Chromosome> population, CancellationToken token)
+        private async Task RunSimulations(List<Chromosome> population, CancellationToken token)
         {
-            throw new NotImplementedException();
+            var progressStep = 0;
+            var totalProgressSteps = (population.Count * Simulations.Count);
+            foreach (var simulation in Simulations)
+            {
+                simulation.ResetResults();
+                foreach (var chromosome in population)
+                {
+                    await simulation.RunSimulation(chromosome);
+                    progressStep++;
+                    userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
+                }
+            }
+
+            
         }
-        private async Task<List<IScores>> RunFitnessFunctions(List<IResults> chromosomeResults, CancellationToken token)
+        private async Task<Dictionary<Chromosome,ChromosomeScores>> RunFitnessFunctions(List<Chromosome> population,CancellationToken token)
         {
-            throw new NotImplementedException();
+            var scores = new Dictionary<Chromosome,ChromosomeScores>() ;
+            var progressStep = 0;
+            var totalProgressSteps = (population.Count * FitnessFunctions.Count);
+            foreach (var chromosome in population)
+            {
+                var chromosomeScores = new ChromosomeScores();
+                foreach (var fitnessFunction in FitnessFunctions)
+                {
+                    var score = await fitnessFunction.GetFitness(chromosome,token);
+                    chromosomeScores.AddScore(fitnessFunction,score);
+                    progressStep++;
+                }
+                userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
+                scores.Add(chromosome,chromosomeScores);
+            }
+
+            return scores;
         }
-        private async Task<List<Chromosome>> RunSelectionFunctions(List<IScores> chromosomeScores, CancellationToken token)
+        private async Task<List<Chromosome>> RunSelectionFunctions(Dictionary<Chromosome,ChromosomeScores> chromosomeScores, CancellationToken token)
         {
-            throw new NotImplementedException();
+            var breedingPopulation = new List<Chromosome>();
+            var progressStep = 0;
+            var totalProgressSteps = (chromosomeScores.Count * FitnessFunctions.Count);
+            foreach (var scores in chromosomeScores)
+            {
+
+                foreach (var selectionFunction in SelectionFunctions)
+                {
+
+                    progressStep++;
+                }
+                userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
+
+            }
+
+            return breedingPopulation;
         }        
         private async Task<List<Chromosome>> Breed(List<Chromosome> breedingPopulation,CancellationToken token)
         {
