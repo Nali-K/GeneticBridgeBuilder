@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CrossOverFunctions.Interfaces
+namespace GeneticAlgorithm.CrossOverFunctions.Interfaces
 {
     public interface IChromosome
     {
@@ -12,5 +12,7 @@ namespace CrossOverFunctions.Interfaces
         float[] GetGeneArray();
         Dictionary<int[], float> GetValuesAndPositions(int[] position);
         void InsertValues(Dictionary<int[], float> values);
+
+        string ToString();
     }
 }

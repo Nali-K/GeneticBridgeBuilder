@@ -1,0 +1,8 @@
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\SelectionFunctions\bin\Debug\SelectionFunctions.dll
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\SelectionFunctions\bin\Debug\SelectionFunctions.pdb
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\SelectionFunctions\obj\Debug\SelectionFunctions.csproj.AssemblyReference.cache
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\SelectionFunctions\obj\Debug\SelectionFunctions.csproj.CoreCompileInputs.cache
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\SelectionFunctions\obj\Debug\SelectionFunctions.dll
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\SelectionFunctions\obj\Debug\SelectionFunctions.pdb
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\Assets\ddls\SelectionFunctions\SelectionFunctions.dll
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\Assets\ddls\SelectionFunctions\SelectionFunctions.pdb

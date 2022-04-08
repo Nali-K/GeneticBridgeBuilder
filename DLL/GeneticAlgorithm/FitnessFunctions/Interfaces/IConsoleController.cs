@@ -1,4 +1,4 @@
-﻿namespace FitnessFunctions.Controller
+﻿namespace GeneticAlgorithm.FitnessFunctions.Interfaces
 {
     public interface IConsoleController
     {

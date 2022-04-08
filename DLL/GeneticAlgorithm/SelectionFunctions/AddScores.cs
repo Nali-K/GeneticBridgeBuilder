@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using SelectionFunctions.Controller;
-using SelectionFunctions.Interfaces;
+
+using GeneticAlgorithm.SelectionFunctions.Interfaces;
 using System.Linq;
-namespace SelectionFunctions
+namespace GeneticAlgorithm.SelectionFunctions
 {
     public class AddScores:SelectionFunction
     {

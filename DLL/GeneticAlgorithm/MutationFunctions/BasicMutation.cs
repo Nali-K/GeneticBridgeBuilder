@@ -1,6 +1,6 @@
 ﻿using System;
-using MutationFunctions.Interfaces;
-namespace MutationFunctions
+using GeneticAlgorithm.MutationFunctions.Interfaces;
+namespace GeneticAlgorithm.MutationFunctions
 {
     public class BasicMutation
     {
@@ -11,7 +11,7 @@ namespace MutationFunctions
             private float mutationRatio;
             private Random rand;
 
-            public int[] values= new int [30];
+//            public int[] values= new int [30];
             public BasicMutator(float min, float max, float ratio)
             {
                 minValue = min;
@@ -24,7 +24,8 @@ namespace MutationFunctions
             {
                 var newGenes = new float[c.GetTotalSize()];
                 var i = 0;
-                foreach (var gene in c.GetGeneArray())
+                var geneArray = c.GetGeneArray();
+                foreach (var gene in geneArray)
                 {
                 
                     var r = (float)rand.NextDouble();
@@ -33,7 +34,7 @@ namespace MutationFunctions
                         var v = GetRandomValue();
                         newGenes[i]=(v);
                     
-                        values[(int) (v + 15)]+=1;
+//                        values[(int) (v + 15)]+=1;
 
                     }
                     else

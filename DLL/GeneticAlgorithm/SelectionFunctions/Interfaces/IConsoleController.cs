@@ -1,4 +1,4 @@
-﻿namespace SelectionFunctions.Controller
+﻿namespace GeneticAlgorithm.SelectionFunctions.Interfaces
 {
     public interface IConsoleController
     {

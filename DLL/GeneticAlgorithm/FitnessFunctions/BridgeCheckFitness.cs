@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using FitnessFunctions.Interfaces;
+using GeneticAlgorithm.FitnessFunctions.Interfaces;
 
-namespace FitnessFunctions
+namespace GeneticAlgorithm.FitnessFunctions
 {
    [Serializable] public class BridgeCheckFitness:FitnessFunction
     {
@@ -19,7 +19,7 @@ namespace FitnessFunctions
 
         }
         
-        public async Task<float> CalculateFitness(IChromosome c, CancellationToken token)
+        public override async Task<float> CalculateFitness(IChromosome c, CancellationToken token)
         {/*
             var inst =Object.Instantiate(simulator,position,Quaternion.identity);
             var done = false;

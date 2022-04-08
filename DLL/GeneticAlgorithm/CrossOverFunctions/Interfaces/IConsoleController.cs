@@ -1,4 +1,4 @@
-﻿namespace GeneticAlgorithm.Controller
+﻿namespace GeneticAlgorithm.CrossOverFunctions.Interfaces
 {
     public interface IConsoleController
     {

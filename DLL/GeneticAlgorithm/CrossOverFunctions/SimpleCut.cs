@@ -1,8 +1,7 @@
 ﻿using System;
-using CrossOverFunctions.Interfaces;
-using GeneticAlgorithm.Controller;
+using GeneticAlgorithm.CrossOverFunctions.Interfaces;
 
-namespace CrossOverFunctions
+namespace GeneticAlgorithm.CrossOverFunctions
 {
     [Serializable]
     public class SimpleCut:CrossOverFunction
@@ -47,6 +46,7 @@ namespace CrossOverFunctions
             }
 
             var newGeneArraySize = calculateNewGeneArraySize(c1, c2);
+            //consoleController.LogError(newGeneArraySize[0].ToString()+newGeneArraySize[1].ToString());
             var newChromosome = c1.CreateNewChromosome(newGeneArraySize);
             if (fillRandom)
             {
@@ -68,7 +68,6 @@ namespace CrossOverFunctions
             {
                 pos[i] = -1;
             }
-            
             for (var i = 0; i < c1.GetDimensionSize(acrossDimension)/ 2; i++)
             {
                 pos[acrossDimension] = i;
@@ -80,12 +79,14 @@ namespace CrossOverFunctions
             for (var i = c2.GetDimensionSize(acrossDimension) / 2; i < c2.GetDimensionSize(acrossDimension); i++)
             {
                 pos[acrossDimension] = i;
-                var values = c2.GetValuesAndPositions(pos);
+                /*var values = c2.GetValuesAndPositions(pos);
                 foreach (var VARIABLE in values)
                 {
                     VARIABLE.Key[acrossDimension] -= dif;
-                }
-                newChromosome.InsertValues(c2.GetValuesAndPositions(pos));
+                }*/
+                var val = c2.GetValuesAndPositions(pos);
+                
+                newChromosome.InsertValues(val);
             }
 
             return newChromosome;

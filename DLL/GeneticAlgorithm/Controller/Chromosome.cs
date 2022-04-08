@@ -182,8 +182,9 @@ namespace GeneticAlgorithm.Controller
 
             return (float[])returnValue;
         }
-        public Dictionary<int[],float> GetValuesAndPositions(int[] position, int dimension,int size)
+        public Dictionary<int[],float> GetValuesAndPositions(int[] pos, int dimension,int size)
         {
+            var position = pos.Clone() as int[];
             position[dimension] = 0;
 
             var returnValue = new Dictionary<int[], float>();
@@ -279,7 +280,7 @@ namespace GeneticAlgorithm.Controller
 
         }
 
-        public String ToString()
+        public override String ToString()
         {
             var s = "";
             s += "Total size: ";
@@ -292,7 +293,7 @@ namespace GeneticAlgorithm.Controller
             for (var i = 1; i < geneArray.Length; i++)
             {
                 
-                s += ",";
+                s += ", ";
                 s += geneArray[i];
 
                     

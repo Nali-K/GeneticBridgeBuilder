@@ -10,26 +10,34 @@ namespace GeneticAlgorithm.Controller
 {
     public class GeneticController
     {
-        private IUserInterface userInterface;
+        //private IUserInterface userInterface;
         public IConsoleController consoleController;
-        public List<IFitnessFunction> FitnessFunctions;
-        public List<ISelectionFunction> SelectionFunctions;
-        public List<ICrossOverFunction> CrossOverFunctions;
-        public List<IMutationFunction> MutationsFunctions;
-        public List<ISimulation> Simulations;
+        public List<IFitnessFunction> FitnessFunctions= new List<IFitnessFunction>();
+        public List<ISelectionFunction> SelectionFunctions= new List<ISelectionFunction>();
+        public List<ICrossOverFunction> CrossOverFunctions=new List<ICrossOverFunction>();
+        public List<IMutationFunction> MutationsFunctions=new List<IMutationFunction>();
+        public List<ISimulation> Simulations=new List<ISimulation>();
         private CancellationTokenSource cancellationTokenSource;
         private int generationsToGo;
         //private List<Chromosome> population;
 
-        public GeneticController(IUserInterface userInterface, IConsoleController consoleController)
+        public GeneticController(/*IUserInterface userInterface,*/ IConsoleController consoleController)
+        {
+            
+            this.consoleController = consoleController;
+           
+            cancellationTokenSource = new CancellationTokenSource();
+        }        
+        /*public GeneticController( IConsoleController consoleController)
         {
             this.consoleController = consoleController;
-            this.userInterface = userInterface;
+            this.consoleController.LogMessage("contact");
             cancellationTokenSource = new CancellationTokenSource();
-        }
+        }*/
 
         public void Start(int numGenerations)
         {
+            generationsToGo = numGenerations;
             Evolve(cancellationTokenSource.Token);
         }
         
@@ -49,13 +57,49 @@ namespace GeneticAlgorithm.Controller
         {
             var population = new List<Chromosome>();
             var breedingPopulation = new List<Chromosome>();
+            //temporary test code
+            for (var i = 0; i < 5; i++)
+            {
+                breedingPopulation.Add(new Chromosome(new [] {3,3}));
+                breedingPopulation[i].FillRandom(0,9);
+            }
+            
+            
+            //end test code
             do
             {
+                //temporary test code
+                consoleController.LogMessage(generationsToGo.ToString());
+                foreach (var VARIABLE in breedingPopulation)
+                {
+                    consoleController.LogMessage(VARIABLE.ToString());
+                }
+                //end test code
+                consoleController.LogMessage("breed");
+                consoleController.LogMessage(population.Count.ToString());
+                
                 population = await Breed(breedingPopulation, token);
+                foreach (var VARIABLE in population)
+                {
+                    consoleController.LogMessage(VARIABLE.ToString());
+                }
+                consoleController.LogMessage("mutate");
+                consoleController.LogMessage(population.Count.ToString());
                 population = await Mutate(population, token);
+                foreach (var VARIABLE in population)
+                {
+                    consoleController.LogMessage(VARIABLE.ToString());
+                }
+                consoleController.LogMessage("simulate");
+                consoleController.LogMessage(population.Count.ToString());
                 await RunSimulations(population, token);
+                consoleController.LogMessage("score");
+                consoleController.LogMessage(population.Count.ToString());
                 var chromosomeScores = await RunFitnessFunctions(population,token);
+                consoleController.LogMessage("select");
+                consoleController.LogMessage(population.Count.ToString());
                 breedingPopulation = await RunSelectionFunctions(chromosomeScores, token);
+                
                 generationsToGo--;
 
             } while (generationsToGo != 0);
@@ -75,7 +119,7 @@ namespace GeneticAlgorithm.Controller
                 {
                     await simulation.RunSimulation(chromosome);
                     progressStep++;
-                    userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
+                    //userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
                 }
             }
 
@@ -95,7 +139,7 @@ namespace GeneticAlgorithm.Controller
                     chromosomeScores.AddScore(fitnessFunction,score);
                     progressStep++;
                 }
-                userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
+                //userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
                 scores.Add(chromosome,chromosomeScores);
             }
 
@@ -106,17 +150,15 @@ namespace GeneticAlgorithm.Controller
             var breedingPopulation = new List<Chromosome>();
             var progressStep = 0;
             var totalProgressSteps = (chromosomeScores.Count * FitnessFunctions.Count);
-            foreach (var scores in chromosomeScores)
+
+            foreach (var selectionFunction in SelectionFunctions)
             {
-
-                foreach (var selectionFunction in SelectionFunctions)
-                {
-
-                    progressStep++;
-                }
-                userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
-
+                breedingPopulation.AddRange(await selectionFunction.SelectChromosome(chromosomeScores,token));
+                progressStep++;
             }
+            //userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
+
+            
 
             return breedingPopulation;
         }        
@@ -155,13 +197,15 @@ namespace GeneticAlgorithm.Controller
 
         private async Task<List<Chromosome>> Mutate(List<Chromosome> population,CancellationToken token, int startAt=0)
         {
+            consoleController.LogMessage("start mutating");
             for (int i = startAt; i < population.Count; i++)
             {
                 //UpdateEvolveScreen("mutating", (float)i/(float)(Chromosomes.Count-numBest),0,simulatainousChecks,"");
                 foreach (var mutationFunction in MutationsFunctions)
                 {
+                    
                     population[i]= await mutationFunction.Mutate(population[i],token);
-                    await Task.Delay(50,token);                    
+          
                 }
 
             }

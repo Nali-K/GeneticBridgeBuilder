@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MutationFunctions.Interfaces
+namespace GeneticAlgorithm.MutationFunctions.Interfaces
 {
     public interface IChromosome
     {

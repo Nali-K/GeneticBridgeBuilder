@@ -1,5 +1,5 @@
-﻿using MutationFunctions.Interfaces;
-namespace MutationFunctions
+﻿using GeneticAlgorithm.MutationFunctions.Interfaces;
+namespace GeneticAlgorithm.MutationFunctions
 {
     public abstract class MutationFunction
     {

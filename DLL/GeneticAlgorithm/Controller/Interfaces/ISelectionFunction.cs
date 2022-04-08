@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GeneticAlgorithm.Controller
@@ -6,7 +7,7 @@ namespace GeneticAlgorithm.Controller
     public interface ISelectionFunction
     {
         bool GetExclusive();
-        Task<bool> SelectChromosome(ChromosomeScores scores, CancellationToken token);
+        Task<List<Chromosome>> SelectChromosome(Dictionary<Chromosome,ChromosomeScores> scores, CancellationToken token);
         string ToJson();
         bool FromJson(string json);
         bool GetUnique();

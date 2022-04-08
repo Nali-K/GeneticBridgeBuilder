@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FitnessFunctions.Interfaces
+namespace GeneticAlgorithm.FitnessFunctions.Interfaces
 {
     public interface ISimulation
     {

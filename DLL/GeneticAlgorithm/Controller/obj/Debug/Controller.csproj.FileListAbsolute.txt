@@ -1,0 +1,8 @@
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\Controller\bin\Debug\Controller.dll
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\Controller\bin\Debug\Controller.pdb
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\Controller\obj\Debug\Controller.csproj.AssemblyReference.cache
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\Controller\obj\Debug\Controller.csproj.CoreCompileInputs.cache
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\Controller\obj\Debug\Controller.dll
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\Controller\obj\Debug\Controller.pdb
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\Assets\ddls\Controller\Controller.dll
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\Assets\ddls\Controller\Controller.pdb

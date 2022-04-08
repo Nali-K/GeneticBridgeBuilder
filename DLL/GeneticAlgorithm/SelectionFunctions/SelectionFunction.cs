@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using SelectionFunctions.Controller;
-using SelectionFunctions.Interfaces;
 
-namespace SelectionFunctions
+using GeneticAlgorithm.SelectionFunctions.Interfaces;
+
+namespace GeneticAlgorithm.SelectionFunctions
 {
     public abstract class SelectionFunction
     {

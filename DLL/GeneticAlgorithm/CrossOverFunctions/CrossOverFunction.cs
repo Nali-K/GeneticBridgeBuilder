@@ -1,7 +1,6 @@
-﻿using CrossOverFunctions.Interfaces;
-using GeneticAlgorithm.Controller;
+﻿using GeneticAlgorithm.CrossOverFunctions.Interfaces;
 
-namespace CrossOverFunctions
+namespace GeneticAlgorithm.CrossOverFunctions
 {
     public abstract class CrossOverFunction
     {

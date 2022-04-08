@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using FitnessFunctions.Interfaces;
+using GeneticAlgorithm.FitnessFunctions.Interfaces;
 
-namespace FitnessFunctions
+namespace GeneticAlgorithm.FitnessFunctions
 {
     public class BridgeStabilityFitness:FitnessFunction
     {
@@ -14,7 +14,7 @@ namespace FitnessFunctions
             //this.simulator = simulator;
 
         }
-        public async Task<float> CalculateFitness(IChromosome chromosome, CancellationToken token)
+        public override async Task<float> CalculateFitness(IChromosome chromosome, CancellationToken token)
         {
             /*var inst =Object.Instantiate(simulator,position,Quaternion.identity);
 
@@ -22,7 +22,7 @@ namespace FitnessFunctions
             
             
 
-
+            
             await Task.Delay(200,token);
             simulation.Simulate(c,position);
             await Task.Delay(200,token);
@@ -35,6 +35,12 @@ namespace FitnessFunctions
 
             GameObject.Destroy(simulation.gameObject);
             var f = 0.1f;*/
+            var array = chromosome.GetGeneArray();
+            var score=0f;
+            foreach (var fl in array)
+            {
+                score += (fl - 0.5f);
+            }
             return score;
         }
 

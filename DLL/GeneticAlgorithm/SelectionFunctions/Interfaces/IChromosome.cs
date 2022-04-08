@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SelectionFunctions.Interfaces
+namespace GeneticAlgorithm.SelectionFunctions.Interfaces
 {
     public interface IChromosome
     {
