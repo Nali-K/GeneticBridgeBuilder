@@ -8,7 +8,7 @@ namespace GeneticAlgorithm.CrossOverFunctions
          protected IConsoleController consoleController;
          
          
-         public abstract IChromosome CrossOver(IChromosome[] chromosomes);
+         public abstract IChromosome[] CrossOver(IChromosome[] chromosomes);
         
 
     }

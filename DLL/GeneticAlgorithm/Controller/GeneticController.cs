@@ -115,12 +115,11 @@ namespace GeneticAlgorithm.Controller
             foreach (var simulation in Simulations)
             {
                 simulation.ResetResults();
-                foreach (var chromosome in population)
-                {
-                    await simulation.RunSimulation(chromosome);
-                    progressStep++;
-                    //userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
-                }
+
+                await simulation.RunSimulation(population);
+                progressStep++;
+                //userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
+            
             }
 
             
@@ -130,18 +129,26 @@ namespace GeneticAlgorithm.Controller
             var scores = new Dictionary<Chromosome,ChromosomeScores>() ;
             var progressStep = 0;
             var totalProgressSteps = (population.Count * FitnessFunctions.Count);
-            foreach (var chromosome in population)
+
+
+            foreach (var fitnessFunction in FitnessFunctions)
             {
-                var chromosomeScores = new ChromosomeScores();
-                foreach (var fitnessFunction in FitnessFunctions)
+                var newScores =await fitnessFunction.GetFitness(population,token);
+                foreach (var score in newScores)
                 {
-                    var score = await fitnessFunction.GetFitness(chromosome,token);
-                    chromosomeScores.AddScore(fitnessFunction,score);
-                    progressStep++;
+                    if (!scores.ContainsKey(score.Key))
+                    {
+                        scores.Add(score.Key, new ChromosomeScores());
+                    }
+
+                    scores[score.Key].AddScore(fitnessFunction,score.Value);
+
                 }
-                //userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
-                scores.Add(chromosome,chromosomeScores);
+                progressStep++;
             }
+                //userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
+
+
 
             return scores;
         }
@@ -174,21 +181,10 @@ namespace GeneticAlgorithm.Controller
             foreach (var crossOverFunction in CrossOverFunctions)
             {
                 //var progress = (float) atMerger /  mergers.Count;
-                for (int i = 0; i < breedingPopulation.Count; i++)
-                {
-                    for (int j = 0; j < breedingPopulation.Count; j++)
-                    {
-                        //progress+=(float) atMerger /  mergers.Count/(numBest * numBest);  
-                        //UpdateEvolveScreen("breeding",progress,0,simulatainousChecks,"");
-                        //if (i != j)
-                        {
-                            var newChromosome = await crossOverFunction.CrossOver(new[]
-                                {breedingPopulation[i], breedingPopulation[j]},token);
-                            population.Add(newChromosome);
-                        }
 
-                    }
-                }                
+                var newChromosomes = await crossOverFunction.CrossOver(breedingPopulation,token);
+                population.AddRange(newChromosomes);
+                               
                 await Task.Delay(50,token);
             }
 
@@ -198,17 +194,16 @@ namespace GeneticAlgorithm.Controller
         private async Task<List<Chromosome>> Mutate(List<Chromosome> population,CancellationToken token, int startAt=0)
         {
             consoleController.LogMessage("start mutating");
-            for (int i = startAt; i < population.Count; i++)
-            {
+
                 //UpdateEvolveScreen("mutating", (float)i/(float)(Chromosomes.Count-numBest),0,simulatainousChecks,"");
                 foreach (var mutationFunction in MutationsFunctions)
                 {
                     
-                    population[i]= await mutationFunction.Mutate(population[i],token);
+                    population= await mutationFunction.Mutate(population,token);
           
                 }
 
-            }
+            
 
             return population;
         }

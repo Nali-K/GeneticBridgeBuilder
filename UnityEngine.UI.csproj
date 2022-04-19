@@ -381,6 +381,9 @@
  <Reference Include="Unity.Plastic.Newtonsoft.Json">
  <HintPath>C:/Users/ilanb/GeneticBridgeBuilding/Library/PackageCache/com.unity.collab-proxy@1.15.12/Lib/Editor/PlasticSCM/Unity.Plastic.Newtonsoft.Json.dll</HintPath>
  </Reference>
+ <Reference Include="SelectionFunctions">
+ <HintPath>C:/Users/ilanb/GeneticBridgeBuilding/Assets/ddls/SelectionFunctions/SelectionFunctions.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.Plastic.Antlr3.Runtime">
  <HintPath>C:/Users/ilanb/GeneticBridgeBuilding/Library/PackageCache/com.unity.collab-proxy@1.15.12/Lib/Editor/PlasticSCM/Unity.Plastic.Antlr3.Runtime.dll</HintPath>
  </Reference>
@@ -389,6 +392,18 @@
  </Reference>
  <Reference Include="log4netPlastic">
  <HintPath>C:/Users/ilanb/GeneticBridgeBuilding/Library/PackageCache/com.unity.collab-proxy@1.15.12/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
+ </Reference>
+ <Reference Include="FitnessFunctions">
+ <HintPath>C:/Users/ilanb/GeneticBridgeBuilding/Assets/ddls/FitnessFunctions/FitnessFunctions.dll</HintPath>
+ </Reference>
+ <Reference Include="CrossOverFunctions">
+ <HintPath>C:/Users/ilanb/GeneticBridgeBuilding/Assets/ddls/CrossOverFunctions/CrossOverFunctions.dll</HintPath>
+ </Reference>
+ <Reference Include="Controller">
+ <HintPath>C:/Users/ilanb/GeneticBridgeBuilding/Assets/ddls/Controller/Controller.dll</HintPath>
+ </Reference>
+ <Reference Include="MutationFunctions">
+ <HintPath>C:/Users/ilanb/GeneticBridgeBuilding/Assets/ddls/MutationFunctions/MutationFunctions.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>D:/Program Files (x86)/Unity/2020.3.30f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

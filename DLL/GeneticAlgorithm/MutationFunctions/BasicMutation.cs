@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GeneticAlgorithm.MutationFunctions.Interfaces;
 namespace GeneticAlgorithm.MutationFunctions
 {
@@ -20,11 +21,22 @@ namespace GeneticAlgorithm.MutationFunctions
                 rand = new Random();
             
             }
-            public override IChromosome Mutate(IChromosome c)
+
+            public override List<IChromosome> Mutate(List<IChromosome> c)
             {
-                var newGenes = new float[c.GetTotalSize()];
+                var returnList = new List<IChromosome>();
+                foreach (var chromosome in c)
+                {
+                    c.Add(GetMutated(chromosome));
+                }
+
+                return returnList;
+            }
+            private IChromosome GetMutated(IChromosome chromosome)
+            {
+                var newGenes = new float[chromosome.GetTotalSize()];
                 var i = 0;
-                var geneArray = c.GetGeneArray();
+                var geneArray = chromosome.GetGeneArray();
                 foreach (var gene in geneArray)
                 {
                 
@@ -44,8 +56,8 @@ namespace GeneticAlgorithm.MutationFunctions
 
                     i++;
                 }
-                c.Fill(newGenes);
-                return c;
+                chromosome.Fill(newGenes);
+                return chromosome;
             }
 
             private float GetRandomValue()

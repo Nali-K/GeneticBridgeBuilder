@@ -1,4 +1,5 @@
 ﻿using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using GeneticAlgorithm.FitnessFunctions.Interfaces;
@@ -6,7 +7,19 @@ namespace GeneticAlgorithm.FitnessFunctions
 {
     public class BasicFitness:FitnessFunction
     {
-        public override async Task<float> CalculateFitness(IChromosome chromosome, CancellationToken token)
+        public override async Task<Dictionary<IChromosome,float>> CalculateFitness(List<IChromosome> chromosomes, CancellationToken token)
+        {
+            var outputDict = new Dictionary<IChromosome, float>();
+            foreach (var chromosome in chromosomes)
+            {
+                var fitness = await GetFitness(chromosome, token);
+                outputDict.Add(chromosome,fitness);
+            }
+
+            return outputDict;
+        }
+
+        private async Task<float> GetFitness(IChromosome chromosome,CancellationToken token)
         {
             var score = 0f;
             var genes = chromosome.GetGeneArray();

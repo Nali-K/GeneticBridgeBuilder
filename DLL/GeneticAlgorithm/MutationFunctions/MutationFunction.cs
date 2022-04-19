@@ -1,8 +1,9 @@
-﻿using GeneticAlgorithm.MutationFunctions.Interfaces;
+﻿using System.Collections.Generic;
+using GeneticAlgorithm.MutationFunctions.Interfaces;
 namespace GeneticAlgorithm.MutationFunctions
 {
     public abstract class MutationFunction
     {
-        public abstract IChromosome Mutate(IChromosome c);
+        public abstract List<IChromosome> Mutate(List<IChromosome> c);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GeneticAlgorithm.Controller
@@ -8,7 +9,7 @@ namespace GeneticAlgorithm.Controller
 
         string ToJson();
         bool FromJson(string json);
-        Task<bool> RunSimulation(Chromosome chromosome);
+        Task<bool[]> RunSimulation(List<Chromosome> chromosome);
         void ResetResults();
     }
 }

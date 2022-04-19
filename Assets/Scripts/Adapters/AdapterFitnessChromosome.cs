@@ -25,6 +25,11 @@ namespace Adapters
         {
             return chromosome.dimensionSize[dimension];
         }
+
+        public GeneticAlgorithm.Controller.Chromosome GetChromosome()
+        {
+            return chromosome;
+        }
         
 
         public float[] GetGeneArray()

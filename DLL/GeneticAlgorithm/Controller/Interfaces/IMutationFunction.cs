@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GeneticAlgorithm.Controller
@@ -7,6 +8,6 @@ namespace GeneticAlgorithm.Controller
     {
         string ToJson();
         bool FromJson(string json);
-        Task<Chromosome> Mutate(Chromosome chromosome, CancellationToken token);
+        Task<List<Chromosome>> Mutate(List<Chromosome> chromosome, CancellationToken token);
     }
 }

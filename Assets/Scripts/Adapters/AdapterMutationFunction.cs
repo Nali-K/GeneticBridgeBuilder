@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using GeneticAlgorithm.Controller;
 using UnityEngine;
@@ -24,9 +25,22 @@ namespace Adapters
             throw new System.NotImplementedException();
         }
 
-        public async Task<GeneticAlgorithm.Controller.Chromosome> Mutate(GeneticAlgorithm.Controller.Chromosome chromosome, CancellationToken token)
+        public async Task<List<GeneticAlgorithm.Controller.Chromosome>> Mutate(List<GeneticAlgorithm.Controller.Chromosome> chromosome, CancellationToken token)
         {
-            return (mutationFunction.Mutate(new AdapterMutationChromosome(chromosome)) as AdapterMutationChromosome).chromosome;
+            var mutationChromosomes = new List<GeneticAlgorithm.MutationFunctions.Interfaces.IChromosome>();
+            foreach (var c in chromosome)
+            {
+                mutationChromosomes.Add(new AdapterMutationChromosome(c));
+            }
+
+            var mutated = mutationFunction.Mutate(mutationChromosomes);
+            var returnlist = new List<GeneticAlgorithm.Controller.Chromosome>();
+            foreach (var m in mutated)
+            {
+                
+                returnlist.Add((m as AdapterMutationChromosome).chromosome);
+            }
+            return returnlist;
         }
     }
 }

@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using GeneticAlgorithm.Controller;
+using GeneticAlgorithm.FitnessFunctions.Interfaces;
 using FitnessFunctionn = GeneticAlgorithm.FitnessFunctions.FitnessFunction;
+using ISimulation = GeneticAlgorithm.Controller.ISimulation;
 
 namespace Adapters
 {
@@ -24,9 +27,22 @@ namespace Adapters
             throw new NotImplementedException();
         }
 
-        public Task<float> GetFitness(GeneticAlgorithm.Controller.Chromosome chromosome, CancellationToken token)
+        public async Task<Dictionary< GeneticAlgorithm.Controller.Chromosome,float>> GetFitness(List<GeneticAlgorithm.Controller.Chromosome> chromosomes, CancellationToken token)
         {
-            return fitnessFunction.CalculateFitness(new AdapterFitnessChromosome(chromosome), token);
+            var fitnessChromosomes = new List<IChromosome>();
+            foreach (var c in chromosomes)
+            {
+                fitnessChromosomes.Add(new AdapterFitnessChromosome(c));
+            }
+            var scores =await fitnessFunction.CalculateFitness(fitnessChromosomes, token);
+            var returnValues = new Dictionary<GeneticAlgorithm.Controller.Chromosome, float>();
+            foreach (var s in scores)
+            {
+
+                returnValues.Add((s.Key as AdapterFitnessChromosome).GetChromosome(),s.Value);
+            }
+
+            return returnValues;
         }
 
         public string ToJson()

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using GeneticAlgorithm.FitnessFunctions.Interfaces;
@@ -19,12 +20,13 @@ namespace GeneticAlgorithm.FitnessFunctions
 
         }
         
-        public override async Task<float> CalculateFitness(IChromosome c, CancellationToken token)
+        public override async Task<Dictionary<IChromosome,float>> CalculateFitness(List<IChromosome> chromosomes, CancellationToken token)
         {/*
             var inst =Object.Instantiate(simulator,position,Quaternion.identity);
             var done = false;
             var simulation = inst.GetComponent<Simulation.Simulation>();
        */
+            var outputDict = new Dictionary<IChromosome, float>();
             var score = -1000;
             /*var weight = 4;
             var CalculatedCubeSpawnPos = false;
@@ -68,7 +70,7 @@ namespace GeneticAlgorithm.FitnessFunctions
             await Task.Delay(100,token);
             GameObject.Destroy(simulation.gameObject);
             */
-            return score;
+            return outputDict;
         }
 
 

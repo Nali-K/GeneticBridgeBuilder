@@ -29,9 +29,23 @@ namespace GeneticAlgorithm.CrossOverFunctions
             this.consoleController = consoleController;
         }
 
-        public override IChromosome CrossOver(IChromosome[] chromosomes)
+        public override IChromosome[] CrossOver(IChromosome[] chromosomes)
         {
-            if (chromosomes.Length != 2)
+            var returnArray = new IChromosome[chromosomes.Length * chromosomes.Length];
+            for (var i = 0; i < chromosomes.Length; i++)
+            {
+                for (var j = 0; j < chromosomes.Length; j++)
+                {
+
+                    returnArray[i * chromosomes.Length + j] = GetCrossOver(new[] { chromosomes[i],chromosomes[j]});
+                }
+            }
+
+            return returnArray;
+        }
+        private IChromosome GetCrossOver(IChromosome[] chromosomes)
+        {
+        if (chromosomes.Length != 2)
             {
                 consoleController.LogError("Simple cut Merger requires precicly two chromosons");
                 return null;
