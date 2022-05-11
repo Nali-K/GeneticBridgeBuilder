@@ -7,7 +7,7 @@ namespace GeneticAlgorithm.FitnessFunctions
 {
     public class BasicFitness:FitnessFunction
     {
-        public override async Task<Dictionary<IChromosome,float>> CalculateFitness(List<IChromosome> chromosomes, CancellationToken token)
+        public override async Task<Dictionary<IChromosome,float>> CalculateFitnessAsync(List<IChromosome> chromosomes, CancellationToken token)
         {
             var outputDict = new Dictionary<IChromosome, float>();
             foreach (var chromosome in chromosomes)

@@ -19,12 +19,17 @@ public class DLLTest : MonoBehaviour
     {
         consoleController= new ConsoleController();
         GeneticAlgorithme = new GeneticControllerr(consoleController);
-        var cross = new AdapterCrossOverFunction(new SimpleCut(0, 0, 10, consoleController));
+        var cross = new AdapterCrossOverFunction(new SimpleCut(0, 0, 9, consoleController));
+        var cross2 = new AdapterCrossOverFunction(new SimpleCut(1, 0, 9, consoleController));
+        var cross3 = new AdapterCrossOverFunction(new SimpleCut(2, 0, 9, consoleController));
         GeneticAlgorithme.AddCrossOverFunction(cross);
-        GeneticAlgorithme.AddMutationFunction(new AdapterMutationFunction(new BasicMutation.BasicMutator(0,1,0.1f)));
+        GeneticAlgorithme.AddCrossOverFunction(cross2);
+        GeneticAlgorithme.AddCrossOverFunction(cross3);
+        GeneticAlgorithme.AddMutationFunction(new AdapterMutationFunction(new BasicMutation.BasicMutator(0,9,0.01f,consoleController)));
         GeneticAlgorithme.AddFitnessFunction(new AdapterFitnessFunction(new BasicFitness()));
-        GeneticAlgorithme.AddSelectionFunction(new AdapterSelectionFunction(new AddScores(consoleController)));
-        GeneticAlgorithme.Start(5);
+        GeneticAlgorithme.AddSelectionFunction(new AdapterSelectionFunction(new AddScores(consoleController,50)));
+        GeneticAlgorithme.InitNewPopulation(10,new []{8,8,8},0,9);
+        GeneticAlgorithme.Start(10);
     }
 
     // Update is called once per frame

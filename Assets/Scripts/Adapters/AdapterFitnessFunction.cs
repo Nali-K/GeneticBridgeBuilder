@@ -27,14 +27,14 @@ namespace Adapters
             throw new NotImplementedException();
         }
 
-        public async Task<Dictionary< GeneticAlgorithm.Controller.Chromosome,float>> GetFitness(List<GeneticAlgorithm.Controller.Chromosome> chromosomes, CancellationToken token)
+        public async Task<Dictionary< GeneticAlgorithm.Controller.Chromosome,float>> GetFitnessAsync(List<GeneticAlgorithm.Controller.Chromosome> chromosomes, CancellationToken token)
         {
             var fitnessChromosomes = new List<IChromosome>();
             foreach (var c in chromosomes)
             {
                 fitnessChromosomes.Add(new AdapterFitnessChromosome(c));
             }
-            var scores =await fitnessFunction.CalculateFitness(fitnessChromosomes, token);
+            var scores =await fitnessFunction.CalculateFitnessAsync(fitnessChromosomes, token);
             var returnValues = new Dictionary<GeneticAlgorithm.Controller.Chromosome, float>();
             foreach (var s in scores)
             {

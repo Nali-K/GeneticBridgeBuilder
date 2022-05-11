@@ -3,15 +3,17 @@ using System.Threading;
 using System.Threading.Tasks;
 using GeneticAlgorithm.Controller;
 using UnityEngine;
-
+using GeneticAlgorithm.MutationFunctions;
+using ControllerChromosome=GeneticAlgorithm.Controller.Chromosome;
+using MutationChromosome=GeneticAlgorithm.MutationFunctions.Interfaces.IChromosome;
 namespace Adapters
 {
     public class AdapterMutationFunction : IMutationFunction
 
     {
-        private GeneticAlgorithm.MutationFunctions.MutationFunction mutationFunction;
+        private MutationFunction mutationFunction;
 
-        public AdapterMutationFunction(GeneticAlgorithm.MutationFunctions.MutationFunction mutationFunction)
+        public AdapterMutationFunction(MutationFunction mutationFunction)
         {
             this.mutationFunction = mutationFunction;
         }
@@ -25,21 +27,23 @@ namespace Adapters
             throw new System.NotImplementedException();
         }
 
-        public async Task<List<GeneticAlgorithm.Controller.Chromosome>> Mutate(List<GeneticAlgorithm.Controller.Chromosome> chromosome, CancellationToken token)
+        public async Task<List<ControllerChromosome>> MutateAsync(List<ControllerChromosome> chromosome, CancellationToken token)
         {
-            var mutationChromosomes = new List<GeneticAlgorithm.MutationFunctions.Interfaces.IChromosome>();
+            var mutationChromosomes = new List<MutationChromosome>();
             foreach (var c in chromosome)
             {
                 mutationChromosomes.Add(new AdapterMutationChromosome(c));
             }
-
-            var mutated = mutationFunction.Mutate(mutationChromosomes);
-            var returnlist = new List<GeneticAlgorithm.Controller.Chromosome>();
+            Debug.Log("done");
+            var mutated = await mutationFunction.MutateAsync(mutationChromosomes);
+            Debug.Log("done");
+            var returnlist = new List<ControllerChromosome>();
+            Debug.Log("done");
             foreach (var m in mutated)
             {
                 
                 returnlist.Add((m as AdapterMutationChromosome).chromosome);
-            }
+            } Debug.Log("done");
             return returnlist;
         }
     }

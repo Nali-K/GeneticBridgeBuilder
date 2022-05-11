@@ -7,7 +7,7 @@ namespace GeneticAlgorithm.Controller
     public interface ISelectionFunction
     {
         bool GetExclusive();
-        Task<List<Chromosome>> SelectChromosome(Dictionary<Chromosome,ChromosomeScores> scores, CancellationToken token);
+        Task<List<Chromosome>> SelectChromosomeAsync(Dictionary<Chromosome,ChromosomeScores> scores, CancellationToken token);
         string ToJson();
         bool FromJson(string json);
         bool GetUnique();

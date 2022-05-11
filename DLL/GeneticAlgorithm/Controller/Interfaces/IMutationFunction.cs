@@ -8,6 +8,6 @@ namespace GeneticAlgorithm.Controller
     {
         string ToJson();
         bool FromJson(string json);
-        Task<List<Chromosome>> Mutate(List<Chromosome> chromosome, CancellationToken token);
+        Task<List<Chromosome>> MutateAsync(List<Chromosome> chromosome, CancellationToken token);
     }
 }

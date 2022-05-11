@@ -4,11 +4,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using GeneticAlgorithm.Controller;
 using GeneticAlgorithm.SelectionFunctions;
-using GeneticAlgorithm.SelectionFunctions.Interfaces;
-
+using ControllerChromosome=GeneticAlgorithm.Controller.Chromosome;
+using SelectionChromosome=GeneticAlgorithm.SelectionFunctions.Interfaces.IChromosome;
 namespace Adapters
 {
-    public class AdapterSelectionFunction:GeneticAlgorithm.Controller.ISelectionFunction
+    public class AdapterSelectionFunction:ISelectionFunction
     {
         private readonly SelectionFunction selectionFunction;
 
@@ -21,15 +21,15 @@ namespace Adapters
             return false;
         }
 
-        public async Task<List<GeneticAlgorithm.Controller.Chromosome>> SelectChromosome(Dictionary<GeneticAlgorithm.Controller.Chromosome, ChromosomeScores> scores, CancellationToken token)
+        public async Task<List<ControllerChromosome>> SelectChromosomeAsync(Dictionary<ControllerChromosome, ChromosomeScores> scores, CancellationToken token)
         {
-            var chromosomes = new List<IChromosome>();
-            foreach (var i1 in scores)
+            var chromosomes = new List<SelectionChromosome>();
+            foreach (var score in scores)
             {
-                chromosomes.Add( new AdapterSelectionChromosome(i1.Value,i1.Key));
+                chromosomes.Add( new AdapterSelectionChromosome(score.Value,score.Key));
             }
 
-            var output = selectionFunction.SelectChromosomes(chromosomes);
+            var output = await selectionFunction.SelectChromosomesAsync(chromosomes);
             var returnlist = new List<GeneticAlgorithm.Controller.Chromosome>();
             foreach(var chromosome in output){
                 returnlist.Add((chromosome as AdapterSelectionChromosome).GetChromosome());

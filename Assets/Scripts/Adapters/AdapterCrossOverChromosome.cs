@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
 using GeneticAlgorithm.CrossOverFunctions.Interfaces;
-using Chromosome = GeneticAlgorithm.Controller.Chromosome;
-
+using ControllerChromosome = GeneticAlgorithm.Controller.Chromosome;
+using CrossOverChromosome = GeneticAlgorithm.CrossOverFunctions.Interfaces.IChromosome;
 namespace Adapters
 {
-    public class AdapterCrossOverChromosome:GeneticAlgorithm.CrossOverFunctions.Interfaces.IChromosome
+    public class AdapterCrossOverChromosome:CrossOverChromosome
     {
         public GeneticAlgorithm.Controller.Chromosome chromosome;
 
-        public AdapterCrossOverChromosome(GeneticAlgorithm.Controller.Chromosome chromosome)
+        public AdapterCrossOverChromosome(ControllerChromosome chromosome)
         {
             this.chromosome = chromosome;
         }
 
         public IChromosome CreateNewChromosome(int[] dimensions)
         {
-            return new AdapterCrossOverChromosome(new GeneticAlgorithm.Controller.Chromosome(dimensions));
+            return new AdapterCrossOverChromosome(new ControllerChromosome(dimensions));
         }
 
         public int GetNumDimensions()

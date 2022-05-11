@@ -43,6 +43,14 @@ namespace GeneticAlgorithm.Controller
         {
             geneArray = fillArray;
         }
+        public void Fill(float value)
+        {
+            for (var i = 0; i < totalSize; i++)
+            {
+                geneArray[i] = value;
+                
+            }
+        }
         public void FillRandom(int min, int max)
         {
             for (var i = 0; i < totalSize; i++)
