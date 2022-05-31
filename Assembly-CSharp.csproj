@@ -63,7 +63,6 @@
      <Compile Include="Assets\Scripts\Adapters\AdapterSelectionFunction.cs" />
      <Compile Include="Assets\Scripts\Adapters\AdapterSelectionChromosome.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
-     <Compile Include="Assets\Scripts\Simulation\Simulation.cs" />
      <Compile Include="Assets\Simulations\Simulations\Properties\AssemblyInfo.cs" />
      <Compile Include="Assets\Scripts\Genetics\Fitness\FitnessFunction.cs" />
      <Compile Include="Assets\Scripts\Genetics\CrossOverFunctions\SimpleCut.cs" />
@@ -99,10 +98,8 @@
      <Compile Include="Assets\Scripts\Genetics\Chromosome.cs" />
      <Compile Include="Assets\Scripts\UI\ProgressBar.cs" />
      <Compile Include="Assets\Scripts\UI\Screens.cs" />
-     <Compile Include="Assets\Scripts\Simulation\BridgeSim.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\Genetics\GeneticController.cs" />
-     <Compile Include="Assets\Scripts\Simulation\ColorSim.cs" />
      <Compile Include="Assets\Simulations\Simulations\MonoBehaviour1.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
@@ -119,6 +116,11 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
      <Compile Include="Assets\Scripts\Genetics\CrossOverFunctions\CrossOverFunction.cs" />
+     <Compile Include="Assets\UnitySimulations\UnitySimulations\MonoBehaviour1.cs" />
+     <Compile Include="Assets\UnitySimulations\UnitySimulations\Properties\AssemblyInfo.cs" />
+     <Compile Include="Assets\UnitySimulations\UnitySimulations\Simulation\BridgeSim.cs" />
+     <Compile Include="Assets\UnitySimulations\UnitySimulations\Simulation\Simulation.cs" />
+     <Compile Include="Assets\UnitySimulations\UnitySimulations\Simulation\ColorSim.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -375,11 +377,11 @@
  <Reference Include="CrossOverFunctions">
  <HintPath>C:/Users/ibeck/OneDrive/Documents/unity/GeneticBridgeBuilder/Assets/ddls/CrossOverFunctions/CrossOverFunctions.dll</HintPath>
  </Reference>
- <Reference Include="Controller">
- <HintPath>C:/Users/ibeck/OneDrive/Documents/unity/GeneticBridgeBuilder/Assets/ddls/Controller/Controller.dll</HintPath>
- </Reference>
  <Reference Include="MutationFunctions">
  <HintPath>C:/Users/ibeck/OneDrive/Documents/unity/GeneticBridgeBuilder/Assets/ddls/MutationFunctions/MutationFunctions.dll</HintPath>
+ </Reference>
+ <Reference Include="Controller">
+ <HintPath>C:/Users/ibeck/OneDrive/Documents/unity/GeneticBridgeBuilder/Assets/ddls/Controller/Controller.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.30f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

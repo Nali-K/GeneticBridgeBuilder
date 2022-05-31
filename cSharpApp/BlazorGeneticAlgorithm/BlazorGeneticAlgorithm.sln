@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorGeneticAlgorithm", "BlazorGeneticAlgorithm\BlazorGeneticAlgorithm.csproj", "{00B95967-6D28-46F0-8DB1-D2D16DBD6E5E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00B95967-6D28-46F0-8DB1-D2D16DBD6E5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00B95967-6D28-46F0-8DB1-D2D16DBD6E5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00B95967-6D28-46F0-8DB1-D2D16DBD6E5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00B95967-6D28-46F0-8DB1-D2D16DBD6E5E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

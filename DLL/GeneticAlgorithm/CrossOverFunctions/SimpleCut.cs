@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using GeneticAlgorithm.CrossOverFunctions.Interfaces;
 
@@ -30,7 +31,7 @@ namespace GeneticAlgorithm.CrossOverFunctions
             this.consoleController = consoleController;
         }
 
-        public override async Task<IChromosome[]> CrossOverAsync(IChromosome[] chromosomes)
+        public override async Task<IChromosome[]> CrossOverAsync(IChromosome[] chromosomes,CancellationToken token)
         {
             var returnArray = new IChromosome[chromosomes.Length * chromosomes.Length];
             for (var i = 0; i < chromosomes.Length; i++)
@@ -39,14 +40,16 @@ namespace GeneticAlgorithm.CrossOverFunctions
                 {
                     
                     returnArray[i * chromosomes.Length + j] = GetCrossOver(new[] { chromosomes[i],chromosomes[j]});
+                    
                 }
+                await Task.Delay(5,token);
             }
 
             return returnArray;
         }
         private IChromosome GetCrossOver(IChromosome[] chromosomes)
         {
-        if (chromosomes.Length != 2)
+            if (chromosomes.Length != 2)
             {
                 consoleController.LogError("Simple cut Merger requires precicly two chromosons");
                 return null;

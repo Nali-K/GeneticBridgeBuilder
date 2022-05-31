@@ -6,6 +6,7 @@ namespace GeneticAlgorithm.Controller
     {
         void UpdateProgress(float progress);
         void UpdateActivity(Activity stage,bool isDone = false);
+        void DisplayMessage(string message);
 
     }
 }

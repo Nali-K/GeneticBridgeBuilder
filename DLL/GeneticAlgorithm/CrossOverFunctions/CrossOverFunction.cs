@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using GeneticAlgorithm.CrossOverFunctions.Interfaces;
 
 namespace GeneticAlgorithm.CrossOverFunctions
@@ -9,7 +10,7 @@ namespace GeneticAlgorithm.CrossOverFunctions
          protected IConsoleController consoleController;
          
          
-         public abstract Task<IChromosome[]> CrossOverAsync(IChromosome[] chromosomes);
+         public abstract Task<IChromosome[]> CrossOverAsync(IChromosome[] chromosomes,CancellationToken token);
         
 
     }

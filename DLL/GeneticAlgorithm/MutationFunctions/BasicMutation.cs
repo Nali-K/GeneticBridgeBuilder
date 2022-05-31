@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using GeneticAlgorithm.MutationFunctions.Interfaces;
 namespace GeneticAlgorithm.MutationFunctions
@@ -25,20 +26,20 @@ namespace GeneticAlgorithm.MutationFunctions
                 this.consoleController = consoleController;
             }
 
-            public override async Task<List<IChromosome>> MutateAsync(List<IChromosome> c)
+            public override async Task<List<IChromosome>> MutateAsync(List<IChromosome> c,CancellationToken token)
             {
                 var returnList = new List<IChromosome>();
 
                 foreach (var chromosome in c)
                 {
 
-                    returnList.Add(await GetMutatedAsync(chromosome));
+                    returnList.Add(await GetMutatedAsync(chromosome,token));
 
                 }
                 consoleController.LogMessage("start7");
                 return returnList;
             }
-            private async Task<IChromosome> GetMutatedAsync(IChromosome chromosome)
+            private async Task<IChromosome> GetMutatedAsync(IChromosome chromosome,CancellationToken token)
             {
 
                 var newGenes = new float[chromosome.GetTotalSize()];
@@ -64,10 +65,11 @@ namespace GeneticAlgorithm.MutationFunctions
                     }
 
                     i++;
+                    
                 }
 
                 chromosome.Fill(newGenes);
-
+                
                 return chromosome;
             }
 

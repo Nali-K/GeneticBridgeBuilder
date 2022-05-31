@@ -19,7 +19,6 @@ C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\Assets\ddls\Control
 C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\Assets\ddls\Controller\amd64\msvcp140.dll
 C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\Assets\ddls\Controller\amd64\vcruntime140.dll
 C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\Assets\ddls\Controller\amd64\vcruntime140_1.dll
-C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\Assets\ddls\Controller\Controller.dll.config
 C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\Assets\ddls\Controller\Controller.dll
 C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\Assets\ddls\Controller\Controller.pdb
 C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\Controller\obj\Debug\Controller.csproj.AssemblyReference.cache

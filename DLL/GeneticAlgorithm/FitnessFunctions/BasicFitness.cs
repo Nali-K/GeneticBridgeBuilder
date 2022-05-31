@@ -14,6 +14,7 @@ namespace GeneticAlgorithm.FitnessFunctions
             {
                 var fitness = await GetFitness(chromosome, token);
                 outputDict.Add(chromosome,fitness);
+                await Task.Delay(5,token);
             }
 
             return outputDict;
@@ -26,6 +27,7 @@ namespace GeneticAlgorithm.FitnessFunctions
             foreach (var t in genes)
             {
                 score += t;
+                
             }
 
             score /= genes.Length;

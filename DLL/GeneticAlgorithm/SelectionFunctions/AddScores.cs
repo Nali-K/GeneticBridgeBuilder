@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using GeneticAlgorithm.SelectionFunctions.Interfaces;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GeneticAlgorithm.SelectionFunctions
@@ -16,7 +17,7 @@ namespace GeneticAlgorithm.SelectionFunctions
             this.numberWinning = numberWinning;
         }
 
-        public override async Task<List<IChromosome>> SelectChromosomesAsync(List<IChromosome> chromosomes)
+        public override async Task<List<IChromosome>> SelectChromosomesAsync(List<IChromosome> chromosomes,CancellationToken token)
         {
             var d = new Dictionary<IChromosome, float>();
             foreach (var chromosome in chromosomes)
