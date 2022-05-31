@@ -7,13 +7,14 @@ namespace GeneticAlgorithm.FitnessFunctions
 {
     public class BasicFitness:FitnessFunction
     {
-        public override async Task<Dictionary<IChromosome,float>> CalculateFitness(List<IChromosome> chromosomes, CancellationToken token)
+        public override async Task<Dictionary<IChromosome,float>> CalculateFitnessAsync(List<IChromosome> chromosomes, CancellationToken token)
         {
             var outputDict = new Dictionary<IChromosome, float>();
             foreach (var chromosome in chromosomes)
             {
                 var fitness = await GetFitness(chromosome, token);
                 outputDict.Add(chromosome,fitness);
+                await Task.Delay(5,token);
             }
 
             return outputDict;
@@ -26,6 +27,7 @@ namespace GeneticAlgorithm.FitnessFunctions
             foreach (var t in genes)
             {
                 score += t;
+                
             }
 
             score /= genes.Length;

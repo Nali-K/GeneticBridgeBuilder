@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
 using GeneticAlgorithm.MutationFunctions.Interfaces;
 namespace GeneticAlgorithm.MutationFunctions
 {
@@ -12,34 +15,41 @@ namespace GeneticAlgorithm.MutationFunctions
             private float mutationRatio;
             private Random rand;
 
-//            public int[] values= new int [30];
-            public BasicMutator(float min, float max, float ratio)
+            private IConsoleController consoleController;
+//          public int[] values= new int [30];
+            public BasicMutator(float min, float max, float ratio,IConsoleController consoleController)
             {
                 minValue = min;
                 maxValue = max;
                 mutationRatio = ratio;
                 rand = new Random();
-            
+                this.consoleController = consoleController;
             }
 
-            public override List<IChromosome> Mutate(List<IChromosome> c)
+            public override async Task<List<IChromosome>> MutateAsync(List<IChromosome> c,CancellationToken token)
             {
                 var returnList = new List<IChromosome>();
+
                 foreach (var chromosome in c)
                 {
-                    c.Add(GetMutated(chromosome));
-                }
 
+                    returnList.Add(await GetMutatedAsync(chromosome,token));
+
+                }
+                consoleController.LogMessage("start7");
                 return returnList;
             }
-            private IChromosome GetMutated(IChromosome chromosome)
+            private async Task<IChromosome> GetMutatedAsync(IChromosome chromosome,CancellationToken token)
             {
+
                 var newGenes = new float[chromosome.GetTotalSize()];
+
                 var i = 0;
                 var geneArray = chromosome.GetGeneArray();
+
                 foreach (var gene in geneArray)
                 {
-                
+
                     var r = (float)rand.NextDouble();
                     if (r < mutationRatio)
                     {
@@ -55,8 +65,11 @@ namespace GeneticAlgorithm.MutationFunctions
                     }
 
                     i++;
+                    
                 }
+
                 chromosome.Fill(newGenes);
+                
                 return chromosome;
             }
 

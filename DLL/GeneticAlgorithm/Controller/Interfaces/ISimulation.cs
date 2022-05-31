@@ -9,7 +9,7 @@ namespace GeneticAlgorithm.Controller
 
         string ToJson();
         bool FromJson(string json);
-        Task<bool[]> RunSimulation(List<Chromosome> chromosome);
+        Task<bool[]> RunSimulationAsync(List<Chromosome> chromosome);
         void ResetResults();
     }
 }

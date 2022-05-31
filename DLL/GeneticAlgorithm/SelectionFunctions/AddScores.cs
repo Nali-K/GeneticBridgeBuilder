@@ -3,17 +3,21 @@ using System.Collections.Generic;
 
 using GeneticAlgorithm.SelectionFunctions.Interfaces;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
 namespace GeneticAlgorithm.SelectionFunctions
 {
     public class AddScores:SelectionFunction
     {
         private int numberWinning=5;
-        public AddScores(IConsoleController consoleController)
+        public AddScores(IConsoleController consoleController,int numberWinning)
         {
             this.consoleController = consoleController;
+            this.numberWinning = numberWinning;
         }
 
-        public override List<IChromosome> SelectChromosomes(List<IChromosome> chromosomes)
+        public override async Task<List<IChromosome>> SelectChromosomesAsync(List<IChromosome> chromosomes,CancellationToken token)
         {
             var d = new Dictionary<IChromosome, float>();
             foreach (var chromosome in chromosomes)
@@ -30,7 +34,13 @@ namespace GeneticAlgorithm.SelectionFunctions
             var sortedDict = from entry in d orderby entry.Value descending select entry;
      
             List<IChromosome> winners = new List<IChromosome>();
-            for (var i = 0; i < numberWinning; i++)
+            var correctedNumberWinning = numberWinning;
+            if (numberWinning >= sortedDict.Count())
+            {
+                correctedNumberWinning = sortedDict.Count();
+                consoleController.LogWarning("number of winners is larger then or equal to the amount of candidate, meaning every chromosome in will be selected");
+            }
+            for (var i = 0; i < correctedNumberWinning; i++)
             {
                 var c = sortedDict.ElementAt(i);
                 winners.Add(c.Key);

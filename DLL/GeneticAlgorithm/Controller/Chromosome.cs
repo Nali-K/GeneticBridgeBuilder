@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Random = System.Random;
 namespace GeneticAlgorithm.Controller
 {
@@ -42,6 +41,14 @@ namespace GeneticAlgorithm.Controller
         public void Fill(float[] fillArray)
         {
             geneArray = fillArray;
+        }
+        public void Fill(float value)
+        {
+            for (var i = 0; i < totalSize; i++)
+            {
+                geneArray[i] = value;
+                
+            }
         }
         public void FillRandom(int min, int max)
         {

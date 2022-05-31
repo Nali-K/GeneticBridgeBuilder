@@ -1,0 +1,15 @@
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\cSharpApp\GeneticAlgortimConsole\GeneticAlgortimConsole\bin\Debug\net6.0\GeneticAlgortimConsole.exe
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\cSharpApp\GeneticAlgortimConsole\GeneticAlgortimConsole\bin\Debug\net6.0\GeneticAlgortimConsole.deps.json
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\cSharpApp\GeneticAlgortimConsole\GeneticAlgortimConsole\bin\Debug\net6.0\GeneticAlgortimConsole.runtimeconfig.json
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\cSharpApp\GeneticAlgortimConsole\GeneticAlgortimConsole\bin\Debug\net6.0\GeneticAlgortimConsole.dll
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\cSharpApp\GeneticAlgortimConsole\GeneticAlgortimConsole\bin\Debug\net6.0\GeneticAlgortimConsole.pdb
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\cSharpApp\GeneticAlgortimConsole\GeneticAlgortimConsole\obj\Debug\net6.0\GeneticAlgortimConsole.csproj.AssemblyReference.cache
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\cSharpApp\GeneticAlgortimConsole\GeneticAlgortimConsole\obj\Debug\net6.0\GeneticAlgortimConsole.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\cSharpApp\GeneticAlgortimConsole\GeneticAlgortimConsole\obj\Debug\net6.0\GeneticAlgortimConsole.AssemblyInfoInputs.cache
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\cSharpApp\GeneticAlgortimConsole\GeneticAlgortimConsole\obj\Debug\net6.0\GeneticAlgortimConsole.AssemblyInfo.cs
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\cSharpApp\GeneticAlgortimConsole\GeneticAlgortimConsole\obj\Debug\net6.0\GeneticAlgortimConsole.csproj.CoreCompileInputs.cache
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\cSharpApp\GeneticAlgortimConsole\GeneticAlgortimConsole\obj\Debug\net6.0\GeneticAlgortimConsole.dll
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\cSharpApp\GeneticAlgortimConsole\GeneticAlgortimConsole\obj\Debug\net6.0\refint\GeneticAlgortimConsole.dll
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\cSharpApp\GeneticAlgortimConsole\GeneticAlgortimConsole\obj\Debug\net6.0\GeneticAlgortimConsole.pdb
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\cSharpApp\GeneticAlgortimConsole\GeneticAlgortimConsole\obj\Debug\net6.0\GeneticAlgortimConsole.genruntimeconfig.cache
+C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\cSharpApp\GeneticAlgortimConsole\GeneticAlgortimConsole\obj\Debug\net6.0\ref\GeneticAlgortimConsole.dll

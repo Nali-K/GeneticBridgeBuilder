@@ -20,7 +20,7 @@ namespace GeneticAlgorithm.FitnessFunctions
 
         }
         
-        public override async Task<Dictionary<IChromosome,float>> CalculateFitness(List<IChromosome> chromosomes, CancellationToken token)
+        public override async Task<Dictionary<IChromosome,float>> CalculateFitnessAsync(List<IChromosome> chromosomes, CancellationToken token)
         {/*
             var inst =Object.Instantiate(simulator,position,Quaternion.identity);
             var done = false;

@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 namespace GeneticAlgorithm.Controller
 {
     public class GeneticController
     {
-        //private IUserInterface userInterface;
+        private IUserInterface userInterface;
         public IConsoleController consoleController;
         public List<IFitnessFunction> FitnessFunctions= new List<IFitnessFunction>();
         public List<ISelectionFunction> SelectionFunctions= new List<ISelectionFunction>();
@@ -19,13 +15,16 @@ namespace GeneticAlgorithm.Controller
         public List<ISimulation> Simulations=new List<ISimulation>();
         private CancellationTokenSource cancellationTokenSource;
         private int generationsToGo;
+
+        private List<Chromosome> breedingPopulation;
+        private List<Chromosome> population;
         //private List<Chromosome> population;
 
-        public GeneticController(/*IUserInterface userInterface,*/ IConsoleController consoleController)
+        public GeneticController(IUserInterface userInterface, IConsoleController consoleController)
         {
             
             this.consoleController = consoleController;
-           
+            this.userInterface = userInterface;
             cancellationTokenSource = new CancellationTokenSource();
         }        
         /*public GeneticController( IConsoleController consoleController)
@@ -35,10 +34,43 @@ namespace GeneticAlgorithm.Controller
             cancellationTokenSource = new CancellationTokenSource();
         }*/
 
-        public void Start(int numGenerations)
+        public void InitNewPopulation(int Amount,int[] chromosomeShape,float fillValue)
+        {
+            breedingPopulation = new List<Chromosome>();
+
+            for (var i = 0; i < Amount; i++)
+            {
+                breedingPopulation.Add(new Chromosome(chromosomeShape));
+                breedingPopulation[i].Fill(fillValue);
+            }
+        }
+        public void InitNewPopulation(int Amount,int[] chromosomeShape,int fillValueMin,int intValueMax)
+        {
+            breedingPopulation = new List<Chromosome>();
+            population = new List<Chromosome>();
+            for (var i = 0; i < Amount; i++)
+            {
+                breedingPopulation.Add(new Chromosome(chromosomeShape));
+                breedingPopulation[i].FillRandom(fillValueMin,intValueMax);
+            }
+        }
+        public void InitNewPopulation(int Amount,int[] chromosomeShape,float fillValueMin,float intValueMax)
+        {
+            breedingPopulation = new List<Chromosome>();
+            population = new List<Chromosome>();
+            for (var i = 0; i < Amount; i++)
+            {
+                breedingPopulation.Add(new Chromosome(chromosomeShape));
+                breedingPopulation[i].FillRandom(fillValueMin,intValueMax);
+            }
+        }
+        public async Task StartAsync(int numGenerations)
         {
             generationsToGo = numGenerations;
-            Evolve(cancellationTokenSource.Token);
+            consoleController.LogMessage("start method");
+            await EvolveAsync(cancellationTokenSource.Token);
+            
+            //EvolveAsync(cancellationTokenSource.Token);
         }
         
         public void Stop(bool finishGeneration = true)
@@ -53,62 +85,65 @@ namespace GeneticAlgorithm.Controller
             }
         }
 
-        public async Task Evolve(CancellationToken token)
+      
+        public async Task EvolveAsync(CancellationToken token)
         {
-            var population = new List<Chromosome>();
-            var breedingPopulation = new List<Chromosome>();
-            //temporary test code
-            for (var i = 0; i < 5; i++)
+            consoleController.LogMessage("evolveAsync Method");
+
+            consoleController.LogMessage("awaited");
+            try
             {
-                breedingPopulation.Add(new Chromosome(new [] {3,3}));
-                breedingPopulation[i].FillRandom(0,9);
+                userInterface.UpdateActivity(Activity.Breeding);
             }
-            
-            
-            //end test code
+            catch (Exception e)
+            {
+                consoleController.LogError(e.Message);
+                throw;
+            }
+            consoleController.LogMessage("no");
+
             do
             {
+                await Task.Delay(10,token);
                 //temporary test code
                 consoleController.LogMessage(generationsToGo.ToString());
-                foreach (var VARIABLE in breedingPopulation)
+                foreach (var chromosone in breedingPopulation)
                 {
-                    consoleController.LogMessage(VARIABLE.ToString());
+                    consoleController.LogMessage(chromosone.ToString());
+                    userInterface.DisplayMessage(chromosone.ToString());
+                    await Task.Delay(10,token);
                 }
                 //end test code
                 consoleController.LogMessage("breed");
                 consoleController.LogMessage(population.Count.ToString());
-                
-                population = await Breed(breedingPopulation, token);
-                foreach (var VARIABLE in population)
-                {
-                    consoleController.LogMessage(VARIABLE.ToString());
-                }
+
+                population = await BreedAsync(breedingPopulation, token);
+
                 consoleController.LogMessage("mutate");
                 consoleController.LogMessage(population.Count.ToString());
-                population = await Mutate(population, token);
-                foreach (var VARIABLE in population)
-                {
-                    consoleController.LogMessage(VARIABLE.ToString());
-                }
+                population = await MutateAsync(population, token);
+
                 consoleController.LogMessage("simulate");
                 consoleController.LogMessage(population.Count.ToString());
-                await RunSimulations(population, token);
+                await RunSimulationsAsync(population, token);
                 consoleController.LogMessage("score");
                 consoleController.LogMessage(population.Count.ToString());
-                var chromosomeScores = await RunFitnessFunctions(population,token);
+                var chromosomeScores = await RunFitnessFunctionsAsync(population,token);
                 consoleController.LogMessage("select");
                 consoleController.LogMessage(population.Count.ToString());
-                breedingPopulation = await RunSelectionFunctions(chromosomeScores, token);
+                breedingPopulation = await RunSelectionFunctionsAsync(chromosomeScores, token);
                 
                 generationsToGo--;
-
+                consoleController.LogMessage("done: "+generationsToGo);
+                userInterface.DisplayMessage("done: "+generationsToGo);
             } while (generationsToGo != 0);
+            userInterface.UpdateActivity(Activity.WaitingForInput);
         }
 
 
 
 
-        private async Task RunSimulations(List<Chromosome> population, CancellationToken token)
+        private async Task RunSimulationsAsync(List<Chromosome> population, CancellationToken token)
         {
             var progressStep = 0;
             var totalProgressSteps = (population.Count * Simulations.Count);
@@ -116,15 +151,16 @@ namespace GeneticAlgorithm.Controller
             {
                 simulation.ResetResults();
 
-                await simulation.RunSimulation(population);
+                await simulation.RunSimulationAsync(population);
                 progressStep++;
+                await Task.Delay(10,token);
                 //userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
             
             }
 
             
         }
-        private async Task<Dictionary<Chromosome,ChromosomeScores>> RunFitnessFunctions(List<Chromosome> population,CancellationToken token)
+        private async Task<Dictionary<Chromosome,ChromosomeScores>> RunFitnessFunctionsAsync(List<Chromosome> population,CancellationToken token)
         {
             var scores = new Dictionary<Chromosome,ChromosomeScores>() ;
             var progressStep = 0;
@@ -133,7 +169,7 @@ namespace GeneticAlgorithm.Controller
 
             foreach (var fitnessFunction in FitnessFunctions)
             {
-                var newScores =await fitnessFunction.GetFitness(population,token);
+                var newScores =await fitnessFunction.GetFitnessAsync(population,token);
                 foreach (var score in newScores)
                 {
                     if (!scores.ContainsKey(score.Key))
@@ -144,6 +180,8 @@ namespace GeneticAlgorithm.Controller
                     scores[score.Key].AddScore(fitnessFunction,score.Value);
 
                 }
+
+                await Task.Delay(10,token);
                 progressStep++;
             }
                 //userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
@@ -152,7 +190,7 @@ namespace GeneticAlgorithm.Controller
 
             return scores;
         }
-        private async Task<List<Chromosome>> RunSelectionFunctions(Dictionary<Chromosome,ChromosomeScores> chromosomeScores, CancellationToken token)
+        private async Task<List<Chromosome>> RunSelectionFunctionsAsync(Dictionary<Chromosome,ChromosomeScores> chromosomeScores, CancellationToken token)
         {
             var breedingPopulation = new List<Chromosome>();
             var progressStep = 0;
@@ -160,8 +198,9 @@ namespace GeneticAlgorithm.Controller
 
             foreach (var selectionFunction in SelectionFunctions)
             {
-                breedingPopulation.AddRange(await selectionFunction.SelectChromosome(chromosomeScores,token));
+                breedingPopulation.AddRange(await selectionFunction.SelectChromosomeAsync(chromosomeScores,token));
                 progressStep++;
+                await Task.Delay(10,token);
             }
             //userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
 
@@ -169,38 +208,41 @@ namespace GeneticAlgorithm.Controller
 
             return breedingPopulation;
         }        
-        private async Task<List<Chromosome>> Breed(List<Chromosome> breedingPopulation,CancellationToken token)
+        private async Task<List<Chromosome>> BreedAsync(List<Chromosome> breedingPopulation,CancellationToken token)
         {
             var population = new List<Chromosome>();
             foreach (var chromosome in breedingPopulation)
             {
                 population.Add(chromosome);
             }
-
+            await Task.Delay(10,token);
    
             foreach (var crossOverFunction in CrossOverFunctions)
             {
                 //var progress = (float) atMerger /  mergers.Count;
 
-                var newChromosomes = await crossOverFunction.CrossOver(breedingPopulation,token);
+                var newChromosomes = await crossOverFunction.CrossOverAsync(breedingPopulation,token);
                 population.AddRange(newChromosomes);
-                               
-                await Task.Delay(50,token);
+                await Task.Delay(10,token);
+                
             }
 
             return population;
         }
 
-        private async Task<List<Chromosome>> Mutate(List<Chromosome> population,CancellationToken token, int startAt=0)
+        private async Task<List<Chromosome>> MutateAsync(List<Chromosome> population,CancellationToken token, int startAt=0)
         {
-            consoleController.LogMessage("start mutating");
+            consoleController.LogMessage("start mutating2");
+
 
                 //UpdateEvolveScreen("mutating", (float)i/(float)(Chromosomes.Count-numBest),0,simulatainousChecks,"");
                 foreach (var mutationFunction in MutationsFunctions)
                 {
                     
-                    population= await mutationFunction.Mutate(population,token);
-          
+                    consoleController.LogMessage("start mutating");
+                    population= await mutationFunction.MutateAsync(population,token);
+
+                    await Task.Delay(10,token);
                 }
 
             

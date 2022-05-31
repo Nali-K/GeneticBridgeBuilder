@@ -7,7 +7,7 @@ namespace GeneticAlgorithm.Controller
     public interface ICrossOverFunction
     {
 
-        Task<List<Chromosome>> CrossOver(List<Chromosome> chromosomes,CancellationToken token);
+        Task<List<Chromosome>> CrossOverAsync(List<Chromosome> chromosomes,CancellationToken token);
         
         string ToJson();
         bool FromJson(string json);

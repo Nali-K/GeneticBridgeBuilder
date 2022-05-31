@@ -9,7 +9,7 @@ namespace GeneticAlgorithm.Controller
     { 
         Task<ISimulation> GetRequiredSimulation(CancellationToken token);
         Type GetRequiredSimulationType();
-        Task<Dictionary<Chromosome,float>> GetFitness(List<Chromosome> chromosome,CancellationToken token);
+        Task<Dictionary<Chromosome,float>> GetFitnessAsync(List<Chromosome> chromosome,CancellationToken token);
         string ToJson();
         bool FromJson(string json);
     }
