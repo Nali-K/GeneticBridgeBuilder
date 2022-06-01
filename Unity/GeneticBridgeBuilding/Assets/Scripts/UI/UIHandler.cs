@@ -7,7 +7,7 @@ using UnityEngine;
 public class UIHandler : MonoBehaviour
 {
     [SerializeField]private Screens currentScreen = Screens.main;
-    public GeneticController geneticController;
+
     [SerializeField]private List<UIScreen> screens=new List<UIScreen>();
     // Start is called before the first frame update
     void Start()
@@ -15,7 +15,7 @@ public class UIHandler : MonoBehaviour
         foreach (var s in GetComponentsInChildren<UIScreen>(true))
         {
             screens.Add(s);
-            s.Init(geneticController);
+
         }
     }
 

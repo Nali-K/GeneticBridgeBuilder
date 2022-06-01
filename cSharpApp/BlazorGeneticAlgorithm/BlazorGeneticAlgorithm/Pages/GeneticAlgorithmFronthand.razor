@@ -1,0 +1,28 @@
+@page "/GeneticAlgorithm"
+@using BlazorGeneticAlgorithm.Controllers
+
+<PageTitle>Genetic Algorithm</PageTitle>
+
+<h1>Genetic Algorithm</h1>
+
+Welcome to your new app.<br />
+<button class="btn btn-primary" @onclick="StartAlgorithm">Start Algorithm</button>
+<p role="status">Status @Status</p>
+
+@code {
+    private DLLTestController dllTestController;
+    public string Status { get; set; } = "waiting";
+
+    public GeneticAlgorithmFronthand()
+    {
+     
+        dllTestController = new DLLTestController(new UserInterfaceController(this));
+    }
+    private void StartAlgorithm()
+    {
+        
+        dllTestController.Start();
+        
+    }
+
+}

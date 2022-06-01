@@ -2,7 +2,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 using GeneticAlgorithm.Controller;
+<<<<<<< HEAD:Unity/GeneticBridgeBuilding/cSharpApp/BlazorGeneticAlgorithm/BlazorGeneticAlgorithm/Adapters/AdapterMutationFunction.cs
 
+=======
+using UnityEngine;
+>>>>>>> 8cb50db32937e524d8bd2d753bfac97bb3eece2e:Assets/Scripts/Adapters/AdapterMutationFunction.cs
 using GeneticAlgorithm.MutationFunctions;
 using ControllerChromosome=GeneticAlgorithm.Controller.Chromosome;
 using MutationChromosome=GeneticAlgorithm.MutationFunctions.Interfaces.IChromosome;
@@ -34,16 +38,28 @@ namespace Adapters
             {
                 mutationChromosomes.Add(new AdapterMutationChromosome(c));
             }
+<<<<<<< HEAD:Unity/GeneticBridgeBuilding/cSharpApp/BlazorGeneticAlgorithm/BlazorGeneticAlgorithm/Adapters/AdapterMutationFunction.cs
 
             var mutated = await mutationFunction.MutateAsync(mutationChromosomes);
 
             var returnlist = new List<ControllerChromosome>();
 
+=======
+            Debug.Log("done");
+            var mutated = await mutationFunction.MutateAsync(mutationChromosomes);
+            Debug.Log("done");
+            var returnlist = new List<ControllerChromosome>();
+            Debug.Log("done");
+>>>>>>> 8cb50db32937e524d8bd2d753bfac97bb3eece2e:Assets/Scripts/Adapters/AdapterMutationFunction.cs
             foreach (var m in mutated)
             {
                 
                 returnlist.Add((m as AdapterMutationChromosome).chromosome);
+<<<<<<< HEAD:Unity/GeneticBridgeBuilding/cSharpApp/BlazorGeneticAlgorithm/BlazorGeneticAlgorithm/Adapters/AdapterMutationFunction.cs
             } 
+=======
+            } Debug.Log("done");
+>>>>>>> 8cb50db32937e524d8bd2d753bfac97bb3eece2e:Assets/Scripts/Adapters/AdapterMutationFunction.cs
             return returnlist;
         }
     }

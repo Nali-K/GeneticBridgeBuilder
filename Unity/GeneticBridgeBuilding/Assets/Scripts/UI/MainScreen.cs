@@ -23,7 +23,7 @@ namespace UI
             int gen = 0;
             if (!int.TryParse(generations.text, out gen)) return;
             if (gen<0) return;
-            geneticController.StartEvolving(gen);
+
 
         }
     }

@@ -1,0 +1,31 @@
+@page "/GeneticAlgorithm"
+@using GenenticAlgorithmBlazor.Client.Controllers
+@using System.Runtime.InteropServices
+@inject DLLTestController _dllTestController
+@inject ConsoleController _consoleController
+@inject UserInterfaceController _userInterfaceController
+<PageTitle>Genetic Algorithm</PageTitle>
+
+<h1>Genetic Algorithm</h1>
+
+Welcome to your new app.<br/>
+<button class="btn btn-primary" onclick= "@_dllTestController.StartAsync">Start Algorithm</button>
+<p role="status">Status @_userInterfaceController.status</p>
+<p>@foreach (var output in @_userInterfaceController.output)
+   {
+       @output;
+       <br />
+   }</p>
+
+@code {
+
+    protected override void OnInitialized() {
+        _userInterfaceController.UpdatedUI += (object? sender,EventArgs e) =>
+        {
+            InvokeAsync(StateHasChanged);
+        };
+        _dllTestController.Init(_consoleController,_userInterfaceController);
+    }
+
+
+}

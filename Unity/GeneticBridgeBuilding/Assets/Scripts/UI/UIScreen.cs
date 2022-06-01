@@ -9,7 +9,7 @@ namespace UI
         [SerializeField]protected bool showing = true;
         public Screens screen;
         protected List<GameObject> subObjects= new List<GameObject>();
-        protected GeneticController geneticController;
+        
         
         public void Start()
         {
@@ -45,9 +45,6 @@ namespace UI
             showing = true;
         }
 
-        public void Init(GeneticController geneticController)
-        {
-            this.geneticController = geneticController;
-        }
+       
     }
 }

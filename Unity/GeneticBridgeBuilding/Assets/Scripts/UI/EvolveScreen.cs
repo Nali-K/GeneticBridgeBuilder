@@ -31,12 +31,12 @@ namespace UI
         }
         public void StopNow()
         {
-            geneticController.StopEvolving(true);
+
         }
 
         public void StopNextGeneration()
         {
-            geneticController.StopEvolving();
+
         }
     }
 }

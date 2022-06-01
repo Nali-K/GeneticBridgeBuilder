@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.0-preview.4.22251.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.0-preview.4.22251.1" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\GenenticAlgorithmBlazor.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Controller, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\DLL\GeneticAlgorithm\Controller\bin\Debug\Controller.dll</HintPath>
+    </Reference>
+    <Reference Include="CrossOverFunctions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\DLL\GeneticAlgorithm\CrossOverFunctions\bin\Debug\CrossOverFunctions.dll</HintPath>
+    </Reference>
+    <Reference Include="FitnessFunctions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\DLL\GeneticAlgorithm\FitnessFunctions\bin\Debug\FitnessFunctions.dll</HintPath>
+    </Reference>
+    <Reference Include="MutationFunctions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\DLL\GeneticAlgorithm\MutationFunctions\bin\Debug\MutationFunctions.dll</HintPath>
+    </Reference>
+    <Reference Include="SelectionFunctions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\DLL\GeneticAlgorithm\SelectionFunctions\bin\Debug\SelectionFunctions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -12,3 +12,5 @@ C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorith
 C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\SelectionFunctions\obj\Debug\SelectionFunctions.dll
 C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\SelectionFunctions\obj\Debug\SelectionFunctions.pdb
 C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\SelectionFunctions\obj\Debug\SelectionFunctions.csproj.AssemblyReference.cache
+C:\Users\ilanb\GeneticBridgeBuilding\DLL\GeneticAlgorithm\SelectionFunctions\bin\Debug\SelectionFunctions.dll
+C:\Users\ilanb\GeneticBridgeBuilding\DLL\GeneticAlgorithm\SelectionFunctions\bin\Debug\SelectionFunctions.pdb

@@ -3,6 +3,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using GeneticAlgorithm.Controller;
 using GeneticAlgorithm.CrossOverFunctions;
+<<<<<<< HEAD:Unity/GeneticBridgeBuilding/cSharpApp/BlazorGeneticAlgorithm/BlazorGeneticAlgorithm/Adapters/AdapterCrossOverFunction.cs
+=======
+using UnityEngine;
+>>>>>>> 8cb50db32937e524d8bd2d753bfac97bb3eece2e:Assets/Scripts/Adapters/AdapterCrossOverFunction.cs
 using ControllerChromosome= GeneticAlgorithm.Controller.Chromosome;
 namespace Adapters
 {
@@ -22,9 +26,16 @@ namespace Adapters
                 chrom[i] = new AdapterCrossOverChromosome(chromosomes[i]);
             }
             var newChromosomes=  await crossOverFunction.CrossOverAsync(chrom);
+<<<<<<< HEAD:Unity/GeneticBridgeBuilding/cSharpApp/BlazorGeneticAlgorithm/BlazorGeneticAlgorithm/Adapters/AdapterCrossOverFunction.cs
 
             var returnList = new List<ControllerChromosome>();
 
+=======
+            Debug.Log("hier?");
+            var returnList = new List<ControllerChromosome>();
+            Debug.Log("of hier?");
+            Debug.Log(newChromosomes.Length);
+>>>>>>> 8cb50db32937e524d8bd2d753bfac97bb3eece2e:Assets/Scripts/Adapters/AdapterCrossOverFunction.cs
             foreach (var c in newChromosomes)
             {
                 returnList.Add((c as AdapterCrossOverChromosome).chromosome);

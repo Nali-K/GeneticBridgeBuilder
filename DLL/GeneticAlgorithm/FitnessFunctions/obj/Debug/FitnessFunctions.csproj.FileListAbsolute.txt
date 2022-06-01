@@ -12,3 +12,5 @@ C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorith
 C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\FitnessFunctions\obj\Debug\FitnessFunctions.csproj.CoreCompileInputs.cache
 C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\FitnessFunctions\obj\Debug\FitnessFunctions.dll
 C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\FitnessFunctions\obj\Debug\FitnessFunctions.pdb
+C:\Users\ilanb\GeneticBridgeBuilding\DLL\GeneticAlgorithm\FitnessFunctions\bin\Debug\FitnessFunctions.dll
+C:\Users\ilanb\GeneticBridgeBuilding\DLL\GeneticAlgorithm\FitnessFunctions\bin\Debug\FitnessFunctions.pdb
