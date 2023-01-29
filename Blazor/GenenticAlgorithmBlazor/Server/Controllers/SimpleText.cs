@@ -20,10 +20,10 @@ namespace GenenticAlgorithmBlazor.Server.Controllers
             _logger = logger;
         }
 
-        public void Write(string text)
-        {
-            System.IO.File.WriteAllText("Data/test.txt", text);
-        }
+        //public void Write(string text)
+        //{
+        //    System.IO.File.WriteAllText("Data/test.txt", text);
+        //}
         [HttpGet]
         public string Get()
         {
@@ -32,20 +32,29 @@ namespace GenenticAlgorithmBlazor.Server.Controllers
             
         }
 
+        /// <summary>
+        /// store a simple text in a data folder and store 3 random chromosomes in a data folder as test
+        /// </summary>
+        /// <param name="post">the simple text</param>
         [HttpPost]
+        
         public void Post(TestText post)
         {
             System.IO.File.WriteAllText("Data/test.txt", post.testText);
-            var chromosomes = new List<Chromosome>();
-            CreateChromosome(chromosomes);
-            CreateChromosome(chromosomes);
-            CreateChromosome(chromosomes);
+            var chromosomes = new List<SharedChromosome>();
+            //CreateChromosome(chromosomes);
+            //CreateChromosome(chromosomes);
+            //CreateChromosome(chromosomes);
             var c = JsonConvert.SerializeObject(chromosomes);
             System.IO.File.WriteAllText("Data/chromosomes.json", c);
 
         }
 
-        public void CreateChromosome(List<Chromosome> chromosomes)
+        /// <summary>
+        /// test function that creates a random chromosome and adds it to a List
+        /// </summary>
+        /// <param name="chromosomes"> a list of chromosome objects to which a new chromosome is added</param>
+        /*public void CreateChromosome(List<Chromosome> chromosomes)
         {
             var rand = new Random();
             var values = new int[3, 2, 3];
@@ -60,6 +69,6 @@ namespace GenenticAlgorithmBlazor.Server.Controllers
                 }
             }
             chromosomes.Add(new Chromosome(values));
-        }
+        }*/
     }
 }

@@ -14,3 +14,9 @@ C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorith
 C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\MutationFunctions\obj\Debug\MutationFunctions.pdb
 C:\Users\ilanb\GeneticBridgeBuilding\DLL\GeneticAlgorithm\MutationFunctions\bin\Debug\MutationFunctions.dll
 C:\Users\ilanb\GeneticBridgeBuilding\DLL\GeneticAlgorithm\MutationFunctions\bin\Debug\MutationFunctions.pdb
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\MutationFunctions\bin\Debug\MutationFunctions.dll
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\MutationFunctions\bin\Debug\MutationFunctions.pdb
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\MutationFunctions\obj\Debug\MutationFunctions.csprojAssemblyReference.cache
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\MutationFunctions\obj\Debug\MutationFunctions.csproj.CoreCompileInputs.cache
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\MutationFunctions\obj\Debug\MutationFunctions.dll
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\MutationFunctions\obj\Debug\MutationFunctions.pdb

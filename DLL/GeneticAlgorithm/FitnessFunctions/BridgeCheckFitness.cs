@@ -8,15 +8,15 @@ namespace GeneticAlgorithm.FitnessFunctions
 {
    [Serializable] public class BridgeCheckFitness:FitnessFunction
     {
-        public ISimulation simulator;
+        public IBridgeCaryWeightSimulation simulator;
 
         
 
 
         
-        public BridgeCheckFitness()
+        public BridgeCheckFitness(IBridgeCaryWeightSimulation simulator)
         {
-            //this.simulator = simulator;
+            this.simulator = simulator;
 
         }
         
@@ -28,6 +28,13 @@ namespace GeneticAlgorithm.FitnessFunctions
        */
             var outputDict = new Dictionary<IChromosome, float>();
             var score = -1000;
+            await simulator.SimulateAsync(chromosomes);
+
+            foreach (var chromosome in chromosomes)
+            {
+                //var weight = simulator.GetMaxWeight(chromosome);
+                outputDict.Add(chromosome,1);
+            }
             /*var weight = 4;
             var CalculatedCubeSpawnPos = false;
             Vector3 cubeSpawnPos= new Vector3();

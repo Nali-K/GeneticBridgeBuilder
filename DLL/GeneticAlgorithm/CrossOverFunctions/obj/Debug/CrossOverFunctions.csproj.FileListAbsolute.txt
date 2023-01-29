@@ -14,3 +14,9 @@ C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorith
 C:\Users\ibeck\OneDrive\Documents\unity\GeneticBridgeBuilder\DLL\GeneticAlgorithm\CrossOverFunctions\obj\Debug\CrossOverFunctions.pdb
 C:\Users\ilanb\GeneticBridgeBuilding\DLL\GeneticAlgorithm\CrossOverFunctions\bin\Debug\CrossOverFunctions.dll
 C:\Users\ilanb\GeneticBridgeBuilding\DLL\GeneticAlgorithm\CrossOverFunctions\bin\Debug\CrossOverFunctions.pdb
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\CrossOverFunctions\bin\Debug\CrossOverFunctions.dll
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\CrossOverFunctions\bin\Debug\CrossOverFunctions.pdb
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\CrossOverFunctions\obj\Debug\CrossOverFunctions.csprojAssemblyReference.cache
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\CrossOverFunctions\obj\Debug\CrossOverFunctions.csproj.CoreCompileInputs.cache
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\CrossOverFunctions\obj\Debug\CrossOverFunctions.dll
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\CrossOverFunctions\obj\Debug\CrossOverFunctions.pdb

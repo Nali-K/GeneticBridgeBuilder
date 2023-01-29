@@ -17,6 +17,9 @@ namespace Simulation
         private Assignment assignment;
         private List<Chromosome> chromosomes;
         private CancellationTokenSource tokenSource;
+        public CoroutineRunner coroutineRunner;
+        public GameObject bridgeDropSimulationPrefab;
+        public GameObject bridgeStabilitySimulationPrefab;
         public void BridgeSim(List<Chromosome> chromosomes)
         {
             this.chromosomes = chromosomes;
@@ -26,16 +29,17 @@ namespace Simulation
 
         private void Start()
         {
-            chromosomes = new List<Chromosome>();
+            AssignmentLoader = new LoadAssigmentFromWebApi(coroutineRunner);
+            /*chromosomes = new List<Chromosome>();
             CreateChromosome();
             CreateChromosome();
             CreateChromosome();
             Debug.Log(chromosomes.Count);
             SaveIntoJson();
-            HandleAssignments(tokenSource.Token);
+            HandleAssignments(tokenSource.Token);*/
         }
 
-        private async Task HandleAssignments(CancellationToken token)
+        public async Task HandleAssignments(CancellationToken token)
         {
             assignment = await AssignmentLoader.LoadAssignmentAsync(token);
             await RunAssignmentAsync(token);
@@ -45,29 +49,76 @@ namespace Simulation
 
         private async Task RunAssignmentAsync(CancellationToken token)
         {
-            foreach (var sim in assignment.simulationToRun)
+            foreach (var sim in assignment.simulationsToRun)
             {
-                switch (sim)
+                switch (Assignment.GetSimulation(sim))
                 {
                     case Simulations.Dropblock:
-                        await RunSimulationAsync<BridgeDropSimulation>();
+                        await RunSimulationAsync(bridgeDropSimulationPrefab,token);
                         break;
                     case Simulations.Stability:
-                        await RunSimulationAsync<BridgeStablilitySimulation>();
+                        await RunSimulationAsync(bridgeStabilitySimulationPrefab,token);
                         break;
                 }
                 
             }
 
             assignment.completed = true;
+            var submitter = new SubmitAssignmentToWebApi(coroutineRunner);
+            var s=await submitter.SubmitAssignmentAsync(token, assignment);
         }
 
-        private async Task RunSimulationAsync<T>()
+        private async Task testAsync(int delay,CancellationToken token)
         {
-            throw new NotImplementedException();
+            await Task.Delay(delay *1000);
+        }
+        private async Task RunSimulationAsync(GameObject prefab,CancellationToken token)
+        {
+            var numSimulations = 20;
+            var simulations = new Simulation[numSimulations];
+            var tasks = new List<Task>();
+            var atChromosome = 0;
+            for (var i = 0; i < numSimulations; i++)
+            {
+                var instance = Instantiate(prefab, new Vector3(0, 0, i*20), Quaternion.identity);
+                simulations[i]=(instance.GetComponent<Simulation>());
+            }
+
+            await Task.Delay(100, token);
+            
+            for (var i = 0; i < numSimulations; i++)
+            {
+                //if (simulations[j].)
+                tasks.Add(simulations[i].Simulate(assignment.chromosomes[atChromosome],new Vector3(0, 0, i*20), token));
+                await Task.Delay(200, token);
+              
+                atChromosome++;
+                
+            }
+
+            while (atChromosome<assignment.chromosomes.Count)
+            {
+                await Task.WhenAny(tasks);
+                for (var i = 0; i < numSimulations; i++)
+                {
+                    if (tasks[i].IsCompleted)
+                    {
+                        tasks[i] = simulations[i].Simulate(assignment.chromosomes[atChromosome], new Vector3(0, 0, i*20), token);
+
+                        atChromosome++;
+                    }
+
+                }
+                
+
+            }
+
+            await Task.WhenAll(tasks);
         }
 
+        
 
+        
         public void SaveIntoJson()
         {
 

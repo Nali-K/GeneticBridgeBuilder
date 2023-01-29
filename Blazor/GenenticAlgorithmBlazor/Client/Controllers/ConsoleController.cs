@@ -6,7 +6,9 @@ using fitness= GeneticAlgorithm.FitnessFunctions.Interfaces ;
 using crossover=GeneticAlgorithm.CrossOverFunctions.Interfaces;
 using mutation = GeneticAlgorithm.MutationFunctions.Interfaces;
 using selection =GeneticAlgorithm.SelectionFunctions.Interfaces;
-
+/// <summary>
+/// allows the DLL to write to the console
+/// </summary>
 public class ConsoleController : 
     controller.IConsoleController, 
     fitness.IConsoleController,

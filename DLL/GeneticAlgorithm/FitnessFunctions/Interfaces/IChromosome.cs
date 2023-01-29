@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
+using GeneticAlgorithm.FitnessFunctions.Enums;
 
 namespace GeneticAlgorithm.FitnessFunctions.Interfaces
 {
     public interface IChromosome
     {
 
-        int GetNumDimensions();
-        int GetDimensionSize(int dimension);
+        int numDimentions {get; set; }
 
-        float[] GetGeneArray();
-        Dictionary<int[], float> GetValuesAndPositions(int[] position);
+        int[] dimensionSize { get; set; }
+        float[] geneArray { get; set; }
 
+        Dictionary<string,float> simulationResults { get; set; }
     }
 }

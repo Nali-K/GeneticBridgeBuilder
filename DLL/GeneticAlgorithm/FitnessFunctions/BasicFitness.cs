@@ -23,7 +23,7 @@ namespace GeneticAlgorithm.FitnessFunctions
         private async Task<float> GetFitness(IChromosome chromosome,CancellationToken token)
         {
             var score = 0f;
-            var genes = chromosome.GetGeneArray();
+            var genes = chromosome.geneArray;
             foreach (var t in genes)
             {
                 score += t;

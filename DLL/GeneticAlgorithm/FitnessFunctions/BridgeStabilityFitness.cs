@@ -48,7 +48,7 @@ namespace GeneticAlgorithm.FitnessFunctions
 
         private async Task<float> GetFitness(IChromosome chromosome, CancellationToken token)
         {
-            var array = chromosome.GetGeneArray();
+            var array = chromosome.geneArray;
             var score=0f;
             foreach (var fl in array)
             {

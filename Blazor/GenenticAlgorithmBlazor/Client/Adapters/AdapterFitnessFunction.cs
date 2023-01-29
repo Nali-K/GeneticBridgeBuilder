@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using GenenticAlgorithmBlazor.Shared;
 using GeneticAlgorithm.Controller;
 using GeneticAlgorithm.FitnessFunctions.Interfaces;
 using FitnessFunctionn = GeneticAlgorithm.FitnessFunctions.FitnessFunction;
@@ -32,14 +33,16 @@ namespace Adapters
             var fitnessChromosomes = new List<IChromosome>();
             foreach (var c in chromosomes)
             {
-                fitnessChromosomes.Add(new AdapterFitnessChromosome(c));
+                fitnessChromosomes.Add(new SharedChromosome(c));
             }
             var scores =await fitnessFunction.CalculateFitnessAsync(fitnessChromosomes, token);
             var returnValues = new Dictionary<GeneticAlgorithm.Controller.Chromosome, float>();
             foreach (var s in scores)
             {
 
-                returnValues.Add((s.Key as AdapterFitnessChromosome).GetChromosome(),s.Value);
+                var c = new Chromosome(s.Key.dimensionSize.Clone() as int []);
+                c.geneArray = s.Key.geneArray.Clone() as float [];
+                returnValues.Add(c,s.Value);
             }
 
             return returnValues;

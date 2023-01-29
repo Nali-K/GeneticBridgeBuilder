@@ -4,10 +4,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Enums;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Simulation
 {
-    public class BridgeDropSimulation:Simulation
+    public class BridgeDropSimulation:BridgeSimulation
     {
 
         private Vector3 simulationSpace;
@@ -22,15 +23,25 @@ namespace Simulation
 
         public override async Task Simulate(Chromosome c, Vector3 space,CancellationToken token)
         {
-            Vector3 cubeSpawnPos = new Vector3(space.x, space.y, space.z);
-            cubeSpawnPos.x += c.size[0]/2f;
-            cubeSpawnPos.y += c.size[1]/2f;
-            cubeSpawnPos.z += c.size[2]/2f;
+            await Task.Delay(100);
+            Vector3 rayPos = new Vector3(space.x, space.y, space.z);
+            rayPos.x += c.size[0]/2f;
+            rayPos.y += c.size[1]*1.5f;
+            rayPos.z += c.size[2]/2f;
             var score = 0;
-            for (var i = 0; i < 16; i *= 2)
+            for (var i = 1; i < 16; i *= 2)
             {
-                BuildBridge(c, space);
-                var result=await DropBlock(i,cubeSpawnPos,token);
+                BuildBridge(c, space,blockPrevab,blocks);
+                await Task.Delay(2000);
+                var result = false;
+                Debug.DrawRay(rayPos, Vector3.down*c.size[1]*2f, Color.blue, 3);
+                if (Physics.Raycast(rayPos, Vector3.down, out var hit, c.size[1]*2f))
+                {
+                    var cubeSpawnPos = hit.point + Vector3.up;
+                    result = await DropBlock(i, cubeSpawnPos, token);
+                }
+                
+
                 EndSimulation();
                 
                 if (!result)
@@ -42,26 +53,13 @@ namespace Simulation
                     score = i;
                 }
             }
-            c.simulationResults.Add(Simulations.Dropblock,score);
+            c.simulationResults.Add("dropblock",score);
             
             simulating = true;
         }
 
-        private void BuildBridge(Chromosome c, Vector3 space)
-        {
-            for (var i = 0; i < c.size[0]; i++)
-            {
-                for (var j = 0; j < c.size[1]; j++)
-                {
-                    for (var k = 0; k < c.size[2]; k++)
-                    {
-                        var position = new Vector3(i + space.x, j + space.y, k + space.z);
-                        var obj = GameObject.Instantiate(blockPrevab, position, Quaternion.identity);
-                        blocks.Add(obj);
-                    }
-                }
-            }
-        }
+
+
         private void printdict(Dictionary<int[],float> a)
         {
             var s = "";

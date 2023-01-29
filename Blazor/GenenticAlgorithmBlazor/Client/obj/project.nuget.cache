@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aSRUSClfLajjmfdQZnCWCDXHISOE3PcjXZqBQ3jPCUVkUr1J6YRJktm3OvhIsecoQB56Aqrcdahx+Uo9Z44tKQ==",
+  "dgSpecHash": "tjnbS+UWTtOzmJlz5CiIBTge0u2JMge0Vg0a0XIad2uIz4i4namfv9J0C7YsslV5IJTcAeUwmO59fBrxfJnF6g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ilanb\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\GenenticAlgorithmBlazor.Client.csproj",
+  "projectFilePath": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\GenenticAlgorithmBlazor.Client.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ilanb\\.nuget\\packages\\microsoft.aspnetcore.authorization\\7.0.0-preview.4.22251.1\\microsoft.aspnetcore.authorization.7.0.0-preview.4.22251.1.nupkg.sha512",
     "C:\\Users\\ilanb\\.nuget\\packages\\microsoft.aspnetcore.components\\7.0.0-preview.4.22251.1\\microsoft.aspnetcore.components.7.0.0-preview.4.22251.1.nupkg.sha512",
@@ -28,10 +28,11 @@
     "C:\\Users\\ilanb\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0-preview.4.22229.4\\microsoft.extensions.primitives.7.0.0-preview.4.22229.4.nupkg.sha512",
     "C:\\Users\\ilanb\\.nuget\\packages\\microsoft.jsinterop\\7.0.0-preview.4.22251.1\\microsoft.jsinterop.7.0.0-preview.4.22251.1.nupkg.sha512",
     "C:\\Users\\ilanb\\.nuget\\packages\\microsoft.jsinterop.webassembly\\7.0.0-preview.4.22251.1\\microsoft.jsinterop.webassembly.7.0.0-preview.4.22251.1.nupkg.sha512",
+    "C:\\Users\\ilanb\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512",
     "C:\\Users\\ilanb\\.nuget\\packages\\system.io.pipelines\\7.0.0-preview.4.22229.4\\system.io.pipelines.7.0.0-preview.4.22229.4.nupkg.sha512",
     "C:\\Users\\ilanb\\.nuget\\packages\\system.text.encodings.web\\7.0.0-preview.4.22229.4\\system.text.encodings.web.7.0.0-preview.4.22229.4.nupkg.sha512",
     "C:\\Users\\ilanb\\.nuget\\packages\\system.text.json\\7.0.0-preview.4.22229.4\\system.text.json.7.0.0-preview.4.22229.4.nupkg.sha512",
-    "C:\\Users\\ilanb\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\7.0.0-preview.4.22229.4\\microsoft.netcore.app.runtime.mono.browser-wasm.7.0.0-preview.4.22229.4.nupkg.sha512"
+    "C:\\Users\\ilanb\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\7.0.0\\microsoft.netcore.app.runtime.mono.browser-wasm.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }

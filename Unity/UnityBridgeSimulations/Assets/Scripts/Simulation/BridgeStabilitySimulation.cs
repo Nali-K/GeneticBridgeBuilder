@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Simulation
 {
-    public class BridgeStablilitySimulation:Simulation
+    public class BridgeStablilitySimulation:BridgeSimulation
     {
 
         private Vector3 simulationSpace;
@@ -23,27 +23,13 @@ namespace Simulation
         public override async Task Simulate(Chromosome c, Vector3 space,CancellationToken token)
         {
 
-            BuildBridge(c, space);
+            BuildBridge(c, space,blockPrevab,blocks);
             var result=await GetStability(token);
             EndSimulation();
-            c.simulationResults.Add(Simulations.Stability,result);
+            c.simulationResults.Add("stability",result);
         }
 
-        private void BuildBridge(Chromosome c, Vector3 space)
-        {
-            for (var i = 0; i < c.size[0]; i++)
-            {
-                for (var j = 0; j < c.size[1]; j++)
-                {
-                    for (var k = 0; k < c.size[2]; k++)
-                    {
-                        var position = new Vector3(i + space.x, j + space.y, k + space.z);
-                        var obj = GameObject.Instantiate(blockPrevab, position, Quaternion.identity);
-                        blocks.Add(obj);
-                    }
-                }
-            }
-        }
+
         private void printdict(Dictionary<int[],float> a)
         {
             var s = "";

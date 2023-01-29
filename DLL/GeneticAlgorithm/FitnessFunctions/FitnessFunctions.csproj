@@ -41,7 +41,9 @@
         <Compile Include="BasicFitness.cs" />
         <Compile Include="BridgeCheckFitness.cs" />
         <Compile Include="BridgeStabilityFitness.cs" />
+        <Compile Include="Enums\SimulationResults.cs" />
         <Compile Include="FitnessFunction.cs" />
+        <Compile Include="Interfaces\IBridgeCaryWeightSimulation.cs" />
         <Compile Include="Interfaces\IChromosome.cs" />
         <Compile Include="Interfaces\IConsoleController.cs" />
         <Compile Include="Interfaces\ISimulation.cs" />

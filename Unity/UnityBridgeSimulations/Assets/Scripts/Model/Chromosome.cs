@@ -9,8 +9,9 @@ namespace Simulation
     public class Chromosome
     {
         public int[,,] values;
-        public Dictionary<Simulations, float> simulationResults = new Dictionary<Simulations, float>();
+        public Dictionary<string, float> simulationResults = new Dictionary<string, float>();
         public  int[] size= new int[3];
+        public int id;
         public Chromosome(int[,,] values)
         {
             this.values = values;

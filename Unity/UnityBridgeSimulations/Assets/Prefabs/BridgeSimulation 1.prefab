@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3532534279309393357}
-  - component: {fileID: 3532534279309393356}
   - component: {fileID: 587804448418431358}
   - component: {fileID: -70440281961457414}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: BridgeSimulation 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,23 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3532534279309393356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3532534279309393359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8e664129bcd4916a080edcebd04d71e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  simulating: 0
-  blockPrevab: {fileID: 4023416444979760294, guid: 9734c1a9b1f50b14ebaddc73603a2184, type: 3}
-  mat1: {fileID: 2100000, guid: f1be108935f32774ba0dd99c692af8c0, type: 2}
-  mat2: {fileID: 2100000, guid: 34a1e55b29c6ec94bbf7405378b7f67c, type: 2}
-  dropBlockInBounds: 0
 --- !u!65 &587804448418431358
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -64,7 +46,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 5, y: 11, z: 3}
-  m_Center: {x: 4, y: 5, z: 4}
+  m_Center: {x: 4, y: 5, z: 1.98}
 --- !u!114 &-70440281961457414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,7 +91,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7406939833813959867}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 11}
+  m_LocalPosition: {x: 0, y: -0.5, z: 7}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 3532534279309393357}
@@ -205,7 +187,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7406939834332646416}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: -4}
+  m_LocalPosition: {x: 0, y: -0.5, z: -5}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 3532534279309393357}
