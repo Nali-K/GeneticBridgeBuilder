@@ -13,13 +13,13 @@ namespace Simulation
 {
     public class SimulationController:MonoBehaviour
     {
-        public IAssignmentLoader AssignmentLoader;
-        private Assignment assignment;
+
         private List<Chromosome> chromosomes;
         private CancellationTokenSource tokenSource;
-        public CoroutineRunner coroutineRunner;
+
         public GameObject bridgeDropSimulationPrefab;
         public GameObject bridgeStabilitySimulationPrefab;
+        public GameObject bridgePicturePrefab;
         public void BridgeSim(List<Chromosome> chromosomes)
         {
             this.chromosomes = chromosomes;
@@ -29,7 +29,7 @@ namespace Simulation
 
         private void Start()
         {
-            AssignmentLoader = new LoadAssigmentFromWebApi(coroutineRunner);
+
             /*chromosomes = new List<Chromosome>();
             CreateChromosome();
             CreateChromosome();
@@ -39,71 +39,67 @@ namespace Simulation
             HandleAssignments(tokenSource.Token);*/
         }
 
-        public async Task HandleAssignments(CancellationToken token)
-        {
-            assignment = await AssignmentLoader.LoadAssignmentAsync(token);
-            await RunAssignmentAsync(token);
-            //await AssignmentUploader.UploadAssignmentAsync(token);
-            assignment = null;
-        }
 
-        private async Task RunAssignmentAsync(CancellationToken token)
+        public async Task<bool> RunAssignmentAsync(Assignment assignment,CancellationToken token)
         {
             foreach (var sim in assignment.simulationsToRun)
             {
                 switch (Assignment.GetSimulation(sim))
                 {
                     case Simulations.Dropblock:
-                        await RunSimulationAsync(bridgeDropSimulationPrefab,token);
+                        await RunSimulationAsync(bridgeDropSimulationPrefab,assignment.chromosomes,token);
                         break;
                     case Simulations.Stability:
-                        await RunSimulationAsync(bridgeStabilitySimulationPrefab,token);
+                        await RunSimulationAsync(bridgeStabilitySimulationPrefab,assignment.chromosomes,token);
                         break;
+                    case Simulations.Picture:
+                        await RunSimulationAsync(bridgePicturePrefab,assignment.chromosomes,token);
+                        break;
+                    default:
+                        return false;
                 }
                 
             }
 
-            assignment.completed = true;
-            var submitter = new SubmitAssignmentToWebApi(coroutineRunner);
-            var s=await submitter.SubmitAssignmentAsync(token, assignment);
-        }
+            return true;
 
+        }
         private async Task testAsync(int delay,CancellationToken token)
         {
             await Task.Delay(delay *1000);
         }
-        private async Task RunSimulationAsync(GameObject prefab,CancellationToken token)
+        private async Task RunSimulationAsync(GameObject prefab,List<Chromosome> chromosomes,CancellationToken token)
         {
-            var numSimulations = 20;
-            var simulations = new Simulation[numSimulations];
+            var targetNumSimulations = 80;
+            var distanceBetweenSimulations = 30;
+            var numSimulations = chromosomes.Count < targetNumSimulations ? chromosomes.Count : targetNumSimulations;
+            //Time.timeScale = 1f;
             var tasks = new List<Task>();
             var atChromosome = 0;
-            for (var i = 0; i < numSimulations; i++)
-            {
-                var instance = Instantiate(prefab, new Vector3(0, 0, i*20), Quaternion.identity);
-                simulations[i]=(instance.GetComponent<Simulation>());
-            }
+           
+            //Physics.gravity = new Vector3(0, -0.9f, 0);
+            var simulations = InitSimulations(numSimulations,distanceBetweenSimulations,prefab);
 
             await Task.Delay(100, token);
             
             for (var i = 0; i < numSimulations; i++)
             {
                 //if (simulations[j].)
-                tasks.Add(simulations[i].Simulate(assignment.chromosomes[atChromosome],new Vector3(0, 0, i*20), token));
+                tasks.Add(simulations[i].Simulate(chromosomes[atChromosome],new Vector3(0, 0, i*distanceBetweenSimulations), token));
                 await Task.Delay(200, token);
               
                 atChromosome++;
                 
             }
 
-            while (atChromosome<assignment.chromosomes.Count)
+            while (atChromosome<chromosomes.Count)
             {
                 await Task.WhenAny(tasks);
                 for (var i = 0; i < numSimulations; i++)
                 {
                     if (tasks[i].IsCompleted)
                     {
-                        tasks[i] = simulations[i].Simulate(assignment.chromosomes[atChromosome], new Vector3(0, 0, i*20), token);
+                        tasks[i] = simulations[i].Simulate(chromosomes[atChromosome], new Vector3(0, 0, i*distanceBetweenSimulations), token);
 
                         atChromosome++;
                     }
@@ -114,11 +110,42 @@ namespace Simulation
             }
 
             await Task.WhenAll(tasks);
+            CloseSimulations(simulations);
+
         }
 
-        
+        private Simulation[] InitSimulations(int numSimulations,int distanceBetweenSimulations, GameObject prefab)
+        {
+            var simulations = new Simulation[numSimulations];
+            for (var i = 0; i < numSimulations; i++)
+            {
+                var instance = Instantiate(prefab, new Vector3(0, 0, i*distanceBetweenSimulations), Quaternion.identity);
+                simulations[i]=(instance.GetComponent<Simulation>());
+            }
 
-        
+            return simulations;
+        }
+
+        private void CloseSimulations(List<Simulation> simulations)
+        {
+
+            foreach (var simulation in simulations)
+            {
+                simulation.EndSimulation();
+                Destroy(simulation.gameObject);
+            }
+        }
+        private void CloseSimulations(Simulation[] simulations)
+        {
+
+            foreach (var simulation in simulations)
+            {
+                simulation.EndSimulation();
+                Destroy(simulation.gameObject);
+            }
+        }
+
+
         public void SaveIntoJson()
         {
 

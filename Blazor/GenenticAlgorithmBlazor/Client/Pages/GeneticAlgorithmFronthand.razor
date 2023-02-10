@@ -2,6 +2,8 @@
 @using GenenticAlgorithmBlazor.Client.Controllers
 @using System.Runtime.InteropServices
 @using GenenticAlgorithmBlazor.Client.Interfaces
+@using GeneticAlgorithm.FitnessFunctions
+@using System.Net.Mime
 @inject DLLTestController _dllTestController
 @inject ConsoleController _consoleController
 @inject UserInterfaceController _userInterfaceController
@@ -18,6 +20,132 @@ Welcome to your new app.<br/>
        @output;
        <br />
    }</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            generation
+        </th>
+        <th>
+            Start Time
+        </th>
+        <th>
+            End Time
+        </th>
+        <th>
+            chromosomes
+        </th>
+    </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var generation in @_userInterfaceController.generations)
+           {
+               <tr>
+                   <td>
+                       @generation.numGeneration
+                   </td>
+                   <td>
+                       @generation.generation.startTime
+                   </td>
+                   <td>
+                       @generation.generation.completedTime
+                   </td>
+                  @if (generation.opened){
+                       <td>
+                        
+                           <table>
+                               <thead>
+                               <tr>
+                                   <th>
+                                       chromosome
+                                   </th> 
+                                   <th>
+                                       selected
+                                   </th>
+                                   @foreach (var ff in @_dllTestController.GeneticAlgorithme.FitnessFunctions)
+                                   {
+                                       <th>
+                                           @_dllTestController.fitnessFunctionNames[ff]
+                                       </th>
+                                   }
+                               </tr>
+                               </thead>
+                               <tbody>
+                               @if (generation.GetSelectedChromosomes().Count==0){
+                                    <tr  style="cursor:pointer" @onclick="()=>{generation.opened=false;generation.openedAllChromosomes=false;}">
+                                        <td>
+                                        no chromosomes passed selection
+                                        </td>
+                                    </tr>
+                               }
+                               @foreach (var c in @generation.GetSelectedChromosomes())
+                               { 
+                                   <tr  style="cursor:pointer" @onclick="()=>{generation.opened=false;generation.openedAllChromosomes=false;}">
+                                       <td>
+                                           @foreach (var image in @c.visualisations)
+                                           {
+                                               <img src="https://localhost:7141/@image.ImageLocation"/>
+                                           }
+                                       </td>
+                                       <td>
+                                           @c.selected
+                                       </td>
+                                       @foreach (var ff in @_dllTestController.GeneticAlgorithme.FitnessFunctions)
+                                       {
+                                           <td>
+                                               @c.GetScore(ff)
+                                           </td>
+                                       }
+
+                                    
+                                   </tr>
+                               }
+                               @if (generation.openedAllChromosomes){
+                                   @foreach (var c in @generation.GetSelectedChromosomes(true))
+                                   { 
+                                       <tr style="cursor:pointer" @onclick="()=>generation.openedAllChromosomes=false">
+                                           <td>
+                                                @foreach (var image in @c.visualisations)
+                                              {
+                                                  <img src="https://localhost:7141/@image.ImageLocation"/>
+                                              }
+                                           </td>
+                                           <td>
+                                               @c.selected
+                                           </td>
+                                           @foreach (var ff in @_dllTestController.GeneticAlgorithme.FitnessFunctions)
+                                           {
+                                               <td>
+                                                   @c.GetScore(ff)
+                                               </td>
+                                           }
+
+                                        
+                                       </tr>
+                                   }
+                               }else{
+                                    <tr style="cursor:pointer" @onclick="()=>generation.openedAllChromosomes=true">
+                                        <td>
+                                            show all...
+                                        </td>
+                                    </tr>
+                                }
+                               </tbody>
+                            </table>
+                        </td>    
+                   }else{
+                       <td style="cursor:pointer" @onclick="()=>generation.opened=true">
+
+                                 chromosomes...
+
+                       </td>
+                    }
+
+               </tr>
+           }
+    </tbody>
+</table>
 
 @code {
 

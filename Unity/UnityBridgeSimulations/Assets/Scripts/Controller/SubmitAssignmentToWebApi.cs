@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Controller;
 using Newtonsoft.Json;
 using Simulation;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace Controllers
         {
             //coroutineRunner=Object.FindObjectOfType<CoroutineRunner>();
             string url = "https://localhost:7141/assignmenttest/submit_completed";
-            var r = await coroutineRunner.RunSubmitBlazorAssignmentAsync(url,assignment);
+            var r = await coroutineRunner.RunSubmitBlazorAssignmentAsync(url,assignment,token);
 
 
             return r=="submitted";

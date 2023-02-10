@@ -20,6 +20,8 @@ namespace Simulation
                     return Simulations.Dropblock;
                 case "stability":
                     return Simulations.Stability;
+                case "picture":
+                    return Simulations.Picture;
                 default:
                     Debug.LogError("unknown simulation, returning dropblock-simulation instead");
                     return Simulations.Dropblock;

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using GenenticAlgorithmBlazor.Shared;
 using GeneticAlgorithm.Controller;
+using GeneticAlgorithm.Controller.Models;
 using GeneticAlgorithm.FitnessFunctions.Interfaces;
 using FitnessFunctionn = GeneticAlgorithm.FitnessFunctions.FitnessFunction;
 using ISimulation = GeneticAlgorithm.Controller.ISimulation;
@@ -28,7 +29,7 @@ namespace Adapters
             throw new NotImplementedException();
         }
 
-        public async Task<Dictionary< GeneticAlgorithm.Controller.Chromosome,float>> GetFitnessAsync(List<GeneticAlgorithm.Controller.Chromosome> chromosomes, CancellationToken token)
+        public async Task<Dictionary<Chromosome,float>> GetFitnessAsync(List<Chromosome> chromosomes, CancellationToken token)
         {
             var fitnessChromosomes = new List<IChromosome>();
             foreach (var c in chromosomes)
@@ -36,7 +37,7 @@ namespace Adapters
                 fitnessChromosomes.Add(new SharedChromosome(c));
             }
             var scores =await fitnessFunction.CalculateFitnessAsync(fitnessChromosomes, token);
-            var returnValues = new Dictionary<GeneticAlgorithm.Controller.Chromosome, float>();
+            var returnValues = new Dictionary<Chromosome, float>();
             foreach (var s in scores)
             {
 

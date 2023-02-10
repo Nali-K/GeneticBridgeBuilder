@@ -6,6 +6,7 @@ using fitness= GeneticAlgorithm.FitnessFunctions.Interfaces ;
 using crossover=GeneticAlgorithm.CrossOverFunctions.Interfaces;
 using mutation = GeneticAlgorithm.MutationFunctions.Interfaces;
 using selection =GeneticAlgorithm.SelectionFunctions.Interfaces;
+using visualisation =GeneticAlgorithm.VisualisationFunctions.Interfaces;
 /// <summary>
 /// allows the DLL to write to the console
 /// </summary>
@@ -14,7 +15,8 @@ public class ConsoleController :
     fitness.IConsoleController,
     crossover.IConsoleController, 
     mutation.IConsoleController, 
-    selection.IConsoleController
+    selection.IConsoleController,
+    visualisation.IConsoleController
 {
     public List<string> outputMessages= new List<string>();
     public List<string>  outputWarnings =new List<string>();
@@ -24,6 +26,21 @@ public class ConsoleController :
             Console.WriteLine(message);
 
             
+        }
+
+         void visualisation.IConsoleController.LogWarning(string message)
+        {
+            Console.WriteLine(message);
+        }
+
+         void visualisation.IConsoleController.LogError(string message)
+        {
+            Console.WriteLine(message);
+        }
+
+         void visualisation.IConsoleController.LogMessage(string message)
+        {
+            Console.WriteLine(message);
         }
 
         void selection.IConsoleController.LogWarning(string message)

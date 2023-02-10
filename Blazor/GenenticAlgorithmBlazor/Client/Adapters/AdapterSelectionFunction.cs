@@ -2,35 +2,42 @@
 using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
+using GenenticAlgorithmBlazor.Client.Controllers;
 using GeneticAlgorithm.Controller;
+using GeneticAlgorithm.Controller.Models;
 using GeneticAlgorithm.SelectionFunctions;
-using ControllerChromosome=GeneticAlgorithm.Controller.Chromosome;
+using ControllerChromosome=GeneticAlgorithm.Controller.Models.Chromosome;
 using SelectionChromosome=GeneticAlgorithm.SelectionFunctions.Interfaces.IChromosome;
 namespace Adapters
 {
     public class AdapterSelectionFunction:ISelectionFunction
     {
         private readonly SelectionFunction selectionFunction;
+        private Dictionary<IFitnessFunction, string> fitnessFunctionNames;
 
-        public AdapterSelectionFunction(SelectionFunction function)
+        public AdapterSelectionFunction(SelectionFunction function,Dictionary<IFitnessFunction, string> fitnessFunctionNames)
         {
             selectionFunction = function;
+            
+            this.fitnessFunctionNames = fitnessFunctionNames;
+
         }
         public bool GetExclusive()
         {
             return false;
         }
 
-        public async Task<List<ControllerChromosome>> SelectChromosomeAsync(Dictionary<ControllerChromosome, ChromosomeScores> scores, CancellationToken token)
+
+        public async Task<List<ControllerChromosome>> SelectChromosomeAsync(List<ChromosomeScores> scores , CancellationToken token)
         {
             var chromosomes = new List<SelectionChromosome>();
             foreach (var score in scores)
             {
-                chromosomes.Add( new AdapterSelectionChromosome(score.Value,score.Key));
+                chromosomes.Add( new AdapterSelectionChromosome(score,fitnessFunctionNames));
             }
 
             var output = await selectionFunction.SelectChromosomesAsync(chromosomes,token);
-            var returnlist = new List<GeneticAlgorithm.Controller.Chromosome>();
+            var returnlist = new List<GeneticAlgorithm.Controller.Models.Chromosome>();
             foreach(var chromosome in output){
                 returnlist.Add((chromosome as AdapterSelectionChromosome).GetChromosome());
             }
@@ -38,6 +45,10 @@ namespace Adapters
             return returnlist;
         }
 
+        public int GetNumberExpectedWinners()
+        {
+            return selectionFunction.GetNumberExpectedWinners();
+        }
 
 
         public string ToJson()

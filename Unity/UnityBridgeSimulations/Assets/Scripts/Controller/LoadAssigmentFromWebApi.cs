@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using Controller;
 using Newtonsoft.Json;
 using Simulation;
 using UnityEngine;
@@ -11,8 +12,7 @@ namespace Controllers
 {       
     public class LoadAssigmentFromWebApi:IAssignmentLoader
     {
-
-        public CoroutineRunner coroutineRunner;
+        private readonly CoroutineRunner coroutineRunner;
 
         public LoadAssigmentFromWebApi(CoroutineRunner coroutineRunner)
         {
@@ -21,8 +21,9 @@ namespace Controllers
         public async  Task<Assignment> LoadAssignmentAsync(CancellationToken token)
         {
             //coroutineRunner=Object.FindObjectOfType<CoroutineRunner>();
+            Debug.Log("hi");
             string url = "https://localhost:7141/assignmenttest/get_free";
-            var json = await coroutineRunner.RunGetBlazorChromosomeAsync(url);
+            var json = await coroutineRunner.RunGetBlazorChromosomeAsync(url,token);
 
             Debug.Log(json);
             var a = JsonConvert.DeserializeObject<Assignment>(json);

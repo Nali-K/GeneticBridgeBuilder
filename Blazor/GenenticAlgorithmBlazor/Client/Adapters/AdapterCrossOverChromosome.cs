@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using GeneticAlgorithm.CrossOverFunctions.Interfaces;
-using ControllerChromosome = GeneticAlgorithm.Controller.Chromosome;
+
+using ControllerChromosome = GeneticAlgorithm.Controller.Models.Chromosome;
 using CrossOverChromosome = GeneticAlgorithm.CrossOverFunctions.Interfaces.IChromosome;
 namespace Adapters
 {
     public class AdapterCrossOverChromosome:CrossOverChromosome
     {
-        public GeneticAlgorithm.Controller.Chromosome chromosome;
+        public GeneticAlgorithm.Controller.Models.Chromosome chromosome;
 
         public AdapterCrossOverChromosome(ControllerChromosome chromosome)
         {

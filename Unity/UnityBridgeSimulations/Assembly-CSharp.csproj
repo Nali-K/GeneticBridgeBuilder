@@ -52,18 +52,23 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\CoroutineRunner.cs" />
+     <Compile Include="Assets\Scripts\Simulation\EnvironmentController.cs" />
+     <Compile Include="Assets\Scripts\Simulation\BridgePictureSimulation.cs" />
+     <Compile Include="Assets\Scripts\Controller\CoroutineRunner.cs" />
+     <Compile Include="Assets\Scripts\Controller\IImageSubmitter.cs" />
      <Compile Include="Assets\Scripts\Model\Assignment.cs" />
      <Compile Include="Assets\Scripts\Controller\SubmitAssignmentToWebApi.cs" />
      <Compile Include="Assets\Scripts\Simulation\Simulation.cs" />
      <Compile Include="Assets\Scripts\Views\LoadAssignment.cs" />
      <Compile Include="Assets\Scripts\Enums\Simulations.cs" />
      <Compile Include="Assets\Scripts\Simulation\SimulationController.cs" />
+     <Compile Include="Assets\Scripts\Controller\SubmitImageToWebApi.cs" />
      <Compile Include="Assets\Scripts\Simulation\BridgeStabilitySimulation.cs" />
      <Compile Include="Assets\Scripts\Simulation\BridgeSimulation.cs" />
      <Compile Include="Assets\Scripts\Controller\IAssignmentLoader.cs" />
      <Compile Include="Assets\Scripts\Model\Chromosome.cs" />
      <Compile Include="Assets\Scripts\Simulation\BridgeDropSimulation.cs" />
+     <Compile Include="Assets\Scripts\Controller\AssignmentController.cs" />
      <Compile Include="Assets\Scripts\Simulation\ColorSim.cs" />
      <Compile Include="Assets\Scripts\Controller\IAssignmentSubmitter.cs" />
      <Compile Include="Assets\Scripts\Controller\LoadAssigmentFromWebApi.cs" />

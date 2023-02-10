@@ -234,7 +234,6 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Chromosome.cs" />
         <Compile Include="GeneticController.cs" />
         <Compile Include="Interfaces\IConsoleController.cs" />
         <Compile Include="Interfaces\ICrossOverFunction.cs" />
@@ -243,7 +242,12 @@
         <Compile Include="Interfaces\ISelectionFunction.cs" />
         <Compile Include="Interfaces\ISimulation.cs" />
         <Compile Include="Interfaces\IUserInterface.cs" />
-        <Compile Include="ChromosomeScores.cs" />
+        <Compile Include="Interfaces\IVisualisationFunction.cs" />
+        <Compile Include="Models\Chromosome.cs" />
+        <Compile Include="Models\ChromosomeScores.cs" />
+        <Compile Include="Models\ChromosomeVisualisation.cs" />
+        <Compile Include="Models\EvolutionWorld.cs" />
+        <Compile Include="Models\Generation.cs" />
         <Compile Include="RandomValueGenerator.cs" />
         <Compile Include="Runner.cs" />
         <Compile Include="Activity.cs" />

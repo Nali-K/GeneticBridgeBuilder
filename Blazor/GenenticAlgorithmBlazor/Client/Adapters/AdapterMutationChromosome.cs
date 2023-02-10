@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using GeneticAlgorithm.Controller.Models;
 
 namespace Adapters
 {
     public class AdapterMutationChromosome : GeneticAlgorithm.MutationFunctions.Interfaces.IChromosome
 
     {
-        public GeneticAlgorithm.Controller.Chromosome chromosome;
+        public Chromosome chromosome;
 
-        public AdapterMutationChromosome(GeneticAlgorithm.Controller.Chromosome chromosome)
+        public AdapterMutationChromosome(Chromosome chromosome)
         {
             this.chromosome = chromosome;
         }

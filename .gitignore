@@ -65,7 +65,9 @@ crashlytics-build.properties
 
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
-/[Aa]ssets/[Ss]treamingAssets/aa/*
+/[Bb]lazor/[Ss]treamingAssets/aa/*
+
+/[Aa]ssets/[Gg]enentic[Aa]lgorithm[Bb]lazor/[Ss]erver/wwwroot/[Ii]mages/*
 
 # General
 .DS_Store

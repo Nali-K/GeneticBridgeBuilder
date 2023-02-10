@@ -183,13 +183,9 @@ D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Server\ob
 D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Server\obj\Debug\net7.0\GenenticAlgorithmBlazor.Server.pdb
 D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Server\obj\Debug\net7.0\GenenticAlgorithmBlazor.Server.genruntimeconfig.cache
 D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Server\obj\Debug\net7.0\ref\GenenticAlgorithmBlazor.Server.dll
+D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Server\bin\Debug\net7.0\VisualisationFunctions.dll
+D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Server\bin\Debug\net7.0\VisualisationFunctions.pdb
 D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Server\bin\Debug\net7.0\Data\assignment_0.json
 D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Server\bin\Debug\net7.0\Data\assignment_1.json
 D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Server\bin\Debug\net7.0\Data\assignment_2.json
 D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Server\bin\Debug\net7.0\Data\assignment_3.json
-D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Server\bin\Debug\net7.0\Data\assignment_4.json
-D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Server\bin\Debug\net7.0\Data\assignment_5.json
-D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Server\bin\Debug\net7.0\Data\assignment_6.json
-D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Server\bin\Debug\net7.0\Data\assignment_7.json
-D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Server\bin\Debug\net7.0\Data\assignment_8.json
-D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Server\bin\Debug\net7.0\Data\assignment_9.json

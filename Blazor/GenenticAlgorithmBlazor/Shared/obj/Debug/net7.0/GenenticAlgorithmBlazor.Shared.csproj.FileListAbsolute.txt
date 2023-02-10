@@ -27,3 +27,5 @@ D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Shared\bi
 D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Shared\obj\Debug\net7.0\GenenticAlgorithmBlazor.Shared.csproj.CopyComplete
 D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Shared\bin\Debug\net7.0\FitnessFunctions.dll
 D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Shared\bin\Debug\net7.0\FitnessFunctions.pdb
+D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Shared\bin\Debug\net7.0\VisualisationFunctions.dll
+D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Shared\bin\Debug\net7.0\VisualisationFunctions.pdb

@@ -1,13 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Simulation
 {
     public abstract class BridgeSimulation:Simulation
     {
+        public EnvironmentController EnvironmentController;
+
+
+
         protected void BuildBridge(Chromosome c, Vector3 space, GameObject blockPrevab,  List<GameObject> blocks)
         {
-
+            EnvironmentController.Setup(c.size[0],c.size[1],c.size[2]);
             for (var i = 0; i < c.size[0]; i++)
             {
                 for (var j = 0; j < c.size[1]; j++)

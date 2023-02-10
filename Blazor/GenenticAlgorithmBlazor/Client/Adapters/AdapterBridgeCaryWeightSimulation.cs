@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Linq;
 using System.Net;
 using System.Security.AccessControl;
 using System.Threading;
@@ -14,15 +16,18 @@ using Enums;
 using GenenticAlgorithmBlazor.Client.Controllers;
 using GenenticAlgorithmBlazor.Client.Interfaces;
 using GeneticAlgorithm.FitnessFunctions.Enums;
+using GeneticAlgorithm.VisualisationFunctions.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Newtonsoft.Json;
+using IChromosome = GeneticAlgorithm.FitnessFunctions.Interfaces.IChromosome;
 
 namespace Adapters
 {
-    public class AdapterBridgeCaryWeightSimulation:IBridgeCaryWeightSimulation
+    public class AdapterBridgeCaryWeightSimulation:IBridgeCaryWeightSimulation,IImageSimulation
     {
 
         private readonly ISimulationRequest _simulationRequest;
+        private List<SharedChromosome> resultChromosomes = new List<SharedChromosome>();
         public AdapterBridgeCaryWeightSimulation(ISimulationRequest simulationRequest)
         {
            _simulationRequest=simulationRequest;
@@ -36,21 +41,7 @@ namespace Adapters
             var chromsomeid = 0;
             foreach (var chromosome in chromosomes)
             {
-                /*if (chromosome.GetNumDimensions() != 3)
-                {
-                    throw new System.Exception();
-                }
 
-                var values = new int[chromosome.GetDimensionSize(0), chromosome.GetDimensionSize(1),
-                    chromosome.GetDimensionSize(2)];
-                var genes = chromosome.GetGeneArray();
-                for (var i=0; i<genes.Length;i++)
-                {
-                    values[i % chromosome.GetDimensionSize(0),
-                        (i / chromosome.GetDimensionSize(0))% chromosome.GetDimensionSize(1), 
-                        i / (chromosome.GetDimensionSize(0) * chromosome.GetDimensionSize(1))] = (int)genes[i];
-                }*/
-                //Console.WriteLine(JsonConvert.SerializeObject(chromosome));
                 (chromosome as SharedChromosome).id = chromsomeid;
                 chromsomeid++;
                 assignement.chromosomes.Add(chromosome as SharedChromosome);
@@ -64,22 +55,46 @@ namespace Adapters
             var settings = new JsonSerializerSettings();
             settings.TypeNameHandling = TypeNameHandling.None;
             
-           // Console.WriteLine(JsonConvert.SerializeObject(testlist,settings));
-            Console.WriteLine(JsonConvert.SerializeObject(assignement,settings));
-            //var cont = new httpcontent
-           //var response = await  http.PostAsJsonAsync("AssignmentTest",assignement);
+
             testText.testText="test1";
             var r =await _simulationRequest.RequestSimulation("AssignmentTest", assignement);
-            
-           // var response = await http.PostAsJsonAsync("SimpleText", testText);
-                // Process the valid form
-                return false;
-                //throw new System.NotImplementedException();
+            resultChromosomes.AddRange(r.chromosomes); return false;
+
         }
 
         public float GetMaxWeight(IChromosome chromosome)
         {
-            return 1f;
+            foreach (var resultChromosome in resultChromosomes)
+            {
+                
+                if(Enumerable.SequenceEqual(chromosome.dimensionSize, resultChromosome.dimensionSize))
+                    if(Enumerable.SequenceEqual(chromosome.geneArray, resultChromosome.geneArray))
+                        return resultChromosome.simulationResults["dropblock"];
+
+                    
+            }
+            Console.Write("can't find chromosome");
+            return -1;
+        }
+
+        public async Task<bool> SimulateAsync(List<GeneticAlgorithm.VisualisationFunctions.Interfaces.IChromosome> chromosomes)
+        {
+            return true;
+        }
+
+        public Dictionary<string, string> GetImages(GeneticAlgorithm.VisualisationFunctions.Interfaces.IChromosome chromosomes)
+        {
+            foreach (var resultChromosome in resultChromosomes)
+            {
+                
+                if(Enumerable.SequenceEqual(chromosomes.dimensionSize, resultChromosome.dimensionSize))
+                    if(Enumerable.SequenceEqual(chromosomes.geneArray, resultChromosome.geneArray))
+                        return resultChromosome.visualisationsResults;
+
+                    
+            }
+            Console.Write("can't find chromosome");
+            return null;
         }
     }
 }

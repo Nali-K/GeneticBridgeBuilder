@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using GeneticAlgorithm.Controller.Models;
+
 namespace GeneticAlgorithm.Controller
 {
     public class GeneticController
@@ -9,15 +12,13 @@ namespace GeneticAlgorithm.Controller
         private IUserInterface userInterface;
         public IConsoleController consoleController;
         public List<IFitnessFunction> FitnessFunctions= new List<IFitnessFunction>();
+        public List<IVisualisationFunction> VisualisationFunction= new List<IVisualisationFunction>();
         public List<ISelectionFunction> SelectionFunctions= new List<ISelectionFunction>();
         public List<ICrossOverFunction> CrossOverFunctions=new List<ICrossOverFunction>();
         public List<IMutationFunction> MutationsFunctions=new List<IMutationFunction>();
         public List<ISimulation> Simulations=new List<ISimulation>();
         private CancellationTokenSource cancellationTokenSource;
-        private int generationsToGo;
 
-        private List<Chromosome> breedingPopulation;
-        private List<Chromosome> population;
         //private List<Chromosome> population;
 
         public GeneticController(IUserInterface userInterface, IConsoleController consoleController)
@@ -33,46 +34,76 @@ namespace GeneticAlgorithm.Controller
             this.consoleController.LogMessage("contact");
             cancellationTokenSource = new CancellationTokenSource();
         }*/
+        /// <summary>
+        /// create a new list of chromosomes
+        /// </summary>
+        /// <param name="Amount">the amount of chromsomes</param>
+        /// <param name="chromosomeShape"> the "shape of the choromosome, meaning the number of dimensions the length of each dimension"</param>
+        /// <param name="fillValue">each gene will have this value</param>
+        /// <returns>a list of new chromosomes</returns>
+        public List<Chromosome> InitNewPopulation(int Amount,int[] chromosomeShape,float fillValue)
+        {
+            var newPopulation = new List<Chromosome>();
 
-        public void InitNewPopulation(int Amount,int[] chromosomeShape,float fillValue)
+            for (var i = 0; i < Amount; i++)
+            {
+                newPopulation.Add(new Chromosome(chromosomeShape));
+                newPopulation[i].Fill(fillValue);
+            }
+
+            return newPopulation;
+        }
+/// <summary>
+/// create a new list of chromosomes the chromosomes are filled with random genens each gene being a whole number
+/// </summary>
+/// <param name="Amount">the amount of chromsomes</param>
+/// <param name="chromosomeShape"> the "shape of the choromosome, meaning the number of dimensions the length of each dimension"</param>
+/// <param name="fillValueMin">the minimum value a gene can have</param>
+/// <param name="fillValueMax">the maximum values a gene can have</param>
+/// <returns>a list of new chromosomes</returns>
+        public List<Chromosome> InitNewPopulation(int Amount,int[] chromosomeShape,int fillValueMin,int fillValueMax)
         {
-            breedingPopulation = new List<Chromosome>();
+            var newPopulation = new List<Chromosome>();
 
             for (var i = 0; i < Amount; i++)
             {
-                breedingPopulation.Add(new Chromosome(chromosomeShape));
-                breedingPopulation[i].Fill(fillValue);
+                newPopulation.Add(new Chromosome(chromosomeShape));
+                newPopulation[i].FillRandom(fillValueMin,fillValueMax);
             }
+
+            return newPopulation;
         }
-        public void InitNewPopulation(int Amount,int[] chromosomeShape,int fillValueMin,int intValueMax)
+/// <summary>
+/// create a new list of chromosomes the chromosomes are filled with random genens each gene being a floating point number
+/// </summary>
+/// <param name="Amount">the amount of chromsomes</param>
+/// <param name="chromosomeShape"> the "shape of the choromosome, meaning the number of dimensions the length of each dimension"</param>
+/// <param name="fillValueMin">the minimum value a gene can have</param>
+/// <param name="fillValueMax">the maximum values a gene can have</param>
+/// <returns>a list of new chromosomes</returns>
+        public List<Chromosome> InitNewPopulation(int Amount,int[] chromosomeShape,float fillValueMin,float fillValueMax)
         {
-            breedingPopulation = new List<Chromosome>();
-            population = new List<Chromosome>();
+            var newPopulation = new List<Chromosome>();
+
             for (var i = 0; i < Amount; i++)
             {
-                breedingPopulation.Add(new Chromosome(chromosomeShape));
-                breedingPopulation[i].FillRandom(fillValueMin,intValueMax);
+                newPopulation.Add(new Chromosome(chromosomeShape));
+                newPopulation[i].FillRandom(fillValueMin,fillValueMax);
             }
+
+            return newPopulation;
         }
-        public void InitNewPopulation(int Amount,int[] chromosomeShape,float fillValueMin,float intValueMax)
-        {
-            breedingPopulation = new List<Chromosome>();
-            population = new List<Chromosome>();
-            for (var i = 0; i < Amount; i++)
-            {
-                breedingPopulation.Add(new Chromosome(chromosomeShape));
-                breedingPopulation[i].FillRandom(fillValueMin,intValueMax);
-            }
-        }
-        public async Task StartAsync(int numGenerations)
+
+/*
+        public async Task StartAsync(List<Chromosome>initialChromosomes,int numGenerations)
         {
             generationsToGo = numGenerations;
             consoleController.LogMessage("start method");
-            await EvolveAsync(cancellationTokenSource.Token);
+            await EvolveAsync(initialChromosomes,cancellationTokenSource.Token);
             
             //EvolveAsync(cancellationTokenSource.Token);
-        }
-        
+        }*/
+        /*
         public void Stop(bool finishGeneration = true)
         {
             if (finishGeneration)
@@ -83,11 +114,12 @@ namespace GeneticAlgorithm.Controller
             {
                 cancellationTokenSource.Cancel();
             }
-        }
+        }*/
 
       
-        public async Task EvolveAsync(CancellationToken token)
+        public async Task<List<Chromosome>> EvolveAsync(EvolutionWorld evolutionWorld, CancellationToken token)
         {
+
             consoleController.LogMessage("evolveAsync Method");
 
             consoleController.LogMessage("awaited");
@@ -101,42 +133,39 @@ namespace GeneticAlgorithm.Controller
                 throw;
             }
             consoleController.LogMessage("no");
-
-            do
-            {
+            var generation = evolutionWorld.GetCurrentGeneration();
                 await Task.Delay(10,token);
-                //temporary test code
-                consoleController.LogMessage(generationsToGo.ToString());
-                foreach (var chromosone in breedingPopulation)
-                {
-                    consoleController.LogMessage(chromosone.ToString());
-                    userInterface.DisplayMessage(chromosone.ToString());
-                    await Task.Delay(10,token);
-                }
-                //end test code
-                consoleController.LogMessage("breed");
-                consoleController.LogMessage(population.Count.ToString());
 
-                population = await BreedAsync(breedingPopulation, token);
+                consoleController.LogMessage("breed");
+                consoleController.LogMessage(generation.population.Count.ToString());
+
+                generation.population = await BreedAsync(generation.breedingPopulation, token);
 
                 consoleController.LogMessage("mutate");
-                consoleController.LogMessage(population.Count.ToString());
-                population = await MutateAsync(population, token);
-
+                //consoleController.LogMessage(population.Count.ToString());
+                generation.population = await MutateAsync(generation.population, token);
+                foreach (var chromosome in generation.breedingPopulation)
+                {
+                    generation.population.Add(chromosome);
+                }
                 consoleController.LogMessage("simulate");
-                consoleController.LogMessage(population.Count.ToString());
-                await RunSimulationsAsync(population, token);
+               // consoleController.LogMessage(population.Count.ToString());
+                await RunSimulationsAsync(generation.population, token);
                 consoleController.LogMessage("score");
-                consoleController.LogMessage(population.Count.ToString());
-                var chromosomeScores = await RunFitnessFunctionsAsync(population,token);
-                consoleController.LogMessage("select");
-                consoleController.LogMessage(population.Count.ToString());
-                breedingPopulation = await RunSelectionFunctionsAsync(chromosomeScores, token);
+                //consoleController.LogMessage(generation.population.Count.ToString());
+                generation.scores = await RunFitnessFunctionsAsync(generation.population,token);
+                consoleController.LogMessage("added scores to generation, select");
+                generation.scores = await RunVisualisationsFunctionsAsync(generation.population,generation.scores,token);
+                //consoleController.LogMessage(population.Count.ToString());
+                var NewBreedingPopulation = await RunSelectionFunctionsAsync(evolutionWorld,generation.scores, token);
                 
-                generationsToGo--;
-                consoleController.LogMessage("done: "+generationsToGo);
-                userInterface.DisplayMessage("done: "+generationsToGo);
-            } while (generationsToGo != 0);
+                //userInterface.DisplayGeneration(generation,generationsToGo,chromosomeScores);
+
+                //consoleController.LogMessage("done: "+generationsToGo);
+                //userInterface.DisplayMessage("done: "+generationsToGo);
+                return NewBreedingPopulation;
+
+           
             userInterface.UpdateActivity(Activity.WaitingForInput);
         }
 
@@ -160,61 +189,151 @@ namespace GeneticAlgorithm.Controller
 
             
         }
-        private async Task<Dictionary<Chromosome,ChromosomeScores>> RunFitnessFunctionsAsync(List<Chromosome> population,CancellationToken token)
+        private async Task<List<ChromosomeScores>> RunFitnessFunctionsAsync(List<Chromosome> population,CancellationToken token)
         {
-            var scores = new Dictionary<Chromosome,ChromosomeScores>() ;
+            var scores = new List<ChromosomeScores>() ;
             var progressStep = 0;
             var totalProgressSteps = (population.Count * FitnessFunctions.Count);
-
+            var tasks = new List<Task<Dictionary<Chromosome,float>>>();
 
             foreach (var fitnessFunction in FitnessFunctions)
             {
-                var newScores =await fitnessFunction.GetFitnessAsync(population,token);
+
+                tasks.Add(fitnessFunction.GetFitnessAsync(population, token));
+            }
+
+            await Task.WhenAll(tasks);
+            consoleController.LogMessage("ditwerkt");
+            consoleController.LogMessage("tasks: "+tasks.Count);
+            for (var i=0;i< tasks.Count;i++)
+            {
+                var newScores = tasks[i].Result;
+                consoleController.LogMessage("newscoresLengt= "+ newScores.Count);
                 foreach (var score in newScores)
                 {
-                    if (!scores.ContainsKey(score.Key))
+                    var chromosomescore= ChromosomeScores.FindByChromosome(score.Key, scores,consoleController,true);
+                    if (chromosomescore == null)
+                    {
+                        chromosomescore = new ChromosomeScores(consoleController)
+                        {
+                            chromosome = score.Key
+                        };
+                        scores.Add(chromosomescore);
+                    }
+                    chromosomescore.AddScore(FitnessFunctions[i],score.Value);/*
+                    
+                    if (!scores (score.Key))
                     {
                         scores.Add(score.Key, new ChromosomeScores());
                     }
-
-                    scores[score.Key].AddScore(fitnessFunction,score.Value);
+                    
+                    scores[score.Key].AddScore(FitnessFunctions[i],score.Value);*/
 
                 }
 
                 await Task.Delay(10,token);
                 progressStep++;
             }
+            
+
                 //userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
 
 
 
             return scores;
         }
-        private async Task<List<Chromosome>> RunSelectionFunctionsAsync(Dictionary<Chromosome,ChromosomeScores> chromosomeScores, CancellationToken token)
+        private async Task<List<ChromosomeScores>> RunVisualisationsFunctionsAsync(List<Chromosome> population,List<ChromosomeScores> scores,CancellationToken token)
+        {
+
+            var progressStep = 0;
+            var totalProgressSteps = (population.Count * VisualisationFunction.Count);
+            var tasks = new List<Task<Dictionary<Chromosome,List<ChromosomeVisualisation>>>>();
+            consoleController.LogMessage("test0");
+            foreach (var visualisationFunction in VisualisationFunction)
+            {
+
+                tasks.Add(visualisationFunction.GetVisualisationsAsync(population, token));
+            }
+
+            await Task.WhenAll(tasks);
+
+            for (var i=0;i< tasks.Count;i++)
+            {
+                var visualiasationResults = tasks[i].Result;
+
+                var j = 0;
+                foreach (var visualiasations in visualiasationResults)
+                {
+
+                    
+                    var chromosomescore= ChromosomeScores.FindByChromosome(visualiasations.Key, scores,consoleController);
+
+                    chromosomescore.visualisations.AddRange(visualiasations.Value);
+
+                    j++;
+                     
+                     /* if (!scores (score.Key))
+                      {
+                          scores.Add(score.Key, new ChromosomeScores());
+                      }
+                      
+                      scores[score.Key].AddScore(FitnessFunctions[i],score.Value);*/
+
+                }
+
+                await Task.Delay(10,token);
+                progressStep++;
+            }
+
+                //userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
+
+
+
+            return scores;
+        }
+        
+        private async Task<List<Chromosome>> RunSelectionFunctionsAsync(EvolutionWorld evolutionWorld,List<ChromosomeScores> chromosomeScores, CancellationToken token)
         {
             var breedingPopulation = new List<Chromosome>();
             var progressStep = 0;
             var totalProgressSteps = (chromosomeScores.Count * FitnessFunctions.Count);
-
+            var totalDifference = 0;
             foreach (var selectionFunction in SelectionFunctions)
             {
-                breedingPopulation.AddRange(await selectionFunction.SelectChromosomeAsync(chromosomeScores,token));
+                var selectedChromosomes = await selectionFunction.SelectChromosomeAsync(chromosomeScores, token);
+                var difference =  selectionFunction.GetNumberExpectedWinners() - selectedChromosomes.Count;
+                if (difference > 0) totalDifference += difference;
+                breedingPopulation.AddRange(selectedChromosomes);
+                //breedingPopulation.AddRange(selectedChromosomes);
                 progressStep++;
                 await Task.Delay(10,token);
             }
+
+            foreach (var selectedChromosome in breedingPopulation)
+            {
+                ChromosomeScores.FindByChromosome(selectedChromosome, chromosomeScores,consoleController).selected = true;
+            }
             //userInterface.UpdateProgress(((float)progressStep/(float)totalProgressSteps));
 
-            
+            if (totalDifference > 0)
+            {
+                if (evolutionWorld.chromosomesUseWholeNumbers)
+                {
+                    breedingPopulation.AddRange(InitNewPopulation(totalDifference,evolutionWorld.chromosomeShape, (int)evolutionWorld.fillValueMin,(int)evolutionWorld.fillValueMax));
+                }
+                else
+                {
+                    breedingPopulation.AddRange(InitNewPopulation(totalDifference,evolutionWorld.chromosomeShape,evolutionWorld.fillValueMin,evolutionWorld.fillValueMax));
+                }
+
+            }        
 
             return breedingPopulation;
         }        
         private async Task<List<Chromosome>> BreedAsync(List<Chromosome> breedingPopulation,CancellationToken token)
         {
             var population = new List<Chromosome>();
-            foreach (var chromosome in breedingPopulation)
-            {
-                population.Add(chromosome);
-            }
+
             await Task.Delay(10,token);
    
             foreach (var crossOverFunction in CrossOverFunctions)

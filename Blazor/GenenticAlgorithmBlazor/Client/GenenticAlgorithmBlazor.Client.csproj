@@ -33,6 +33,9 @@
     <Reference Include="SelectionFunctions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\..\..\DLL\GeneticAlgorithm\SelectionFunctions\bin\Debug\SelectionFunctions.dll</HintPath>
     </Reference>
+    <Reference Include="VisualisationFunctions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\DLL\GeneticAlgorithm\VisualisationFunctions\bin\Debug\VisualisationFunctions.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

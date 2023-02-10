@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using GenenticAlgorithmBlazor.Server.Models;
 using GenenticAlgorithmBlazor.Shared;
 using GeneticAlgorithm.FitnessFunctions.Interfaces;
@@ -113,6 +116,10 @@ namespace GenenticAlgorithmBlazor.Server.Controllers
                     {
                         chromosome.simulationResults.Add(simulationResult.Key,simulationResult.Value);
                     }
+                    foreach (var imageResult in unityChromosome.imageResults)
+                    {
+                        chromosome.visualisationsResults.Add(imageResult.Key,imageResult.Value);
+                    }
                 }
 
                 assigment.assignmentStatus.completedSimulation=true;
@@ -124,6 +131,50 @@ namespace GenenticAlgorithmBlazor.Server.Controllers
 
 
             var result = new OkObjectResult(true);
+            
+            //System.IO.File.WriteAllText("Data/test_" + id+".json", post);
+            //System.IO.File.WriteAllText("Data/chromosomes.json", post.GetRawText()); //post.chromosomes.Count.ToString());
+            return result;
+        }
+          [HttpPost("submit_Image")]
+
+        public async Task<IActionResult> PostImage([FromForm] string image)
+        {
+            var png = Convert.FromBase64String(image);
+            //var name = 0;
+            var r =  new Random();
+            var name = r.Next();
+
+            while (System.IO.File.Exists("wwwroot/images/pic_" + name + ".png"))
+            {
+                
+                name = r.Next();
+            }
+            
+            //System.IO.File.Create("Data/images/pic_" + name + ".png");
+            await System.IO.File.WriteAllBytesAsync("wwwroot/images/pic_" + name+".png",png);
+            //System.IO.File.WriteAllText("Data/images/pic_" + name+".png",image);
+            //content = GetRawText();
+            
+            /*foreach (var chromosome in post.chromosomes)
+            {
+                content += JsonConvert.SerializeObject(chromosome);
+            }*//*
+            System.IO.File.WriteAllText("Data/chromosomes.txt", content);
+            var chromosomes = new List<Chromosome>();
+            CreateChromosome(chromosomes);
+            CreateChromosome(chromosomes);
+            CreateChromosome(chromosomes);
+            
+                
+            var c = 
+            */
+            
+
+
+
+
+            var result = new OkObjectResult("/images/pic_" + name + ".png");
             
             //System.IO.File.WriteAllText("Data/test_" + id+".json", post);
             //System.IO.File.WriteAllText("Data/chromosomes.json", post.GetRawText()); //post.chromosomes.Count.ToString());

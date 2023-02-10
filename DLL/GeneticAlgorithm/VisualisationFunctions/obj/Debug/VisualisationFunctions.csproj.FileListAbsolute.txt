@@ -1,0 +1,6 @@
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\VisualisationFunctions\bin\Debug\VisualisationFunctions.dll
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\VisualisationFunctions\bin\Debug\VisualisationFunctions.pdb
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\VisualisationFunctions\obj\Debug\VisualisationFunctions.csprojAssemblyReference.cache
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\VisualisationFunctions\obj\Debug\VisualisationFunctions.csproj.CoreCompileInputs.cache
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\VisualisationFunctions\obj\Debug\VisualisationFunctions.dll
+D:\Data\Documents\GeneticBridgeBuilding\DLL\GeneticAlgorithm\VisualisationFunctions\obj\Debug\VisualisationFunctions.pdb

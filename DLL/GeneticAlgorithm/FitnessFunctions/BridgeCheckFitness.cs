@@ -32,8 +32,16 @@ namespace GeneticAlgorithm.FitnessFunctions
 
             foreach (var chromosome in chromosomes)
             {
-                //var weight = simulator.GetMaxWeight(chromosome);
-                outputDict.Add(chromosome,1);
+                var weight = simulator.GetMaxWeight(chromosome);
+                if (weight < 1)
+                {
+                    outputDict.Add(chromosome,-20);
+                }
+                else
+                {
+                    outputDict.Add(chromosome,weight);
+                }
+
             }
             /*var weight = 4;
             var CalculatedCubeSpawnPos = false;

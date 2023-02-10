@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using GeneticAlgorithm.Controller;
 using GeneticAlgorithm.CrossOverFunctions;
-using ControllerChromosome= GeneticAlgorithm.Controller.Chromosome;
+using ControllerChromosome= GeneticAlgorithm.Controller.Models.Chromosome;
 namespace Adapters
 {
     public class AdapterCrossOverFunction:ICrossOverFunction

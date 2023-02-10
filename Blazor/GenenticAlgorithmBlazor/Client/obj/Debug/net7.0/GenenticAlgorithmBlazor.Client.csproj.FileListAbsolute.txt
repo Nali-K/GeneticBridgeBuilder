@@ -1749,3 +1749,11 @@ D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Client\bi
 D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Client\bin\Debug\net7.0\wwwroot\_framework\Newtonsoft.Json.dll.gz
 D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Client\bin\Debug\net7.0\Newtonsoft.Json.dll
 D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Client\obj\Debug\net7.0\build-gz\z0iXsBP4.gz
+D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Client\bin\Debug\net7.0\wwwroot\_framework\VisualisationFunctions.dll
+D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Client\bin\Debug\net7.0\wwwroot\_framework\VisualisationFunctions.pdb
+D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Client\bin\Debug\net7.0\wwwroot\_framework\VisualisationFunctions.dll.gz
+D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Client\bin\Debug\net7.0\wwwroot\_framework\VisualisationFunctions.pdb.gz
+D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Client\bin\Debug\net7.0\VisualisationFunctions.dll
+D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Client\bin\Debug\net7.0\VisualisationFunctions.pdb
+D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Client\obj\Debug\net7.0\build-gz\fdcOl6CQ.gz
+D:\Data\Documents\GeneticBridgeBuilding\Blazor\GenenticAlgorithmBlazor\Client\obj\Debug\net7.0\build-gz\g1ECHRLj.gz

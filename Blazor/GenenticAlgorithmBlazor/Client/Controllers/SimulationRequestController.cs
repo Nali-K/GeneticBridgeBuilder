@@ -30,10 +30,12 @@ namespace GenenticAlgorithmBlazor.Client.Controllers
             var result = await client.PostAsync(new Uri("https://localhost:7141/"+page),payload);
             var test = await result.Content.ReadAsStringAsync();
             var id = 0;
+            SimulationAssigment assignmentResult = null;
             if (int.TryParse(test,out id))
             {
                 string resultString;
-
+                
+                while (assignmentResult == null)
                 {
                     await Task.Delay(5000);
                     var url = "https://localhost:7141/" + page + "/get_by_id/" + id;
@@ -43,12 +45,12 @@ namespace GenenticAlgorithmBlazor.Client.Controllers
                     var isbool = Boolean.TryParse(resultString,out boolResult);
                     if (!isbool)
                     {
-                        var objectResult = JsonConvert.DeserializeObject(resultString);
-                        Console.Write(objectResult.GetType());
+                        assignmentResult = JsonConvert.DeserializeObject<SimulationAssigment>(resultString);
+                        //Console.Write(assignmentResult.GetType());
                     }
                 }
             }
-            return assignment;
+            return assignmentResult;
             }
         }
     }

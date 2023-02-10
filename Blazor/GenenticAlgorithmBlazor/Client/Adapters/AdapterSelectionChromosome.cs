@@ -1,25 +1,39 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using GeneticAlgorithm.Controller;
+using GeneticAlgorithm.Controller.Models;
 
 namespace Adapters
 {
     public class AdapterSelectionChromosome:GeneticAlgorithm.SelectionFunctions.Interfaces.IChromosome
     {
         ChromosomeScores scores;
-        GeneticAlgorithm.Controller.Chromosome chromosome;
-        public AdapterSelectionChromosome(GeneticAlgorithm.Controller.ChromosomeScores scores,GeneticAlgorithm.Controller.Chromosome chromosome)
+        private Dictionary<IFitnessFunction, string> fitnessFunctionNames;
+        public AdapterSelectionChromosome(ChromosomeScores scores,Dictionary<IFitnessFunction,string> fitnessFunctionNames)
         {
             this.scores = scores;
-            this.chromosome = chromosome;
+            this.fitnessFunctionNames = fitnessFunctionNames;
         }
         public List<float> GetScores()
         {
             return scores.GetAllScores();
         }
 
-        public GeneticAlgorithm.Controller.Chromosome GetChromosome()
+        public Dictionary<string, float> GetScoresAndFitnessFunctionNames()
         {
-            return chromosome;
+            var returnDict = new Dictionary<string, float>();
+            foreach (var VARIABLE in fitnessFunctionNames)
+            {
+                returnDict.Add(VARIABLE.Value,scores.GetScore(VARIABLE.Key));
+            }
+
+            return returnDict;
+        }
+
+        public Chromosome GetChromosome()
+        {
+            return scores.chromosome;
         }
     }
 }

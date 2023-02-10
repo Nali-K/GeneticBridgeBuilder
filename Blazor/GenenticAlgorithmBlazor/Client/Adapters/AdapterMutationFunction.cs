@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using GeneticAlgorithm.Controller;
 
 using GeneticAlgorithm.MutationFunctions;
-using ControllerChromosome=GeneticAlgorithm.Controller.Chromosome;
+using ControllerChromosome=GeneticAlgorithm.Controller.Models.Chromosome;
 using MutationChromosome=GeneticAlgorithm.MutationFunctions.Interfaces.IChromosome;
 namespace Adapters
 {

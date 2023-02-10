@@ -55,7 +55,10 @@ namespace GeneticAlgorithm.SelectionFunctions
             parameterDictionary.Add("Number to select",numberWinning.ToString());
             return parameterDictionary;
         }
-
+        public override int GetNumberExpectedWinners()
+        {
+            return numberWinning;
+        }
         public override bool SetParameters(Dictionary<string, string> parameters)
         {
             if (!parameters.ContainsKey("Number to select"))

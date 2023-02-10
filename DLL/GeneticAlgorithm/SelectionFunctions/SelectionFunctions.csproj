@@ -39,6 +39,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="AddScores.cs" />
+        <Compile Include="AddScoresMinimumRequirement.cs" />
         <Compile Include="Interfaces\IChromosome.cs" />
         <Compile Include="Interfaces\IConsoleController.cs" />
         <Compile Include="SelectionFunction.cs" />

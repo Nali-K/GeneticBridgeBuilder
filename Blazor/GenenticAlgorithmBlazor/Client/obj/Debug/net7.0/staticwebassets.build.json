@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "fyU86HyYom1Di/NwMW6aQOeEHq1gRtrk/0UTkTSRq6c=",
+  "Hash": "O3V56Rdp+oi5sZEQ6c0SWBlb6Akq6TZSH6w3kSz0udY=",
   "Source": "GenenticAlgorithmBlazor.Client",
   "BasePath": "/",
   "Mode": "Root",
@@ -3655,6 +3655,40 @@
       "OriginalItemSpec": "C:\\Users\\ilanb\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\7.0.0\\runtimes\\browser-wasm\\lib\\net7.0\\System.Xml.XPath.XDocument.dll"
     },
     {
+      "Identity": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\bin\\Debug\\net7.0\\wwwroot\\_framework\\VisualisationFunctions.dll",
+      "SourceId": "GenenticAlgorithmBlazor.Client",
+      "SourceType": "Computed",
+      "ContentRoot": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\bin\\Debug\\net7.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/VisualisationFunctions.dll",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "BlazorWebAssemblyResource",
+      "AssetTraitValue": "runtime",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "D:\\Data\\Documents\\GeneticBridgeBuilding\\DLL\\GeneticAlgorithm\\VisualisationFunctions\\bin\\Debug\\VisualisationFunctions.dll"
+    },
+    {
+      "Identity": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\bin\\Debug\\net7.0\\wwwroot\\_framework\\VisualisationFunctions.pdb",
+      "SourceId": "GenenticAlgorithmBlazor.Client",
+      "SourceType": "Computed",
+      "ContentRoot": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\bin\\Debug\\net7.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/VisualisationFunctions.pdb",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "BlazorWebAssemblyResource",
+      "AssetTraitValue": "symbol",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "D:\\Data\\Documents\\GeneticBridgeBuilding\\DLL\\GeneticAlgorithm\\VisualisationFunctions\\bin\\Debug\\VisualisationFunctions.pdb"
+    },
+    {
       "Identity": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\bin\\Debug\\net7.0\\wwwroot\\_framework\\WindowsBase.dll",
       "SourceId": "GenenticAlgorithmBlazor.Client",
       "SourceType": "Computed",
@@ -5185,6 +5219,23 @@
       "OriginalItemSpec": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\bin\\Debug\\net7.0\\wwwroot\\_framework\\System.Data.Common.dll"
     },
     {
+      "Identity": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\obj\\Debug\\net7.0\\build-gz\\fdcOl6CQ.gz",
+      "SourceId": "GenenticAlgorithmBlazor.Client",
+      "SourceType": "Computed",
+      "ContentRoot": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\bin\\Debug\\net7.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/VisualisationFunctions.dll.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "RelatedAsset": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\bin\\Debug\\net7.0\\wwwroot\\_framework\\VisualisationFunctions.dll",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\bin\\Debug\\net7.0\\wwwroot\\_framework\\VisualisationFunctions.dll"
+    },
+    {
       "Identity": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\obj\\Debug\\net7.0\\build-gz\\FJVIVWy6.gz",
       "SourceId": "GenenticAlgorithmBlazor.Client",
       "SourceType": "Computed",
@@ -5268,6 +5319,23 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\bin\\Debug\\net7.0\\wwwroot\\_framework\\System.Runtime.Extensions.dll"
+    },
+    {
+      "Identity": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\obj\\Debug\\net7.0\\build-gz\\g1ECHRLj.gz",
+      "SourceId": "GenenticAlgorithmBlazor.Client",
+      "SourceType": "Computed",
+      "ContentRoot": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\bin\\Debug\\net7.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/VisualisationFunctions.pdb.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "RelatedAsset": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\bin\\Debug\\net7.0\\wwwroot\\_framework\\VisualisationFunctions.pdb",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\bin\\Debug\\net7.0\\wwwroot\\_framework\\VisualisationFunctions.pdb"
     },
     {
       "Identity": "D:\\Data\\Documents\\GeneticBridgeBuilding\\Blazor\\GenenticAlgorithmBlazor\\Client\\obj\\Debug\\net7.0\\build-gz\\gDhSmwnA.gz",

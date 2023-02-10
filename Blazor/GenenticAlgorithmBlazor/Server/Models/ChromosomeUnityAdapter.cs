@@ -6,6 +6,7 @@ namespace GenenticAlgorithmBlazor.Server.Models
     {
         public int[,,] values;
         public Dictionary<string, float> simulationResults = new Dictionary<string, float>();
+        public Dictionary<string, string> imageResults = new Dictionary<string, string>();
         public int[] size= new int[3];
         public int id;
 

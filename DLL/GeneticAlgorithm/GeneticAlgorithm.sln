@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessFunctions", "Fitness
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelectionFunctions", "SelectionFunctions\SelectionFunctions.csproj", "{F39B1377-AFED-4F6A-BF84-DBC2F9403F05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualisationFunctions", "VisualisationFunctions\VisualisationFunctions.csproj", "{1641BF1A-7311-4A18-8071-988947A26A2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{F39B1377-AFED-4F6A-BF84-DBC2F9403F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F39B1377-AFED-4F6A-BF84-DBC2F9403F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F39B1377-AFED-4F6A-BF84-DBC2F9403F05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1641BF1A-7311-4A18-8071-988947A26A2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1641BF1A-7311-4A18-8071-988947A26A2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1641BF1A-7311-4A18-8071-988947A26A2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1641BF1A-7311-4A18-8071-988947A26A2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
