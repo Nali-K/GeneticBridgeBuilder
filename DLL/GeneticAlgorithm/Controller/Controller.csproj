@@ -244,6 +244,7 @@
         <Compile Include="Interfaces\IUserInterface.cs" />
         <Compile Include="Interfaces\IVisualisationFunction.cs" />
         <Compile Include="Models\Chromosome.cs" />
+        <Compile Include="Models\ChromosomeBaseData.cs" />
         <Compile Include="Models\ChromosomeScores.cs" />
         <Compile Include="Models\ChromosomeVisualisation.cs" />
         <Compile Include="Models\EvolutionWorld.cs" />

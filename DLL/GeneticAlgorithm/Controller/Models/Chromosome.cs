@@ -8,30 +8,58 @@ namespace GeneticAlgorithm.Controller.Models
 
     [Serializable]public class Chromosome
     {
+        public long ID;
         public float[] geneArray;
         public int totalSize;
-        public int numDimensions;
+        public List<Chromosome> Ancestors = new List<Chromosome>();
+        public int NumDimensions => dimensionSize.Length;
         public int[] dimensionSize;
         private GeneticController geneticController;
+        
 
-        public Chromosome(int size,GeneticController controller)
+        /// <summary>
+        /// create a new list of chromosomes
+        /// </summary>
+        /// <param name="Amount">the amount of chromsomes</param>
+        /// <param name="chromosomeShape"> the "shape of the choromosome, meaning the number of dimensions the length of each dimension"</param>
+        /// <param name="fillValue">each gene will have this value</param>
+        /// <returns>a list of new chromosomes</returns>
+        public static List<Chromosome> InitNewPopulation(int Amount, EvolutionWorld evolutionWorld)
+        {
+            var newPopulation = new List<Chromosome>();
+            var chromosomeBaseData = evolutionWorld.ChromosomeBaseData;
+
+            for (var i = 0; i < Amount; i++)
+            {
+                newPopulation.Add(new Chromosome(evolutionWorld));
+                if (evolutionWorld.ChromosomeBaseData.chromosomesUseWholeNumbers)newPopulation[i].FillRandom((int)chromosomeBaseData.fillValueMin,(int)chromosomeBaseData.fillValueMax);
+                newPopulation[i].FillRandom(chromosomeBaseData.fillValueMin,chromosomeBaseData.fillValueMax);
+            }
+
+            return newPopulation;
+        }
+
+
+        /*public Chromosome(int size,GeneticController controller)
         {
             geneticController = controller;
             totalSize = size;
             dimensionSize = new int[1];
             dimensionSize[0] = size;
             geneArray = new float[size];
-        }
-        public Chromosome(int[] size)
+        }*/
+        public Chromosome(EvolutionWorld evolutionWorld)
         {
-            dimensionSize = new int[size.Length];
-            numDimensions = size.Length;
-            totalSize =  size[0];;
-            dimensionSize[0] = size[0];
-            for (var i=1;i <size.Length;i++)
+            var chromosomeBaseData = evolutionWorld.ChromosomeBaseData;
+            ID = evolutionWorld.AtChromosomeID;
+            dimensionSize = new int[chromosomeBaseData.chromosomeShape.Length];
+            chromosomeBaseData.chromosomeShape.CopyTo(dimensionSize,0);
+            totalSize =  chromosomeBaseData.chromosomeShape[0];
+
+            for (var i=1;i <chromosomeBaseData.chromosomeShape.Length;i++)
             {
-                totalSize *= size[i];
-                dimensionSize[i] = size[i];
+                totalSize *= chromosomeBaseData.chromosomeShape[i];
+
             }
             
             geneArray = new float[totalSize];
@@ -66,7 +94,7 @@ namespace GeneticAlgorithm.Controller.Models
 
         public float GetValue(int[] atPosition)
         {
-            if (atPosition.Length != numDimensions)
+            if (atPosition.Length != NumDimensions)
             {
                 geneticController.consoleController.LogError("dimension doesn't exist");
                 return 0;
@@ -75,7 +103,7 @@ namespace GeneticAlgorithm.Controller.Models
 
             var position = 0;
             var prevDimensionSize = 1;
-            for (var i = 0; i < numDimensions; i++)
+            for (var i = 0; i < NumDimensions; i++)
             {
                 position += atPosition[i] * prevDimensionSize;
                 prevDimensionSize *= dimensionSize[i];
@@ -167,7 +195,7 @@ namespace GeneticAlgorithm.Controller.Models
             var prevValues=0;
             var startPosition = 0;
             var prevDimensionSize = 1;
-            for (var i = 0; i < numDimensions; i++)
+            for (var i = 0; i < NumDimensions; i++)
             {
                 startPosition += position[i] * prevDimensionSize;
                 prevDimensionSize *= dimensionSize[i];
@@ -197,7 +225,7 @@ namespace GeneticAlgorithm.Controller.Models
             var prevValues=0;
             var startPosition = 0;
             var prevDimensionSize = 1;
-            for (var i = 0; i < numDimensions; i++)
+            for (var i = 0; i < NumDimensions; i++)
             {
                 startPosition += position[i] * prevDimensionSize;
                 prevDimensionSize *= dimensionSize[i];
@@ -266,7 +294,7 @@ namespace GeneticAlgorithm.Controller.Models
 
             foreach (var VARIABLE in values)
             {
-                if (VARIABLE.Key.Length != numDimensions)
+                if (VARIABLE.Key.Length != NumDimensions)
                 {
                     geneticController.consoleController.LogError("dimension doesn't exist");
                     return;
@@ -275,7 +303,7 @@ namespace GeneticAlgorithm.Controller.Models
 
                 var position = 0;
                 var prevDimensionSize = 1;
-                for (var i = 0; i < numDimensions; i++)
+                for (var i = 0; i < NumDimensions; i++)
                 {
                     position += VARIABLE.Key[i] * prevDimensionSize;
                     prevDimensionSize *= dimensionSize[i];

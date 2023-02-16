@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using GeneticAlgorithm.Controller;
+using GeneticAlgorithm.Controller.Models;
 using GeneticAlgorithm.CrossOverFunctions;
 using ControllerChromosome= GeneticAlgorithm.Controller.Models.Chromosome;
 namespace Adapters
@@ -9,9 +10,11 @@ namespace Adapters
     public class AdapterCrossOverFunction:ICrossOverFunction
     {
         private CrossOverFunction crossOverFunction;
-        public AdapterCrossOverFunction(CrossOverFunction function)
+        private EvolutionWorld _evolutionWorld;
+        public AdapterCrossOverFunction(CrossOverFunction function,EvolutionWorld evolutionWorld)
         {
             crossOverFunction = function;
+            _evolutionWorld = evolutionWorld;
         }
 
         public async Task<List<ControllerChromosome>> CrossOverAsync(List<ControllerChromosome> chromosomes, CancellationToken token)
@@ -19,7 +22,7 @@ namespace Adapters
             var chrom = new AdapterCrossOverChromosome[chromosomes.Count];
             for (int i = 0; i < chromosomes.Count; i++)
             {
-                chrom[i] = new AdapterCrossOverChromosome(chromosomes[i]);
+                chrom[i] = new AdapterCrossOverChromosome(chromosomes[i],_evolutionWorld);
             }
             var newChromosomes=  await crossOverFunction.CrossOverAsync(chrom,token);
 

@@ -42,7 +42,7 @@ namespace GenenticAlgorithmBlazor.Server.Models
 
                 var unityChromsome = new ChromosomeUnityAdapter(values)
                 {
-                    id = chromosome.id
+                    id = (int)chromosome.ID
                 };
                 foreach (var result in chromosome.simulationResults)
                 {

@@ -4,6 +4,9 @@ namespace GeneticAlgorithm.CrossOverFunctions.Interfaces
 {
     public interface IChromosome
     {
+
+
+        List<IChromosome> Ancestors{ get; set; }
         IChromosome CreateNewChromosome(int[] dimensions);
         int GetNumDimensions();
         int GetDimensionSize(int dimension);

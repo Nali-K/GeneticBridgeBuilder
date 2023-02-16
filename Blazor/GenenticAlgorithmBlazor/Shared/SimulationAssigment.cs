@@ -23,11 +23,10 @@ namespace GenenticAlgorithmBlazor.Shared
 
         public SharedChromosome GetChromosomeById(int id)
         {
-            if (chromosomes[id].id == id)
-                return chromosomes[id];
+
             foreach (var chromosome in chromosomes)
             {
-                if (chromosome.id == id)
+                if (chromosome.ID == id)
                     return chromosome;
             }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using GeneticAlgorithm.CrossOverFunctions.Interfaces;
@@ -107,6 +108,7 @@ namespace GeneticAlgorithm.CrossOverFunctions
                 newChromosome.InsertValues(val);
             }
 
+            newChromosome.Ancestors = chromosomes.ToList();
             return newChromosome;
         }
 

@@ -5,20 +5,17 @@ namespace GeneticAlgorithm.Controller.Models
     public class EvolutionWorld
     {
         public List<Generation> generations;
-        public int[] chromosomeShape;
-        public float fillValueMin;
-        public float fillValueMax;
-        public bool chromosomesUseWholeNumbers;
-        
+        public ChromosomeBaseData ChromosomeBaseData;
+        public long AtChromosomeID => atChromosomeID++;
+        private long atChromosomeID;
 
-        public EvolutionWorld(int[] chromosomeShape,float fillValueMin, float fillValueMax, bool chromosomesUseWholeNumbers)
+        public EvolutionWorld(int[] chromosomeShape,ChromosomeBaseData chromosomeBaseData)
         {
-            this.chromosomeShape = chromosomeShape;
-            this.fillValueMin = fillValueMin;
-            this.fillValueMax = fillValueMax;
-            this.chromosomesUseWholeNumbers = chromosomesUseWholeNumbers;
+            atChromosomeID = 0;
             generations = new List<Generation>();
+            this.ChromosomeBaseData = chromosomeBaseData;
         }
+        
 
         public Generation GetCurrentGeneration()
         {

@@ -34,65 +34,6 @@ namespace GeneticAlgorithm.Controller
             this.consoleController.LogMessage("contact");
             cancellationTokenSource = new CancellationTokenSource();
         }*/
-        /// <summary>
-        /// create a new list of chromosomes
-        /// </summary>
-        /// <param name="Amount">the amount of chromsomes</param>
-        /// <param name="chromosomeShape"> the "shape of the choromosome, meaning the number of dimensions the length of each dimension"</param>
-        /// <param name="fillValue">each gene will have this value</param>
-        /// <returns>a list of new chromosomes</returns>
-        public List<Chromosome> InitNewPopulation(int Amount,int[] chromosomeShape,float fillValue)
-        {
-            var newPopulation = new List<Chromosome>();
-
-            for (var i = 0; i < Amount; i++)
-            {
-                newPopulation.Add(new Chromosome(chromosomeShape));
-                newPopulation[i].Fill(fillValue);
-            }
-
-            return newPopulation;
-        }
-/// <summary>
-/// create a new list of chromosomes the chromosomes are filled with random genens each gene being a whole number
-/// </summary>
-/// <param name="Amount">the amount of chromsomes</param>
-/// <param name="chromosomeShape"> the "shape of the choromosome, meaning the number of dimensions the length of each dimension"</param>
-/// <param name="fillValueMin">the minimum value a gene can have</param>
-/// <param name="fillValueMax">the maximum values a gene can have</param>
-/// <returns>a list of new chromosomes</returns>
-        public List<Chromosome> InitNewPopulation(int Amount,int[] chromosomeShape,int fillValueMin,int fillValueMax)
-        {
-            var newPopulation = new List<Chromosome>();
-
-            for (var i = 0; i < Amount; i++)
-            {
-                newPopulation.Add(new Chromosome(chromosomeShape));
-                newPopulation[i].FillRandom(fillValueMin,fillValueMax);
-            }
-
-            return newPopulation;
-        }
-/// <summary>
-/// create a new list of chromosomes the chromosomes are filled with random genens each gene being a floating point number
-/// </summary>
-/// <param name="Amount">the amount of chromsomes</param>
-/// <param name="chromosomeShape"> the "shape of the choromosome, meaning the number of dimensions the length of each dimension"</param>
-/// <param name="fillValueMin">the minimum value a gene can have</param>
-/// <param name="fillValueMax">the maximum values a gene can have</param>
-/// <returns>a list of new chromosomes</returns>
-        public List<Chromosome> InitNewPopulation(int Amount,int[] chromosomeShape,float fillValueMin,float fillValueMax)
-        {
-            var newPopulation = new List<Chromosome>();
-
-            for (var i = 0; i < Amount; i++)
-            {
-                newPopulation.Add(new Chromosome(chromosomeShape));
-                newPopulation[i].FillRandom(fillValueMin,fillValueMax);
-            }
-
-            return newPopulation;
-        }
 
 /*
         public async Task StartAsync(List<Chromosome>initialChromosomes,int numGenerations)
@@ -317,14 +258,15 @@ namespace GeneticAlgorithm.Controller
 
             if (totalDifference > 0)
             {
-                if (evolutionWorld.chromosomesUseWholeNumbers)
+                breedingPopulation.AddRange(Chromosome.InitNewPopulation(totalDifference, evolutionWorld));
+                /*if (evolutionWorld.chromosomesUseWholeNumbers)
                 {
                     breedingPopulation.AddRange(InitNewPopulation(totalDifference,evolutionWorld.chromosomeShape, (int)evolutionWorld.fillValueMin,(int)evolutionWorld.fillValueMax));
                 }
                 else
                 {
                     breedingPopulation.AddRange(InitNewPopulation(totalDifference,evolutionWorld.chromosomeShape,evolutionWorld.fillValueMin,evolutionWorld.fillValueMax));
-                }
+                }*/
 
             }        
 

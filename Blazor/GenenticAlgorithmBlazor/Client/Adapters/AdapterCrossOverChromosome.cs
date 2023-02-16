@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GeneticAlgorithm.Controller.Models;
 using GeneticAlgorithm.CrossOverFunctions.Interfaces;
 
 using ControllerChromosome = GeneticAlgorithm.Controller.Models.Chromosome;
@@ -8,20 +9,22 @@ namespace Adapters
     public class AdapterCrossOverChromosome:CrossOverChromosome
     {
         public GeneticAlgorithm.Controller.Models.Chromosome chromosome;
-
-        public AdapterCrossOverChromosome(ControllerChromosome chromosome)
+        private EvolutionWorld _evolutionWorld;
+        public List<IChromosome> Ancestors { get; set; }
+        public AdapterCrossOverChromosome(ControllerChromosome chromosome,EvolutionWorld evolutionWorld)
         {
             this.chromosome = chromosome;
+            this._evolutionWorld = evolutionWorld;
         }
 
         public IChromosome CreateNewChromosome(int[] dimensions)
         {
-            return new AdapterCrossOverChromosome(new ControllerChromosome(dimensions));
+            return new AdapterCrossOverChromosome(ControllerChromosome.InitNewPopulation(1,_evolutionWorld)[0],_evolutionWorld);
         }
 
         public int GetNumDimensions()
         {
-            return chromosome.numDimensions;
+            return chromosome.NumDimensions;
         }
 
         public int GetDimensionSize(int dimension)
@@ -58,5 +61,7 @@ namespace Adapters
         {
             return chromosome.ToString();
         }
+
+        
     }
 }

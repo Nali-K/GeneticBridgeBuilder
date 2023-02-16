@@ -41,8 +41,14 @@ namespace Adapters
             foreach (var s in scores)
             {
 
-                var c = new Chromosome(s.Key.dimensionSize.Clone() as int []);
-                c.geneArray = s.Key.geneArray.Clone() as float [];
+                Chromosome c=null;
+                foreach (var VARIABLE in chromosomes)
+                {
+                    if (VARIABLE.ID == s.Key.ID)
+                    {
+                        c = VARIABLE;
+                    }
+                }
                 returnValues.Add(c,s.Value);
             }
 

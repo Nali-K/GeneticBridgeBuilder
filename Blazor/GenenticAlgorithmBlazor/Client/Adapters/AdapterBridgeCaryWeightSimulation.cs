@@ -38,12 +38,11 @@ namespace Adapters
             var assignement = new SimulationAssigment();
             var testlist = new List<IChromosome>();
             var testdict = new Dictionary<IChromosome,string>();
-            var chromsomeid = 0;
+
             foreach (var chromosome in chromosomes)
             {
 
-                (chromosome as SharedChromosome).id = chromsomeid;
-                chromsomeid++;
+
                 assignement.chromosomes.Add(chromosome as SharedChromosome);
                 testlist.Add(chromosome);
                 testdict.Add(chromosome,"test");
@@ -67,8 +66,7 @@ namespace Adapters
             foreach (var resultChromosome in resultChromosomes)
             {
                 
-                if(Enumerable.SequenceEqual(chromosome.dimensionSize, resultChromosome.dimensionSize))
-                    if(Enumerable.SequenceEqual(chromosome.geneArray, resultChromosome.geneArray))
+                if(resultChromosome.ID==chromosome.ID)
                         return resultChromosome.simulationResults["dropblock"];
 
                     
@@ -87,8 +85,7 @@ namespace Adapters
             foreach (var resultChromosome in resultChromosomes)
             {
                 
-                if(Enumerable.SequenceEqual(chromosomes.dimensionSize, resultChromosome.dimensionSize))
-                    if(Enumerable.SequenceEqual(chromosomes.geneArray, resultChromosome.geneArray))
+                if(resultChromosome.ID==chromosomes.ID)
                         return resultChromosome.visualisationsResults;
 
                     

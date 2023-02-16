@@ -39,12 +39,18 @@ public class DLLTestController
     {
         var targetBreedingPopulation = 5;
         var chromosomeShape = new[] {1, 6, 6};
+        var chromosomeBaseData = new ChromosomeBaseData
+        {
+            chromosomeShape = chromosomeShape,fillValueMin = 0,fillValueMax = 1,chromosomesUseWholeNumbers = true
+        };
+
+        EvolutionWorld = new EvolutionWorld(chromosomeShape,chromosomeBaseData);
         this._consoleController = consoleController;
         this._userInterfaceController = userInterfaceController;
         GeneticAlgorithme = new GeneticController(userInterfaceController, consoleController);
-        var cross = new AdapterCrossOverFunction(new SimpleCut(0, 0, 2, consoleController));
-        var cross2 = new AdapterCrossOverFunction(new SimpleCut(1, 0, 2, consoleController));
-        var cross3 = new AdapterCrossOverFunction(new SimpleCut(2, 0, 2, consoleController));
+        var cross = new AdapterCrossOverFunction(new SimpleCut(0, 0, 2, consoleController),EvolutionWorld);
+        var cross2 = new AdapterCrossOverFunction(new SimpleCut(1, 0, 2, consoleController),EvolutionWorld);
+        var cross3 = new AdapterCrossOverFunction(new SimpleCut(2, 0, 2, consoleController),EvolutionWorld);
         GeneticAlgorithme.AddCrossOverFunction(cross);
         GeneticAlgorithme.AddCrossOverFunction(cross2);
         GeneticAlgorithme.AddCrossOverFunction(cross3);
@@ -66,8 +72,8 @@ public class DLLTestController
         //GeneticAlgorithme.AddSelectionFunction(new AdapterSelectionFunction(new AddScores(consoleController, 5),fitnessFunctionNames));
         GeneticAlgorithme.VisualisationFunction.Add(new AdapterVisualisationFunction(new BridgeVisualisationImages(new AdapterImageSimulation(_simulationRequest))));
         GeneticAlgorithme.VisualisationFunction.Add(new AdapterVisualisationFunction(new BridgeVisualisationImages(bridgeWeightSimulation)));
-        EvolutionWorld = new EvolutionWorld(chromosomeShape, 0, 2, true);
-        var initialPopulations =GeneticAlgorithme.InitNewPopulation(targetBreedingPopulation,EvolutionWorld.chromosomeShape,(int)EvolutionWorld.fillValueMin,(int)EvolutionWorld.fillValueMax );
+
+        var initialPopulations =Chromosome.InitNewPopulation(targetBreedingPopulation,EvolutionWorld );
         EvolutionWorld.generations.Add(new Generation(initialPopulations));
         
         

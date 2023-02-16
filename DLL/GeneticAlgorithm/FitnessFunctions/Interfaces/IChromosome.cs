@@ -5,6 +5,7 @@ namespace GeneticAlgorithm.FitnessFunctions.Interfaces
 {
     public interface IChromosome
     {
+        long ID { get; set; }
 
         int numDimentions {get; set; }
 

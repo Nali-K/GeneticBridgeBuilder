@@ -40,10 +40,10 @@ namespace Adapters
             }
             var results =await visualisationFunction.VisualiseAsync(visualisationChromosomes, token);
             var returnValues = new Dictionary<GeneticAlgorithm.Controller.Models.Chromosome, List<ChromosomeVisualisation>>();
-            foreach (var r in results)
+            foreach (var result in results)
             {
                 var cv=new List<ChromosomeVisualisation>();
-                foreach (var d in r.Value)
+                foreach (var d in result.Value)
                 {
                     cv.Add(new ChromosomeVisualisation(d.Value,this,d.Key));
                 }
@@ -51,12 +51,9 @@ namespace Adapters
 
                 foreach (var c in chromosome)
                 {
-                    if(Enumerable.SequenceEqual(c.dimensionSize, r.Key.dimensionSize))
-                        if (Enumerable.SequenceEqual(c.geneArray, r.Key.geneArray))
-                        {
-                            if (!returnValues.ContainsKey(c))
-                                returnValues.Add(c,cv);
-                        }
+                    if (c.ID != result.Key.ID) continue;
+                    if (!returnValues.ContainsKey(c))
+                        returnValues.Add(c,cv);
                 }
 
                 //var c = new Chromosome(s.Key.dimensionSize.Clone() as int []);
