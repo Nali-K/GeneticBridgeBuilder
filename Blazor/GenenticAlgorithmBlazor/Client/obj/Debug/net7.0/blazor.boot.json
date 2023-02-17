@@ -202,7 +202,7 @@
       "Controller.dll": "sha256-1+OHBmGa6K8IAtF4aerofuo3x9Me9sk\/b7sSL3yJZCU=",
       "CrossOverFunctions.dll": "sha256-Jgk2N4ykdEHlwL4jq4jyCi1TkqyXbbI9Tbwq82tcFBA=",
       "FitnessFunctions.dll": "sha256-TZzvukw8f7rdZ5nw6fGPGQrHg+ql2FnoTeUfkG\/ZAEU=",
-      "GenenticAlgorithmBlazor.Shared.dll": "sha256-W\/7yPJqtuVXwKTjQXvoKoAYvGIq6dwHU4crnf8Rn3tA=",
+      "GenenticAlgorithmBlazor.Shared.dll": "sha256-HsaridxN9unwrugc4dQ83pwLAkkJKye14r5ZAgUEplg=",
       "MutationFunctions.dll": "sha256-13zpQnyAIewGAp5C5c5sqwNP3guqwVTk7IcA0diVlyQ=",
       "SelectionFunctions.dll": "sha256-uQ\/YkS6emmTnH\/EGRr4NTnl9B44BdVa7LaE45\/boSBE=",
       "VisualisationFunctions.dll": "sha256-v+BZq6wW4+fec2qAfBezjv7HaU+ROmMl0cl2etnPNG4=",
@@ -212,7 +212,7 @@
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
-      "GenenticAlgorithmBlazor.Shared.pdb": "sha256-JtJszTaiyAutodR05AAdNUU77HYFo\/IgGKETtFEp\/kY=",
+      "GenenticAlgorithmBlazor.Shared.pdb": "sha256-iyBBYrXUZMHGgEJXpNRQPRyki0JZrhs4U3HwhxdqSZU=",
       "Controller.pdb": "sha256-mfc9vGj0UZjAMgVU7nOqEObNwyUPR3DvDVDfKw7cNLQ=",
       "CrossOverFunctions.pdb": "sha256-1vX2Ql32O3DI6Gm0kDv3vCAkV\/PagugyepNMrH5pDgg=",
       "FitnessFunctions.pdb": "sha256-\/6O4MnEu\/upHKh+II5oyX6I\/AKAjtjmBunsV9ei+U2M=",
