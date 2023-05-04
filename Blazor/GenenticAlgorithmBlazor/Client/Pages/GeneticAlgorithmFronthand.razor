@@ -1,0 +1,406 @@
+@page "/GeneticAlgorithm"
+@using GenenticAlgorithmBlazor.Client.Controllers
+@using System.Runtime.InteropServices
+@using GenenticAlgorithmBlazor.Client.Interfaces
+@using GeneticAlgorithm.FitnessFunctions
+@using System.Net.Mime
+@using GeneticAlgorithm.Controller.Models
+@inject DLLTestController _dllTestController
+@inject ConsoleController _consoleController
+@inject UserInterfaceController _userInterfaceController
+
+<PageTitle>Genetic Algorithm</PageTitle>
+<style>
+table, th, td {
+  border:1px solid black;
+  padding: 1em;
+}
+
+</style>
+<h1>Evolutionairy Algorithm</h1>
+
+Welcome to your new app.<br/>
+<p>width:<input @bind="Width"/><br/>
+    depth: <input @bind="Depth"/><br/>
+    height: <input @bind="Height"/><br/></p>
+<p>
+    Breeding Population: <input @bind="Population"/> (this influences both the total selected chromosomes and the initial generated chomosomes)
+</p>
+<p>
+    name: <input @bind="Name"/>
+</p>
+<button class="btn btn-primary" onclick= "@ClickedInitAsync">Init new evolution</button>
+
+<p>
+    Mutation rate: <input @bind="MutationPercentage"/>%
+    Mutation swap rate: <input @bind="MutationSwapPercentage"/>%
+    Mutation copy rate: <input @bind="MutationCopyPercentage"/>%
+</p>
+
+
+<p>
+generations: <input @bind="Generations"/>
+</p>
+
+<p role="status">Status @_userInterfaceController.status</p>
+<p>@foreach (var output in @_userInterfaceController.output)
+   {
+       @output;
+       <br />
+   }</p>
+
+    <label for="saves">load an old save:</label>
+
+<select name="saves" id="saves"  @bind=SaveToLoad onclick= "@ClickedSelectMenu">
+    @foreach (var save in @_userInterfaceController.saves)
+    {
+        <option value=@save>@save</option>
+
+    }
+
+</select>
+
+<button class="btn btn-primary" onclick= "@ClickedLoadAsync">load</button>
+    <br><br>
+<button class="btn btn-primary" onclick= "@ClickedCopyAsync">Copy</button>
+    <br><br>
+<button class="btn btn-primary" onclick= "@ClickedStartAsync">Start Algorithm</button>
+<button class="btn btn-primary" onclick= "@ClickedStop">Stop Algorithm</button>
+<button class="btn btn-primary" onclick= "@ClickedToCSV">To CSV</button>
+<table class="table" style="border-color: #1a1e21">
+    <thead>
+    <tr>
+        <th>
+            generation
+        </th>
+        <th>
+            Start Time
+        </th>
+        <th>
+            End Time
+        </th>
+        <th>
+            chromosomes
+        </th>
+    </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var generation in @_userInterfaceController.generations)
+           {
+               <tr>
+                   <td>
+                       @generation.numGeneration
+                   </td>
+                   <td>
+                       @generation.generation.startTime
+                   </td>
+                   <td>
+                       @generation.generation.completedTime
+                   </td>
+                  @if (generation.opened){
+                       <td>
+                        
+                           <table  style="border: 1px #1a1e21">
+                               <thead>
+                               <tr>
+                                   <th>
+                                       chromosome
+                                   </th> 
+                                   <th>
+                                       selected
+                                   </th>
+                                   @foreach (var ff in @_dllTestController.GeneticAlgorithme.FitnessFunctions)
+                                   {
+                                       <th>
+                                           @ff.Name
+                                       </th>
+                                   }
+                               </tr>
+                               </thead>
+                               <tbody>
+                               @if (generation.GetSelectedChromosomes().Count==0){
+                                    <tr  style="cursor:pointer" @onclick="()=>{generation.opened=false;generation.openedAllChromosomes=false;}">
+                                        <td>
+                                        no chromosomes passed selection
+                                        </td>
+                                    </tr>
+                               }
+                               @foreach (var c in @generation.GetSelectedChromosomes())
+                               { 
+                                   <tr  style="cursor:pointer" @onclick="()=>{generation.opened=false;generation.openedAllChromosomes=false;}">
+                                       <td>
+                                           @foreach (var image in @c.visualisations)
+                                           {
+                                               <img src="https://localhost:7141/@image.ImageLocation"/>
+                                           }
+                                       </td>
+                                       <td>
+                                           @c.Selected
+                                       </td>
+                                       @foreach (var ff in @_dllTestController.GeneticAlgorithme.FitnessFunctions)
+                                       {
+                                           <td>
+                                               @c.Scores[ff.Name]
+                                           </td>
+                                       }
+
+                                    
+                                   </tr>
+                               }
+                               @if (generation.openedAllChromosomes){
+                                   @foreach (var c in @generation.GetSelectedChromosomes(true))
+                                   { 
+                                       <tr style="cursor:pointer" @onclick="()=>generation.openedAllChromosomes=false">
+                                           <td>
+                                                @foreach (var image in @c.visualisations)
+                                              {
+                                                  <img src="https://localhost:7141/@image.ImageLocation"/>
+                                              }
+                                           </td>
+                                           <td>
+                                               @c.Selected
+                                           </td>
+                                           @foreach (var ff in @_dllTestController.GeneticAlgorithme.FitnessFunctions)
+                                           {
+                                               <td>
+                                                   @c.Scores[ff.Name]
+                                               </td>
+                                           }
+
+                                        
+                                       </tr>
+                                   }
+                               }else{
+                                    <tr style="cursor:pointer" @onclick="()=>generation.openedAllChromosomes=true">
+                                        <td>
+                                            show all...
+                                        </td>
+                                    </tr>
+                                }
+                               </tbody>
+                            </table>
+                        </td>    
+                   }else{
+                       <td style="cursor:pointer" @onclick="()=>generation.opened=true">
+
+                                 chromosomes...
+
+                       </td>
+                    }
+
+               </tr>
+           }
+
+
+    </tbody>
+</table>
+    @if (csv != null)
+    {
+        <textarea @bind="csv" 
+        style="width:1000px;height:800px"  />
+    }
+@code {
+
+    private string? Width { get; set; }
+    private string? Depth { get; set; }
+    private string? Height { get; set; }
+    private string? Population { get; set; }
+
+    private string? Generations
+    {
+        get => _generations;
+        set
+        {
+
+            if (ValidateNumGenerations(value))
+                _generations = value;
+            else
+            {
+                if (ValidateNumGenerations(_generations))
+                {
+                    Generations = _generations;
+                }
+            }
+        }
+    }
+
+    private string _generations;
+    private string? SaveToLoad { get; set; }
+    private string? MutationPercentage { get; set; }
+    private string? MutationSwapPercentage { get; set; }
+    private string? MutationCopyPercentage { get; set; }
+    private string? Name { get; set; }
+    private bool busy { get; set; }
+    private string? csv ;
+    private bool inited = false;
+    
+    protected override async void OnInitialized() {
+        _userInterfaceController.UpdatedUI += (object? sender,EventArgs e) =>
+        {
+            InvokeAsync(StateHasChanged);
+        };
+        await _userInterfaceController.GetAllSavesAsync();
+        if (_userInterfaceController.saves.Count > 0)
+        {
+            SaveToLoad = _userInterfaceController.saves[0];
+        }
+    }
+
+    protected void ClickedStop()
+    {
+        Generations = _dllTestController.Stop().ToString();
+    }
+    protected void ClickedToCSV()
+    {
+        csv = "";
+        _userInterfaceController.CreateCSV(_dllTestController, ref csv);
+    }
+    protected async Task ClickedSelectMenu() {
+        await _userInterfaceController.GetAllSavesAsync();
+
+    }
+
+    protected async Task ClickedCopyAsync()
+    {
+        await _dllTestController.SetNewName(Name);
+
+
+    }
+
+    protected async Task ClickedLoadAsync()
+    {
+        if (busy) return;
+        busy = true;
+
+
+
+        var mutationPercentage= 0f;
+        var mutationSwapPercentage = 0f;
+        var mutationCopyPercentage = 0f;
+
+        if (float.TryParse(MutationPercentage, out mutationPercentage)&&float.TryParse(MutationCopyPercentage, out mutationCopyPercentage)&&float.TryParse(MutationSwapPercentage, out mutationSwapPercentage))
+        {
+            if (mutationPercentage >= 0 && mutationCopyPercentage >= 0 && mutationSwapPercentage >= 0)
+            {
+                await _dllTestController.SetEvolutionWorld(SaveToLoad);
+            
+                inited = await _dllTestController.InitAsync( _dllTestController.EvolutionWorld.generations[0].breedingPopulation.Count, _consoleController, _userInterfaceController,mutationPercentage,mutationCopyPercentage,mutationSwapPercentage);
+                if (!ValidateNumGenerations(_generations))
+                {
+                    Generations = (_dllTestController.EvolutionWorld.NumberFinishedGenerations() + 1).ToString();
+                }
+                _userInterfaceController.ClearGenerations();
+                for (var i = 0; i < _dllTestController.EvolutionWorld.NumberFinishedGenerations(); i++)
+                {
+                    _userInterfaceController.DisplayGeneration(i+1, _dllTestController.EvolutionWorld.NumberFinishedGenerations(), _dllTestController.EvolutionWorld.generations[i]);
+                }
+                Width = _dllTestController.EvolutionWorld.ChromosomeBaseData.chromosomeShape[2].ToString();
+                Height = _dllTestController.EvolutionWorld.ChromosomeBaseData.chromosomeShape[1].ToString();
+                Depth = _dllTestController.EvolutionWorld.ChromosomeBaseData.chromosomeShape[0].ToString();
+                Population = _dllTestController.EvolutionWorld.generations[0].breedingPopulation.Count.ToString();
+                Name = SaveToLoad;
+            }
+
+
+
+        }
+        
+        busy = false;
+    }
+
+    protected bool ValidateNumGenerations(string? num)
+    {
+        var gen = 0;
+        var n = 0;
+        if (num == null)
+        {
+            return false;
+        }
+        if (!int.TryParse(num, out n))
+        {
+            return false;
+        }
+
+        if (_dllTestController.EvolutionWorld==null)
+            return true;
+        var fg = _dllTestController.EvolutionWorld.NumberFinishedGenerations();
+        return (n > fg);
+      /*  if (int.TryParse(Generations, out gen))
+        {
+            if (gen <= _dllTestController.EvolutionWorld.NumberFinishedGenerations())
+                return  (_dllTestController.EvolutionWorld.NumberFinishedGenerations()+1).ToString();
+            return num;
+        }
+        else
+        {
+            return  (_dllTestController.EvolutionWorld.NumberFinishedGenerations()+1).ToString();
+        }*/
+
+    }
+    protected async void ClickedInitAsync()
+    {
+        if (busy) return;
+        busy = true;
+
+        var width = 0;
+        var depth = 0;
+        var height = 0;
+        var population = 0;
+        var mutationPercentage = 0f;
+        var mutationSwapPercentage = 0f;
+        var mutationCopyPercentage = 0f;
+
+
+
+
+        if (int.TryParse(Width, out width) &&
+            int.TryParse(Depth, out depth) &&
+            int.TryParse(Height, out height) &&
+            int.TryParse(Population, out population)&&
+            float.TryParse(MutationPercentage, out mutationPercentage)&&
+            float.TryParse(MutationCopyPercentage, out mutationCopyPercentage)&&
+            float.TryParse(MutationSwapPercentage, out mutationSwapPercentage))
+        {
+            if (width > 0 && depth > 0 && height > 0 && population > 0 && mutationPercentage>=0&& mutationCopyPercentage>=0&& mutationSwapPercentage>=0)
+            {
+                if (! await _dllTestController.SetNewName(Name))
+                {
+                    busy = false;
+                    return;
+                }
+                _dllTestController.SetEvolutionWorld(new[] {depth, height, width}, population);
+
+                inited = await _dllTestController.InitAsync( population, _consoleController, _userInterfaceController,mutationPercentage,mutationCopyPercentage,mutationSwapPercentage);
+                if (!ValidateNumGenerations(_generations))
+                {
+                    Generations = (_dllTestController.EvolutionWorld.NumberFinishedGenerations() + 1).ToString();
+                }
+                _userInterfaceController.ClearGenerations();
+
+            }
+        }
+        
+        busy = false;
+    }
+
+    protected async void ClickedStartAsync(){
+        var generations = 0;
+
+        if (!inited||busy) return;
+        busy = true;
+        if (int.TryParse(Generations, out generations))
+        {
+            if (generations > 0)
+            {
+                await _dllTestController.StartAsync(generations);
+            }
+
+
+
+        }busy = false;
+    }
+    
+
+
+}

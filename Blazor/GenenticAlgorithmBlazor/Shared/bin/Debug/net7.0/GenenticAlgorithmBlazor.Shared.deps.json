@@ -1,0 +1,67 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "GenenticAlgorithmBlazor.Shared/1.0.0": {
+        "dependencies": {
+          "Controller": "0.0.0.0",
+          "FitnessFunctions": "1.0.0.0",
+          "VisualisationFunctions": "1.0.0.0"
+        },
+        "runtime": {
+          "GenenticAlgorithmBlazor.Shared.dll": {}
+        }
+      },
+      "Controller/0.0.0.0": {
+        "runtime": {
+          "Controller.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "FitnessFunctions/1.0.0.0": {
+        "runtime": {
+          "FitnessFunctions.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "VisualisationFunctions/1.0.0.0": {
+        "runtime": {
+          "VisualisationFunctions.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "GenenticAlgorithmBlazor.Shared/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Controller/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FitnessFunctions/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "VisualisationFunctions/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

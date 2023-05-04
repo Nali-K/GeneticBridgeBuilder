@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Reference Include="Controller, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\..\Assets\ddls\Controller\Controller.dll</HintPath>
+      </Reference>
+      <Reference Include="CrossOverFunctions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\..\Assets\ddls\CrossOverFunctions\CrossOverFunctions.dll</HintPath>
+      </Reference>
+      <Reference Include="FitnessFunctions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\..\Assets\ddls\FitnessFunctions\FitnessFunctions.dll</HintPath>
+      </Reference>
+      <Reference Include="MutationFunctions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\..\Assets\ddls\MutationFunctions\MutationFunctions.dll</HintPath>
+      </Reference>
+      <Reference Include="SelectionFunctions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\..\Assets\ddls\SelectionFunctions\SelectionFunctions.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

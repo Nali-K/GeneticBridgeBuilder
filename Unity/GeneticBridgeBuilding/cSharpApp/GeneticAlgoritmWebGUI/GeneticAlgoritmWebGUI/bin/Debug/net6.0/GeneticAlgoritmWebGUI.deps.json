@@ -1,0 +1,95 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "GeneticAlgoritmWebGUI/1.0.0": {
+        "dependencies": {
+          "Controller": "0.0.0.0",
+          "CrossOverFunctions": "1.0.0.0",
+          "FitnessFunctions": "1.0.0.0",
+          "MutationFunctions": "1.0.0.0",
+          "SelectionFunctions": "1.0.0.0"
+        },
+        "runtime": {
+          "GeneticAlgoritmWebGUI.dll": {}
+        }
+      },
+      "Controller/0.0.0.0": {
+        "runtime": {
+          "Controller.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "CrossOverFunctions/1.0.0.0": {
+        "runtime": {
+          "CrossOverFunctions.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "FitnessFunctions/1.0.0.0": {
+        "runtime": {
+          "FitnessFunctions.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "MutationFunctions/1.0.0.0": {
+        "runtime": {
+          "MutationFunctions.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "SelectionFunctions/1.0.0.0": {
+        "runtime": {
+          "SelectionFunctions.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "GeneticAlgoritmWebGUI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Controller/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CrossOverFunctions/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FitnessFunctions/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MutationFunctions/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SelectionFunctions/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

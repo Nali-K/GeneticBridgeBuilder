@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>10</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.0-preview.4.22251.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0-preview.4.22229.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0-preview.4.22229.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0-preview.4.22229.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.0-preview.4.22229.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Client\GenenticAlgorithmBlazor.Client.csproj" />
+    <ProjectReference Include="..\Shared\GenenticAlgorithmBlazor.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\images" />
+    <Folder Include="Data\saves" />
+    <Folder Include="wwwroot\images" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Controller, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\DLL\GeneticAlgorithm\Controller\bin\Debug\Controller.dll</HintPath>
+    </Reference>
+    <Reference Include="FitnessFunctions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\DLL\GeneticAlgorithm\FitnessFunctions\bin\Debug\FitnessFunctions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Data\saves\test555\0.json" />
+    <_ContentIncludedByDefault Remove="Data\saves\test555\1.json" />
+    <_ContentIncludedByDefault Remove="Data\saves\test555\2.json" />
+    <_ContentIncludedByDefault Remove="Data\saves\test555\3.json" />
+    <_ContentIncludedByDefault Remove="Data\saves\test555\ew-test555.json" />
+    <_ContentIncludedByDefault Remove="Data\saves\test5552\0.json" />
+    <_ContentIncludedByDefault Remove="Data\saves\test5552\1.json" />
+    <_ContentIncludedByDefault Remove="Data\saves\test5552\2.json" />
+    <_ContentIncludedByDefault Remove="Data\saves\test5552\3.json" />
+    <_ContentIncludedByDefault Remove="Data\saves\test5552\ew-test5552.json" />
+    <_ContentIncludedByDefault Remove="Data\saves\test5554\0.json" />
+    <_ContentIncludedByDefault Remove="Data\saves\test5554\1.json" />
+    <_ContentIncludedByDefault Remove="Data\saves\test5554\2.json" />
+    <_ContentIncludedByDefault Remove="Data\saves\test5554\3.json" />
+    <_ContentIncludedByDefault Remove="Data\saves\test5554\4.json" />
+    <_ContentIncludedByDefault Remove="Data\saves\test5554\5.json" />
+    <_ContentIncludedByDefault Remove="Data\saves\test5554\ew-test5554.json" />
+  </ItemGroup>
+
+
+</Project>

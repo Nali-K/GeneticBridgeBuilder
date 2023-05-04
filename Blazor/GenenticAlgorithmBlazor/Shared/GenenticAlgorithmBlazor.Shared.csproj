@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>10</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Controller, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\DLL\GeneticAlgorithm\Controller\obj\Debug\Controller.dll</HintPath>
+    </Reference>
+    <Reference Include="FitnessFunctions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\DLL\GeneticAlgorithm\FitnessFunctions\bin\Debug\FitnessFunctions.dll</HintPath>
+    </Reference>
+    <Reference Include="VisualisationFunctions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\DLL\GeneticAlgorithm\VisualisationFunctions\bin\Debug\VisualisationFunctions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
